@@ -9,7 +9,7 @@
             <div class="card">                
                 <div class="card-content ">                           
                     
-                    <div class="card-title">Evaluar actividad: "{{$actividad->area->titulo}}"</div>
+                    <div class="card-title">Evaluar actividad: "{{$actividad->titulo}}"</div>
                 
                     <form action="{{route('factor.evaluacionInterno', $actividad->id)}}" method="POST">
                         @csrf

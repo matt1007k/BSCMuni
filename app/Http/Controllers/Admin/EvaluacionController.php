@@ -7,6 +7,10 @@ use App\Area;
 use App\Factor;
 use App\Fuerza;
 use App\Actividad;
+use App\Debilidad;
+use App\Fortaleza;
+use App\Oportunidad;
+use App\Amenaza;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -48,19 +52,169 @@ class EvaluacionController extends Controller
     {
         $actividad = Actividad::findOrFail($id);
         
-        $this->evaliacionInterno($actividad, $request);
+        $evaluacion = $this->evaluarFactorInterno($actividad, $request);
 
-        return $actividad; 
+        if ($evaluacion){
+            $fortaleza = Fortaleza::where('actividad_id', $actividad->id)->first();
+            $debilidad = Debilidad::where('actividad_id', $actividad->id)->first();
+            if($fortaleza){
+                if($actividad->valor < 0){
+                    $numero = 1;
+                    $fortaleza->delete();
+                    // Actualizamos el slug en orden ascendente
+                    $slugUpdate = Fortaleza::all();
+                    if (count($slugUpdate) > 0){
+                        foreach ($slugUpdate as $factor => $value) {
+                            $value->slug = 'F'.$numero++;
+                            $value->save();
+                        }
+                    }
+                    // Copiamos a las debilidades
+                    $length = Debilidad::all();
+                    $debilidad = new Debilidad();
+                    $debilidad->titulo = $actividad->titulo;
+                    $debilidad->slug = 'D'.($length->count() + 1);
+                    $debilidad->actividad_id = $fortaleza->actividad_id;
+                    $debilidad->save();
+                }else{
+                  
+                    return redirect()->route('factor.interno')->with('msg', 'Evaluación no ha sido modificada');
+                }
+            }else if($debilidad){
+                if($actividad->valor > 0){
+                    $numero = 1;
+                    $debilidad->delete();
+                    // Actualizamos el slug en orden ascendente
+                    $slugUpdate = Debilidad::all();
+                    if(count($slugUpdate) > 0) {
+                        foreach ($slugUpdate as $factor => $value) {
+                            $value->slug = 'D'.$numero++;
+                            $value->save();
+                        }
+                    }
+                    // Copiamos a las fortalezas
+                    $length = Fortaleza::all();                    
+                    $fortaleza = new Fortaleza();
+                    $fortaleza->titulo = $actividad->titulo;
+                    $fortaleza->slug = 'F'.($length->count() + 1);
+                    $fortaleza->actividad_id = $debilidad->actividad_id;
+                    $fortaleza->save();
+                }else{
+                    return redirect()->route('factor.interno')->with('msg', 'Evaluación no ha sido modificada');
+                    
+                }
+            } else {
+                if($actividad->valor > 0){
+                    $length = Fortaleza::all();
+                    $fortaleza = new Fortaleza();
+                    $fortaleza->titulo = $actividad->titulo;
+                    $fortaleza->slug = 'F'.($length->count() + 1);
+                    $fortaleza->actividad_id = $actividad->id;
+                    $fortaleza->save();
+                }else if ($actividad->valor < 0){
+                    
+                    $length = Debilidad::all();
+                    $debilidad = new Debilidad();
+                    $debilidad->titulo = $actividad->titulo;
+                    $debilidad->slug = 'D'.($length->count() + 1);
+                    $debilidad->actividad_id = $actividad->id;
+                    $debilidad->save();
+                    
+                }
+            }             
+            
+              
+            return redirect()->route('factor.interno')->with('msg', 'Evaluación realizada correctamente');
+        } else {
+            return back();
+        }
     }
 
     
     public function evaluacionExterno(Request $request, $id)
     {
-        //
+        $factor = Factor::findOrFail($id);
+
+        $evaluacion = $this->evaluarFactorExterno($factor, $request);
+        
+        if ($evaluacion){
+            $oportunidad = Oportunidad::where('factor_id', $factor->id)->first();
+            $amenaza = Amenaza::where('factor_id', $factor->id)->first();
+            if($oportunidad){
+                if($factor->valor < 0){
+                    $numero = 1;
+                    $oportunidad->delete();
+                    // Actualizamos el slug en orden ascendente
+                    $slugUpdate = Oportunidad::all();
+                    if (count($slugUpdate) > 0){
+                        foreach ($slugUpdate as $factor => $value) {
+                            $value->slug = 'O'.$numero++;
+                            $value->save();
+                        }
+                    }
+                    // Copiamos a las amenazaes
+                    $length = Amenaza::all();
+                    $amenaza = new Amenaza();
+                    $amenaza->titulo = $factor->titulo;
+                    $amenaza->slug = 'A'.($length->count() + 1);
+                    $amenaza->factor_id = $oportunidad->factor_id;
+                    $amenaza->save();
+                }else{
+                  
+                    return redirect()->route('factor.externo')->with('msg', 'Evaluación no ha sido modificada');
+                }
+            }else if($amenaza){
+                if($factor->valor > 0){
+                    $numero = 1;
+                    $amenaza->delete();
+                    // Actualizamos el slug en orden ascendente
+                    $slugUpdate = Amenaza::all();
+                    if(count($slugUpdate) > 0) {
+                        foreach ($slugUpdate as $factor => $value) {
+                            $value->slug = 'A'.$numero++;
+                            $value->save();
+                        }
+                    }
+                    // Copiamos a las oportunidads
+                    $length = Oportunidad::all();                    
+                    $oportunidad = new Oportunidad();
+                    $oportunidad->titulo = $factor->titulo;
+                    $oportunidad->slug = 'O'.($length->count() + 1);
+                    $oportunidad->factor_id = $amenaza->factor_id;
+                    $oportunidad->save();
+                }else{
+                    return redirect()->route('factor.externo')->with('msg', 'Evaluación no ha sido modificada');
+                    
+                }
+            } else {
+                if($factor->valor > 0){
+                    $length = Oportunidad::all();
+                    $oportunidad = new Oportunidad();
+                    $oportunidad->titulo = $factor->titulo;
+                    $oportunidad->slug = 'O'.($length->count() + 1);
+                    $oportunidad->factor_id = $factor->id;
+                    $oportunidad->save();
+                }else if ($factor->valor < 0){
+                    
+                    $length = Amenaza::all();
+                    $amenaza = new Amenaza();
+                    $amenaza->titulo = $factor->titulo;
+                    $amenaza->slug = 'A'.($length->count() + 1);
+                    $amenaza->factor_id = $factor->id;
+                    $amenaza->save();
+                    
+                }
+            }             
+            
+              
+            return redirect()->route('factor.externo')->with('msg', 'Evaluación realizada correctamente');
+        } else {
+            return back();
+        }
     }
 
 
-    public function evaliacionInterno($actividad, $request){
+    public function evaluarFactorInterno($actividad, $request){
         if($request->importancia === '3'){
             $actividad->alta = (int)$request->importancia;
             $actividad->media = 0;
@@ -101,6 +255,49 @@ class EvaluacionController extends Controller
                 
         $actividad->valor = $valor;
         return $actividad->save();
+    }
+    
+    public function evaluarFactorExterno($factor, $request){
+        if($request->probabilidad === '3'){
+            $factor->alta = (int)$request->probabilidad;
+            $factor->media = 0;
+            $factor->baja = 0;
+        }elseif($request->probabilidad === '2'){
+            $factor->media = (int)$request->probabilidad;
+            $factor->alta = 0;
+            $factor->baja = 0;
+        }elseif($request->probabilidad === '1'){
+            $factor->baja = (int)$request->probabilidad;
+            $factor->alta = 0;
+            $factor->media = 0;
+        }    
+
+        if($request->impacto === '2'){
+            $factor->muy_positivo = (int)$request->impacto;
+            $factor->positivo = 0;
+            $factor->negativo = 0;
+            $factor->muy_negativo = 0;
+        }elseif($request->impacto === '1'){
+            $factor->positivo = (int)$request->impacto;
+            $factor->muy_positivo = 0;
+            $factor->negativo = 0;
+            $factor->muy_negativo = 0;
+        }elseif($request->impacto === '-1'){
+            $factor->negativo = (int)$request->impacto;
+            $factor->muy_positivo = 0;
+            $factor->positivo = 0;
+            $factor->muy_negativo = 0;
+        }elseif($request->impacto === '-2'){
+            $factor->muy_negativo = (int)$request->impacto;
+            $factor->muy_positivo = 0;
+            $factor->positivo = 0;
+            $factor->negativo = 0;
+        }
+
+        $valor = (($factor->alta + $factor->media + $factor->baja) * ($factor->muy_positivo + $factor->positivo + $factor->negativo + $factor->muy_negativo));
+                
+        $factor->valor = $valor;
+        return $factor->save();
     }
 
 }

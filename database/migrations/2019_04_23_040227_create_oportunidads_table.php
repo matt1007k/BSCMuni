@@ -13,7 +13,7 @@ class CreateOportunidadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('oportunidads', function (Blueprint $table) {
+        Schema::create('oportunidades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug')->unique();
             $table->string('titulo');
@@ -31,6 +31,6 @@ class CreateOportunidadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oportunidads');
+        Schema::dropIfExists('oportunidades');
     }
 }
