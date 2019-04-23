@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        $paginas = [
+            [
+                'titulo' => 'Cadena de valor',
+                'icono' => 'eva eva-activity-outline',
+                'ruta' => 'actividades.index'
+            ],
+            [
+                'titulo' => 'Fuerzas de porter',
+                'icono' => 'eva eva-shield-outline',
+                'ruta' => 'factores.index'
+            ],
+            [
+                'titulo' => 'Factores Internos',
+                'icono' => 'eva eva-options-2-outline',
+                'ruta' => 'factor.interno'
+            ],
+            [
+                'titulo' => 'Factores Externos',
+                'icono' => 'eva eva-shield-off-outline',
+                'ruta' => 'factor.externo'
+            ]
+        ];
+        
+        return view('home', ['paginas' => $paginas]);
+    }
+}
