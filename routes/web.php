@@ -19,19 +19,30 @@ Route::get('/factores-externos', 'PaginasController@factorExterno')->name('pagin
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth'])->group(function() {
+    Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('areas', 'Admin\AreaController');
-Route::resource('actividades', 'Admin\ActividadController');
+    Route::resource('areas', 'Admin\AreaController');
+    Route::resource('actividades', 'Admin\ActividadController');
 
-Route::resource('fuerzas', 'Admin\FuerzaController');
-Route::resource('factores', 'Admin\FactorController');
+    Route::resource('fuerzas', 'Admin\FuerzaController');
+    Route::resource('factores', 'Admin\FactorController');
 
 
-Route::get('/factor-interno', 'Admin\EvaluacionController@interno')->name('factor.interno');
-Route::get('/factor-externo', 'Admin\EvaluacionController@externo')->name('factor.externo');
+    Route::get('/factor-interno', 'Admin\EvaluacionController@interno')->name('factor.interno');
+    Route::get('/factor-externo', 'Admin\EvaluacionController@externo')->name('factor.externo');
 
-Route::get('/factor-interno-evaluar/{id}', 'Admin\EvaluacionController@internoEditar')->name('factor.internoEditar');
-Route::get('/factor-externo-evaluar/{id}', 'Admin\EvaluacionController@externoEditar')->name('factor.externoEditar');
-Route::put('/factor-interno/{id}', 'Admin\EvaluacionController@evaluacionInterno')->name('factor.evaluacionInterno');
-Route::put('/factor-externo/{id}', 'Admin\EvaluacionController@evaluacionExterno')->name('factor.evaluacionExterno');
+    Route::get('/factor-interno-evaluar/{id}', 'Admin\EvaluacionController@internoEditar')->name('factor.internoEditar');
+    Route::get('/factor-externo-evaluar/{id}', 'Admin\EvaluacionController@externoEditar')->name('factor.externoEditar');
+    Route::put('/factor-interno/{id}', 'Admin\EvaluacionController@evaluacionInterno')->name('factor.evaluacionInterno');
+    Route::put('/factor-externo/{id}', 'Admin\EvaluacionController@evaluacionExterno')->name('factor.evaluacionExterno');
+
+    Route::get('/foda', 'Admin\EstrategiaController@foda')->name('estrategias.foda');
+    Route::get('/foda/estrategia/{tipo}', 'Admin\EstrategiaController@create')->name('estrategias.create');
+    Route::get('/foda/estrategia/{tipo}/{id}', 'Admin\EstrategiaController@edit')->name('estrategias.edit');
+
+
+    Route::resource('estrategias', 'Admin\EstrategiaController')
+            ->except(['index, show', 'create', 'edit']);
+});
+

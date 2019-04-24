@@ -43,6 +43,11 @@ class HomeController extends Controller
                 'titulo' => 'Factores Externos',
                 'icono' => 'eva eva-shield-off-outline',
                 'ruta' => 'factor.externo'
+            ],
+            [
+                'titulo' => 'Matriz foda',
+                'icono' => 'eva eva-keypad-outline',
+                'ruta' => 'estrategias.foda'
             ]
         ];
         

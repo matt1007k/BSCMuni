@@ -11299,6 +11299,10 @@ input[type=range]::-ms-thumb {
   align-items: center;
 }
 
+.justify-content-between {
+  justify-content: space-between;
+}
+
 .text-white {
   color: white;
 }
