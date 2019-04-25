@@ -12,15 +12,27 @@
 */
 
 Route::get('/', 'PaginasController@index')->name('paginas.index');
+
+Route::get('/informacion', 'PaginasController@informacion')->name('paginas.informacion');
+Route::get('/macroproceso', 'PaginasController@macroproceso')->name('paginas.macroproceso');
 Route::get('/cadena-valor', 'PaginasController@cadenaValor')->name('paginas.cadena');
 Route::get('/fuerzas-porter', 'PaginasController@fuerzasPorter')->name('paginas.porter');
 Route::get('/factores-internos', 'PaginasController@factorInterno')->name('paginas.interno');
 Route::get('/factores-externos', 'PaginasController@factorExterno')->name('paginas.externo');
+Route::get('/matriz-foda', 'PaginasController@matrizFODA')->name('paginas.matrizFODA');
 
 Auth::routes();
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::resource('informaciones', 'Admin\InformacionController')
+            ->except(['show']);
+
+    Route::resource('procesos', 'Admin\ProcesoController')
+            ->except(['show']);
+    Route::resource('subprocesos', 'Admin\SubprocesoController')
+            ->except(['index, show']);
 
     Route::resource('areas', 'Admin\AreaController');
     Route::resource('actividades', 'Admin\ActividadController');

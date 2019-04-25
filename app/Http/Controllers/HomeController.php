@@ -25,6 +25,16 @@ class HomeController extends Controller
     {
         $paginas = [
             [
+                'titulo' => 'Información de la organización',
+                'icono' => 'eva eva-briefcase-outline',
+                'ruta' => 'informaciones.index'
+            ],
+            [
+                'titulo' => 'Macro Proceso',
+                'icono' => 'eva eva-corner-right-down-outline',
+                'ruta' => 'procesos.index'
+            ],
+            [
                 'titulo' => 'Cadena de valor',
                 'icono' => 'eva eva-activity-outline',
                 'ruta' => 'actividades.index'

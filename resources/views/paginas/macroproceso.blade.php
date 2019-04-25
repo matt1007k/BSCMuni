@@ -7,34 +7,36 @@
                 <div class="card-content ">                          
                     <div class="row">
                         <div class="col m12 d-flex justify-center">
-                            <div class="card-title">5 Fuerzas de Porter</div>
-                        
+                            <div class="card-title">
+                                Macroproceso:
+                                {{$informacion->macroproceso}}
+                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        @if (count($fuerzas) > 0)
+                        @if (count($procesos) > 0)
                         <br>
-                            @foreach ($fuerzas as $fuerza)
-                            <div class="col m12">
+                            @foreach ($procesos as $proceso)
+                            <div class="col m3">
                                 <div class="row ">
                                     <div class="col m12 indigo lighten-2">  
-                                        <h6 class="text-white">{{ $fuerza->titulo }}</h6>
+                                        <h6 class="text-white">{{ $proceso->titulo }}</h6>
                                     </div>
                                     
                                 </div>
-                                @forelse ($fuerza->factores as $factor)
-                                    <div class="row" id="fila{{$factor->id}}">
+                                @forelse ($proceso->subprocesos as $subproceso)
+                                    <div class="row" id="fila{{$subproceso->id}}">
                                        
                                         <div class="col m12">
-                                            <p>{{$factor->titulo}}</p>
-                                        </div> 
+                                            <p>{{$subproceso->titulo}}</p>
+                                        </div>
                                         
                                     </div>
                                 @empty
                                     <div class="row">
                                         
                                         <div class="col m12">
-                                            <p>No tiene factores...</p>
+                                            <p>No tiene subprocesos...</p>
                                         </div>
                                         
                                     </div>
@@ -43,7 +45,7 @@
                             </div>
                             @endforeach
                             <div class="w-100 center-align">
-                                {{ $fuerzas->links() }}
+                                {{ $procesos->links() }}
                             </div>
                         @else
                             <h4 class="text-bold">No hay ningún registro!!!</h4>
