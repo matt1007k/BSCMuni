@@ -8,7 +8,13 @@ class Objetivo extends Model
 {
     protected $fillable = ['slug', 'contenido'];
 
-    public function perspectiva(){
+    public function perspectiva()
+    {
         return $this->belongsTo('App\Perspectiva');
+    }
+
+    public function estrategias()
+    {
+        return $this->belongsToMany(Estrategia::class);
     }
 }

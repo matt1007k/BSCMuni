@@ -9,7 +9,7 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', 'PaginasController@index')->name('paginas.index');
 
@@ -23,16 +23,16 @@ Route::get('/matriz-foda', 'PaginasController@matrizFODA')->name('paginas.matriz
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::resource('informaciones', 'Admin\InformacionController')
-            ->except(['show']);
+        ->except(['show']);
 
     Route::resource('procesos', 'Admin\ProcesoController')
-            ->except(['show']);
+        ->except(['show']);
     Route::resource('subprocesos', 'Admin\SubprocesoController')
-            ->except(['index, show']);
+        ->except(['index, show']);
 
     Route::resource('areas', 'Admin\AreaController');
     Route::resource('actividades', 'Admin\ActividadController');
@@ -40,6 +40,12 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('fuerzas', 'Admin\FuerzaController');
     Route::resource('factores', 'Admin\FactorController');
 
+    Route::resource('perspectivas', 'Admin\PerspectivaController')
+        ->except(['index, show']);
+    Route::resource('objetivos', 'Admin\ObjetivoController')
+        ->except(['show']);
+    Route::get('/asignar-estrategia/{objetivo_id}', 'Admin\ObjetivoController@asignarEstrategias')->name('asignarEstrategia');
+    Route::put('/asignar-estrategia/{id}', 'Admin\ObjetivoController@asignar')->name('asignar');
 
     Route::get('/factor-interno', 'Admin\EvaluacionController@interno')->name('factor.interno');
     Route::get('/factor-externo', 'Admin\EvaluacionController@externo')->name('factor.externo');
@@ -53,8 +59,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/foda/estrategia/{tipo}', 'Admin\EstrategiaController@create')->name('estrategias.create');
     Route::get('/foda/estrategia/{tipo}/{id}', 'Admin\EstrategiaController@edit')->name('estrategias.edit');
 
-
     Route::resource('estrategias', 'Admin\EstrategiaController')
-            ->except(['index, show', 'create', 'edit']);
+        ->except(['index, show', 'create', 'edit']);
 });
-

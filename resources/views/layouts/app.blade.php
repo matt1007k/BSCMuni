@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,22 +15,24 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/helper.css') }}">
 </head>
+
 <body>
     <div id="app">
         @include('partials.navbar')
-        
-            @if (session('msg'))
-                <main class="container-fluid">
-                    <div class="green darken-1 padding-small text-white">
-                        {{session('msg')}}
-                    </div>
-                </div>
-            @endif
-       
+
+        @if (session('msg'))
         <main class="container-fluid">
-            @yield('content')
-        </main>
+            <div class="green darken-1 padding-small text-white">
+                {{session('msg')}}
+            </div>
+    </div>
+    @endif
+
+    <main class="container-fluid">
+        @yield('content')
+    </main>
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -37,4 +40,5 @@
     <script src="{{asset('js/materialize.min.js')}}"></script>
 
 </body>
+
 </html>

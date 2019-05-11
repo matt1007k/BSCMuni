@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class HomeController extends Controller
 {
     /**
@@ -27,40 +25,45 @@ class HomeController extends Controller
             [
                 'titulo' => 'Información de la organización',
                 'icono' => 'eva eva-briefcase-outline',
-                'ruta' => 'informaciones.index'
+                'ruta' => 'informaciones.index',
             ],
             [
                 'titulo' => 'Macro Proceso',
                 'icono' => 'eva eva-corner-right-down-outline',
-                'ruta' => 'procesos.index'
+                'ruta' => 'procesos.index',
             ],
             [
                 'titulo' => 'Cadena de valor',
                 'icono' => 'eva eva-activity-outline',
-                'ruta' => 'actividades.index'
+                'ruta' => 'actividades.index',
             ],
             [
                 'titulo' => 'Fuerzas de porter',
                 'icono' => 'eva eva-shield-outline',
-                'ruta' => 'factores.index'
+                'ruta' => 'factores.index',
             ],
             [
                 'titulo' => 'Factores Internos',
                 'icono' => 'eva eva-options-2-outline',
-                'ruta' => 'factor.interno'
+                'ruta' => 'factor.interno',
             ],
             [
                 'titulo' => 'Factores Externos',
                 'icono' => 'eva eva-shield-off-outline',
-                'ruta' => 'factor.externo'
+                'ruta' => 'factor.externo',
             ],
             [
                 'titulo' => 'Matriz foda',
                 'icono' => 'eva eva-keypad-outline',
-                'ruta' => 'estrategias.foda'
-            ]
+                'ruta' => 'estrategias.foda',
+            ],
+            [
+                'titulo' => 'Objetivos Estratégico',
+                'icono' => 'eva eva-map',
+                'ruta' => 'objetivos.index',
+            ],
         ];
-        
+
         return view('home', ['paginas' => $paginas]);
     }
 }
