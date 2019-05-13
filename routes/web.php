@@ -44,6 +44,17 @@ Route::middleware(['auth'])->group(function () {
         ->except(['index, show']);
     Route::resource('objetivos', 'Admin\ObjetivoController')
         ->except(['show']);
+
+    Route::resource('indicadores', 'Admin\IndicadorController')
+        ->except(['show', 'create', 'edit']);
+    Route::get('/indicadores/create/{objetivo_id}', 'Admin\IndicadorController@create')->name('indicadores.create');
+    Route::get('/indicadores/{id}/edit/{objetivo_id}', 'Admin\IndicadorController@edit')->name('indicadores.edit');
+
+    Route::resource('datos', 'Admin\DatoController')
+        ->except(['show', 'create', 'edit']);
+    Route::get('/datos/create/{indicador_id}', 'Admin\DatoController@create')->name('datos.create');
+    Route::get('/datos/{id}/edit/{indicador_id}', 'Admin\DatoController@edit')->name('datos.edit');
+
     Route::get('/asignar-estrategia/{objetivo_id}', 'Admin\ObjetivoController@asignarEstrategias')->name('asignarEstrategia');
     Route::put('/asignar-estrategia/{id}', 'Admin\ObjetivoController@asignar')->name('asignar');
 

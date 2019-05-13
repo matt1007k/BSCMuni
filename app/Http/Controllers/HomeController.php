@@ -59,8 +59,23 @@ class HomeController extends Controller
             ],
             [
                 'titulo' => 'Objetivos Estratégico',
+                'icono' => 'eva eva-checkmark-square-outline',
+                'ruta' => 'objetivos.index',
+            ],
+            [
+                'titulo' => 'Mapa Estratégico',
                 'icono' => 'eva eva-map',
                 'ruta' => 'objetivos.index',
+            ],
+            [
+                'titulo' => 'Indicadores',
+                'icono' => 'eva eva-bar-chart-outline',
+                'ruta' => 'indicadores.index',
+            ],
+            [
+                'titulo' => 'Datos',
+                'icono' => 'eva eva-pie-chart',
+                'ruta' => 'datos.index',
             ],
         ];
 

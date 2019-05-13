@@ -7,10 +7,10 @@
             <div class="card-content ">
                 <div class="row">
                     <div class="col m12 d-flex justify-center">
-                        <div class="card-title">Objetivos Estrategicos</div>
+                        <div class="card-title">Objetivos Estratégicos</div>
                         <a href="{{route('perspectivas.create')}}"
                             class="ml-1 btn waves-effect waves-light tooltipped red" data-position="bottom"
-                            data-tooltip="Nueva área">
+                            data-tooltip="Nueva perspectiva">
                             <div class="eva eva-plus"></div>
                         </a>
                     </div>

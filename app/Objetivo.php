@@ -17,4 +17,9 @@ class Objetivo extends Model
     {
         return $this->belongsToMany(Estrategia::class);
     }
+
+    public function indicadores()
+    {
+        return $this->hasMany('App\Indicador');
+    }
 }
