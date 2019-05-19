@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
         ->except(['show', 'create', 'edit']);
     Route::get('/datos/create/{indicador_id}', 'Admin\DatoController@create')->name('datos.create');
     Route::get('/datos/{id}/edit/{indicador_id}', 'Admin\DatoController@edit')->name('datos.edit');
+    Route::get('/datos/grafica/{indicador_id}', 'Admin\DatoController@grafica')->name('datos.grafica');
 
     Route::get('/asignar-estrategia/{objetivo_id}', 'Admin\ObjetivoController@asignarEstrategias')->name('asignarEstrategia');
     Route::put('/asignar-estrategia/{id}', 'Admin\ObjetivoController@asignar')->name('asignar');

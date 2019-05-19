@@ -8,7 +8,7 @@ class Dato extends Model
 {
     protected $fillable = [
         'anio',
-        'enero', 'febrero', 'marzo', 'mayo', 'junio', 'julio',
+        'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
         'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
         'total', 'porcentaje', 'anterior',
     ];

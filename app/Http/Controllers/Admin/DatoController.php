@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Dato;
 use App\Http\Controllers\Controller;
+use App\Indicador;
 use App\Perspectiva;
 use Illuminate\Http\Request;
 
@@ -33,6 +35,39 @@ class DatoController extends Controller
         ]);
     }
 
+    public function grafica($indicador_id)
+    {
+        $indicador = Indicador::findOrFail($indicador_id);
+
+        $datos = array();
+
+        foreach ($indicador->datos as $dato) {
+
+            array_push($datos, (object) [
+                "label" => $dato->anio,
+                "backgroundColor" => "rgb($dato->enero, $dato->diciembre, $dato->total)",
+                //Data to be represented on y-axis
+                "data" => [
+                    $dato->enero,
+                    $dato->febrero,
+                    $dato->marzo,
+                    $dato->abril,
+                    $dato->mayo,
+                    $dato->junio,
+                    $dato->julio,
+                    $dato->agosto,
+                    $dato->septiembre,
+                    $dato->octubre,
+                    $dato->noviembre,
+                    $dato->diciembre,
+                ],
+            ]);
+        }
+
+        // return $datos;
+        return view('admin.datos.grafico', ['datos' => $datos]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -46,7 +81,7 @@ class DatoController extends Controller
             'rojo' => 'required|max:30',
         ]);
 
-        $indicador = new Indicador();
+        $indicador = new Dato();
         $indicador->indicador = $request->indicador;
         $indicador->tipo = $request->tipo;
         $indicador->unidad = $request->unidad;

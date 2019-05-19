@@ -29,6 +29,9 @@
             </div>
         </div>
 
+        {{-- Grafica --}}
+        <a href="{{route('datos.grafica', 1)}}" class="btn">Grafica</a>
+
         {{-- @if ($perspectivaObjetivos->slug === 'FI')
         @include('admin.datos.perspectivaObjetivos', [
         'perspectivaObjetivos' => $perspectivaObjetivos
