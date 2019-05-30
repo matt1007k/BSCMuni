@@ -30,26 +30,32 @@
             </div>
         </div>
 
-        @if ($perspectivaObjetivos->slug === 'FI')
-        @include('admin.indicadores.perspectivaObjetivos', [
-        'perspectivaObjetivos' => $perspectivaObjetivos
-        ])
-        @elseif ($perspectivaObjetivos->slug === 'CL')
-        @include('admin.indicadores.perspectivaObjetivos', [
-        'perspectivaObjetivos' => $perspectivaObjetivos
-        ])
+        @if(count($perspectivas) > 0)
+            @if ($perspectivaObjetivos->slug === 'FI')
+            @include('admin.indicadores.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
+            ])
+            @elseif ($perspectivaObjetivos->slug === 'CL')
+            @include('admin.indicadores.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
+            ])
 
-        @elseif ($perspectivaObjetivos->slug === 'PR')
-        @include('admin.indicadores.perspectivaObjetivos', [
-        'perspectivaObjetivos' => $perspectivaObjetivos
-        ])
+            @elseif ($perspectivaObjetivos->slug === 'PR')
+            @include('admin.indicadores.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
+            ])
 
-        @elseif ($perspectivaObjetivos->slug === 'AP')
-        @include('admin.indicadores.perspectivaObjetivos', [
-        'perspectivaObjetivos' => $perspectivaObjetivos
-        ])
+            @elseif ($perspectivaObjetivos->slug === 'AP')
+            @include('admin.indicadores.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
+            ])
+            @else
+            <div>No existe esta perspectiva.</div>
+
+            @endif
+
         @else
-        <div>No existe esta perspectiva.</div>
+        <div>No hay perspectivas registradas.</div>
 
         @endif
 

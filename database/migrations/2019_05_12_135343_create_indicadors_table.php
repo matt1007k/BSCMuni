@@ -24,9 +24,9 @@ class CreateIndicadorsTable extends Migration
             $table->string('amarillo', 30);
             $table->string('rojo', 30);
 
-            $table->unsignedBigInteger('perspectiva_id');
-            $table->foreign('perspectiva_id')->references('id')
-                ->on('perspectivas')->onDelete('cascade');
+            $table->unsignedBigInteger('objetivo_id');
+            $table->foreign('objetivo_id')->references('id')
+                ->on('objetivos')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -29,31 +29,34 @@
             </div>
         </div>
 
-        {{-- Grafica --}}
-        <a href="{{route('datos.grafica', 1)}}" class="btn">Grafica</a>
+        
+        @if(count($perspectivas) > 0)
+            @if ($perspectivaObjetivos->slug === 'FI')
+            @include('admin.datos.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
+            ])
+            @elseif ($perspectivaObjetivos->slug === 'CL')
+            @include('admin.datos.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
+            ])
 
-        {{-- @if ($perspectivaObjetivos->slug === 'FI')
-        @include('admin.datos.perspectivaObjetivos', [
-        'perspectivaObjetivos' => $perspectivaObjetivos
-        ])
-        @elseif ($perspectivaObjetivos->slug === 'CL')
-        @include('admin.datos.perspectivaObjetivos', [
-        'perspectivaObjetivos' => $perspectivaObjetivos
-        ])
+            @elseif ($perspectivaObjetivos->slug === 'PR')
+            @include('admin.datos.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
+            ])
 
-        @elseif ($perspectivaObjetivos->slug === 'PR')
-        @include('admin.datos.perspectivaObjetivos', [
-        'perspectivaObjetivos' => $perspectivaObjetivos
-        ])
+            @elseif ($perspectivaObjetivos->slug === 'AP')
+            @include('admin.datos.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
+            ])
+            @else
+            <div>No existe esta perspectiva.</div>
 
-        @elseif ($perspectivaObjetivos->slug === 'AP')
-        @include('admin.datos.perspectivaObjetivos', [
-        'perspectivaObjetivos' => $perspectivaObjetivos
-        ])
+            @endif
         @else
-        <div>No existe esta perspectiva.</div>
+        <div>No hay perspectivas registradas.</div>
 
-        @endif --}}
+        @endif
 
 
 
