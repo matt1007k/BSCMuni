@@ -17,4 +17,9 @@ class Dato extends Model
     {
         return $this->belongsTo(Indicador::class);
     }
+
+    public function scopeByAnio($query, $anio)
+    {
+        return $query->where('anio', $anio);
+    }
 }

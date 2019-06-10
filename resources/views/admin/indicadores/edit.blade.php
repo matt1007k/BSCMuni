@@ -26,8 +26,7 @@
                         </div>
                         <div class="input-field col m12">
                             <select name="tipo" id="tipo">
-                                <option value="numero" {{$indicador->tipo === 'numero' ? 'selected' : ''}}>Número (Solo
-                                    cantidad)</option>
+                                <option value="numero" {{$indicador->tipo === 'numero' ? 'selected' : ''}}>Número (Solo cantidad)</option>
                                 <option value="incremento" {{$indicador->tipo === 'incremento' ? 'selected' : ''}}>
                                     Incrementar en %</option>
                                 <option value="reducir" {{$indicador->tipo === 'reducir' ? 'selected' : ''}}>Reducir en

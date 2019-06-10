@@ -1,4 +1,4 @@
-<nav class="indigo darken-1">
+<nav class="red darken-1">
     <div class="container">
         <div class="nav-wrapper">
             @guest

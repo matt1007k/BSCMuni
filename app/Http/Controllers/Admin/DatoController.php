@@ -42,10 +42,12 @@ class DatoController extends Controller
         $datos = array();
 
         foreach ($indicador->datos as $dato) {
-
+            $random_number1 = rand(0, 255);
+            $random_number2 = rand(0, 255);
+            $random_number3 = rand(0, 255);
             array_push($datos, (object) [
                 "label" => $dato->anio,
-                "backgroundColor" => "rgb($dato->enero, $dato->diciembre, $dato->total)",
+                "backgroundColor" => "rgb($random_number1, $random_number2, $random_number3)",
                 //Data to be represented on y-axis
                 "data" => [
                     $dato->enero,

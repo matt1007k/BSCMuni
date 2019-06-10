@@ -26,51 +26,58 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::resource('informaciones', 'Admin\InformacionController')
-        ->except(['show']);
+    Route::namespace ('Admin')->group(function () {
 
-    Route::resource('procesos', 'Admin\ProcesoController')
-        ->except(['show']);
-    Route::resource('subprocesos', 'Admin\SubprocesoController')
-        ->except(['index, show']);
+        Route::resource('informaciones', 'InformacionController')
+            ->except(['show']);
 
-    Route::resource('areas', 'Admin\AreaController');
-    Route::resource('actividades', 'Admin\ActividadController');
+        Route::resource('procesos', 'ProcesoController')
+            ->except(['show']);
+        Route::resource('subprocesos', 'SubprocesoController')
+            ->except(['index, show']);
 
-    Route::resource('fuerzas', 'Admin\FuerzaController');
-    Route::resource('factores', 'Admin\FactorController');
+        Route::resource('areas', 'AreaController');
+        Route::resource('actividades', 'ActividadController');
 
-    Route::resource('perspectivas', 'Admin\PerspectivaController')
-        ->except(['index, show']);
-    Route::resource('objetivos', 'Admin\ObjetivoController')
-        ->except(['show']);
+        Route::resource('fuerzas', 'FuerzaController');
+        Route::resource('factores', 'FactorController');
 
-    Route::resource('indicadores', 'Admin\IndicadorController')
-        ->except(['show', 'create', 'edit']);
-    Route::get('/indicadores/create/{objetivo_id}', 'Admin\IndicadorController@create')->name('indicadores.create');
-    Route::get('/indicadores/{id}/edit/{objetivo_id}', 'Admin\IndicadorController@edit')->name('indicadores.edit');
+        Route::resource('perspectivas', 'PerspectivaController')
+            ->except(['index, show']);
+        Route::resource('objetivos', 'ObjetivoController')
+            ->except(['show']);
 
-    Route::resource('datos', 'Admin\DatoController')
-        ->except(['show', 'create', 'edit']);
-    Route::get('/datos/create/{indicador_id}', 'Admin\DatoController@create')->name('datos.create');
-    Route::get('/datos/{id}/edit/{indicador_id}', 'Admin\DatoController@edit')->name('datos.edit');
-    Route::get('/datos/grafica/{indicador_id}', 'Admin\DatoController@grafica')->name('datos.grafica');
+        Route::resource('indicadores', 'IndicadorController')
+            ->except(['show', 'create', 'edit']);
+        Route::get('/indicadores/create/{objetivo_id}', 'IndicadorController@create')->name('indicadores.create');
+        Route::get('/indicadores/{id}/edit/{objetivo_id}', 'IndicadorController@edit')->name('indicadores.edit');
 
-    Route::get('/asignar-estrategia/{objetivo_id}', 'Admin\ObjetivoController@asignarEstrategias')->name('asignarEstrategia');
-    Route::put('/asignar-estrategia/{id}', 'Admin\ObjetivoController@asignar')->name('asignar');
+        Route::resource('datos', 'DatoController')
+            ->except(['show', 'create', 'edit']);
+        Route::get('/datos/create/{indicador_id}', 'DatoController@create')->name('datos.create');
+        Route::get('/datos/{id}/edit/{indicador_id}', 'DatoController@edit')->name('datos.edit');
+        Route::get('/datos/grafica/{indicador_id}', 'DatoController@grafica')->name('datos.grafica');
 
-    Route::get('/factor-interno', 'Admin\EvaluacionController@interno')->name('factor.interno');
-    Route::get('/factor-externo', 'Admin\EvaluacionController@externo')->name('factor.externo');
+        Route::get('/asignar-estrategia/{objetivo_id}', 'ObjetivoController@asignarEstrategias')->name('asignarEstrategia');
+        Route::put('/asignar-estrategia/{id}', 'ObjetivoController@asignar')->name('asignar');
 
-    Route::get('/factor-interno-evaluar/{id}', 'Admin\EvaluacionController@internoEditar')->name('factor.internoEditar');
-    Route::get('/factor-externo-evaluar/{id}', 'Admin\EvaluacionController@externoEditar')->name('factor.externoEditar');
-    Route::put('/factor-interno/{id}', 'Admin\EvaluacionController@evaluacionInterno')->name('factor.evaluacionInterno');
-    Route::put('/factor-externo/{id}', 'Admin\EvaluacionController@evaluacionExterno')->name('factor.evaluacionExterno');
+        Route::get('/factor-interno', 'EvaluacionController@interno')->name('factor.interno');
+        Route::get('/factor-externo', 'EvaluacionController@externo')->name('factor.externo');
 
-    Route::get('/foda', 'Admin\EstrategiaController@foda')->name('estrategias.foda');
-    Route::get('/foda/estrategia/{tipo}', 'Admin\EstrategiaController@create')->name('estrategias.create');
-    Route::get('/foda/estrategia/{tipo}/{id}', 'Admin\EstrategiaController@edit')->name('estrategias.edit');
+        Route::get('/factor-interno-evaluar/{id}', 'EvaluacionController@internoEditar')->name('factor.internoEditar');
+        Route::get('/factor-externo-evaluar/{id}', 'EvaluacionController@externoEditar')->name('factor.externoEditar');
+        Route::put('/factor-interno/{id}', 'EvaluacionController@evaluacionInterno')->name('factor.evaluacionInterno');
+        Route::put('/factor-externo/{id}', 'EvaluacionController@evaluacionExterno')->name('factor.evaluacionExterno');
 
-    Route::resource('estrategias', 'Admin\EstrategiaController')
-        ->except(['index, show', 'create', 'edit']);
+        Route::get('/foda', 'EstrategiaController@foda')->name('estrategias.foda');
+        Route::get('/foda/estrategia/{tipo}', 'EstrategiaController@create')->name('estrategias.create');
+        Route::get('/foda/estrategia/{tipo}/{id}', 'EstrategiaController@edit')->name('estrategias.edit');
+
+        Route::resource('estrategias', 'EstrategiaController')
+            ->except(['index, show', 'create', 'edit']);
+
+        Route::get('perspectivas-maestro', 'MaestroController@maestro')->name('maestro.index');
+        Route::get('perspectivas-resumen', 'MaestroController@resumen')->name('maestro.resumen');
+    });
+
 });

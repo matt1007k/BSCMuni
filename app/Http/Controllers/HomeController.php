@@ -77,6 +77,16 @@ class HomeController extends Controller
                 'icono' => 'eva eva-pie-chart',
                 'ruta' => 'datos.index',
             ],
+            [
+                'titulo' => 'Maestro',
+                'icono' => 'eva eva-pie-chart',
+                'ruta' => 'maestro.index',
+            ],
+            [
+                'titulo' => 'Resumen',
+                'icono' => 'eva eva-pie-chart',
+                'ruta' => 'maestro.resumen',
+            ],
         ];
 
         return view('home', ['paginas' => $paginas]);
