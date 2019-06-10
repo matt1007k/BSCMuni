@@ -4,29 +4,31 @@
 <div class="row">
     <div class="col m12">
         <div class="row">
-            <div class="col m12 d-flex justify-center align-items-center">
+            <div class="col m12 center-align">
                 <h5>Lista de indicadores de cada objetivo</h5>
-                <div class="ml-3 padding-ultra-small">
-                    <form action="{{route('indicadores.index')}}" method="get">
-                        <div class="row d-flex align-items-center">
-                            <div class="input-field col m8">
-                                <select name="perspectiva" id="perspectiva">
-                                    @forelse ($perspectivas as $perspectiva)
-                                    <option value="{{$perspectiva->slug}}" {{$perspectiva->slug === $perspectivaObjetivos->slug 
-                                            ? 'selected' : ''}}>{{$perspectiva->titulo}}
-                                    </option>
-                                    @empty
-                                    <option value="">No hay perspectiva</option>
-                                    @endforelse
-                                </select>
-                                <label>Seleccione la perspectiva</label>
-                            </div>
-                            <div class="col m3">
-                                <button class="btn" type="submit">Filtar</button>
-                            </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m5 offset-m4 padding-ultra-small">
+                <form action="{{route('indicadores.index')}}" method="get">
+                    <div class="row d-flex">
+                        <div class="input-field col m12">
+                            <select name="perspectiva" id="perspectiva">
+                                @forelse ($perspectivas as $perspectiva)
+                                <option value="{{$perspectiva->slug}}" {{$perspectiva->slug === $perspectivaObjetivos->slug 
+                                        ? 'selected' : ''}}>{{$perspectiva->titulo}}
+                                </option>
+                                @empty
+                                <option value="">No hay perspectiva</option>
+                                @endforelse
+                            </select>
+                            <label>Seleccione la perspectiva</label>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <div>
+                        <button class="btn" type="submit">Filtar</button>
+                    </div>
+                </form>
             </div>
         </div>
 

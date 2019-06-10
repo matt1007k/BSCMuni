@@ -18,7 +18,7 @@ class DatoController extends Controller
             $slug = 'FI';
         }
 
-        $perspectivas = Perspectiva::orderBy('titulo', 'asc')->get();
+        $perspectivas = Perspectiva::all();
         $perspectivaObjetivos = Perspectiva::where('slug', $slug)->first();
 
         return view('admin.datos.index', [

@@ -17,7 +17,7 @@ class IndicadorController extends Controller
             $slug = 'FI';
         }
 
-        $perspectivas = Perspectiva::orderBy('titulo', 'DESC')->get();
+        $perspectivas = Perspectiva::all();
         $perspectivaObjetivos = Perspectiva::where('slug', $slug)->first();
 
         return view('admin.indicadores.index', [

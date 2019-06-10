@@ -46,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
             ->except(['index, show']);
         Route::resource('objetivos', 'ObjetivoController')
             ->except(['show']);
+        Route::resource('mapas', 'MapaController')
+            ->except(['create', 'edit', 'show']);
 
         Route::resource('indicadores', 'IndicadorController')
             ->except(['show', 'create', 'edit']);

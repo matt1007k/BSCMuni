@@ -20,16 +20,16 @@ class MaestroController extends Controller
         $anio_actual = $request->anio_actual ? $request->anio_actual : '2019';
         $semaforo = $request->semaforo ? $request->anio_actual : '2019';
 
-        $perspectivas = Perspectiva::orderBy('titulo', 'asc')->get();
+        $perspectivas = Perspectiva::all();
         $perspectivaObjetivos = Perspectiva::where('slug', $slug)->first();
 
-        foreach ($perspectivaObjetivos->objetivos as $objetivo) {
-            foreach ($objetivo->indicadores as $indicador) {
-                // return $indicador->With(['datos'])->get();
-                return $indicador->datos->last();
-                // return $indicador->datos->byAnio($anio_actual)->first();
-            }
-        }
+        // foreach ($perspectivaObjetivos->objetivos as $objetivo) {
+        //     foreach ($objetivo->indicadores as $indicador) {
+        //         // return $indicador->With(['datos'])->get();
+        //         return $indicador->datos->last();
+        //         // return $indicador->datos->byAnio($anio_actual)->first();
+        //     }
+        // }
 
         return view('admin.maestro.index', [
             'perspectivas' => $perspectivas,
@@ -40,9 +40,19 @@ class MaestroController extends Controller
         ]);
     }
 
-    public function resumen()
+    public function resumen(Request $request)
     {
-        return view('admin.maestro.resumen');
+        $slug = $request->perspectiva;
+        if (!isset($request->perspectiva)) {
+            $slug = 'FI';
+        }
+        $perspectivas = Perspectiva::all();
+        $perspectivaObjetivos = Perspectiva::where('slug', $slug)->first();
+
+        return view('admin.maestro.resumen', [
+            'perspectivas' => $perspectivas,
+            'perspectivaObjetivos' => $perspectivaObjetivos,
+        ]);
 
     }
 

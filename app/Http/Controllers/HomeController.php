@@ -65,7 +65,7 @@ class HomeController extends Controller
             [
                 'titulo' => 'Mapa Estratégico',
                 'icono' => 'eva eva-map',
-                'ruta' => 'objetivos.index',
+                'ruta' => 'mapas.index',
             ],
             [
                 'titulo' => 'Indicadores',
@@ -79,12 +79,12 @@ class HomeController extends Controller
             ],
             [
                 'titulo' => 'Maestro',
-                'icono' => 'eva eva-pie-chart',
+                'icono' => 'eva eva-trending-up-outline',
                 'ruta' => 'maestro.index',
             ],
             [
                 'titulo' => 'Resumen',
-                'icono' => 'eva eva-pie-chart',
+                'icono' => 'eva eva-list-outline',
                 'ruta' => 'maestro.resumen',
             ],
         ];
