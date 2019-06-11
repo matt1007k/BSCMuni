@@ -20,6 +20,13 @@ Route::get('/fuerzas-porter', 'PaginasController@fuerzasPorter')->name('paginas.
 Route::get('/factores-internos', 'PaginasController@factorInterno')->name('paginas.interno');
 Route::get('/factores-externos', 'PaginasController@factorExterno')->name('paginas.externo');
 Route::get('/matriz-foda', 'PaginasController@matrizFODA')->name('paginas.matrizFODA');
+Route::get('/mapa-estrategico', 'PaginasController@mapaEstrategico')->name('paginas.mapa');
+Route::get('/objetivos/indicadores', 'PaginasController@indicadores')->name('paginas.indicadores');
+Route::get('/objetivos/datos', 'PaginasController@datos')->name('paginas.datos');
+Route::get('/objetivos/grafica-datos/{indicador_id}', 'PaginasController@grafica')->name('paginas.grafica');
+
+Route::get('/maestro', 'PaginasController@maestro')->name('paginas.maestro');
+Route::get('/resumen', 'PaginasController@resumen')->name('paginas.resumen');
 
 Auth::routes();
 

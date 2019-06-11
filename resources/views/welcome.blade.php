@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="row">
+        <div class="col m12 center-align">
+            <h2>BSC Colegio Saco Oliveros</h2>
+            <img src="{{asset('/img/saco-oliveros.png')}}" style="height: 100px" alt="Colegio Saco Oliveros">
+        </div>
+
+    </div>
+    <div class="row">
         @foreach ($paginas as $pagina)
             <div class="col m3">
                 <a href="{{route($pagina['ruta'])}}">

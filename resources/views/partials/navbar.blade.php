@@ -2,9 +2,9 @@
     <div class="container">
         <div class="nav-wrapper">
             @guest
-                <a href="{{ url('/') }}" class="brand-logo">{{ config('app.name', 'Laravel') }}</a>
+                <a href="{{ url('/') }}" class="brand-logo" style="display: flex; justify-content: center; align-items: center"><img src="{{asset('/img/logo.png')}}" alt="Colegio Saco Oliveros" style="width: 50px;height: 50px"><h5>BSC Colegio Saco Oliveros</h5> </a>
             @else
-                <a href="{{ url('/home') }}" class="brand-logo">{{ config('app.name', 'Laravel') }}</a>
+                <a href="{{ url('/home') }}" class="brand-logo" style="display: flex; justify-content: center; align-items: center"><img src="{{asset('/img/logo.png')}}" alt="Colegio Saco Oliveros" style="width: 50px;height: 50px"><h5>BSC Colegio Saco Oliveros</h5> </a>
             @endguest  
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 @guest

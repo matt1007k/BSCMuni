@@ -10,7 +10,7 @@
         </div>
         <div class="row">
             <div class="col m5 offset-m4 padding-ultra-small">
-                <form action="{{route('indicadores.index')}}" method="get">
+                <form action="{{route('datos.index')}}" method="get">
                     <div class="row d-flex">
                         <div class="input-field col m12">
                             <select name="perspectiva" id="perspectiva">

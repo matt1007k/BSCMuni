@@ -8,8 +8,13 @@
                     <div class="row">
                         <div class="col m12 d-flex justify-center">
                             <div class="card-title">
-                                Macroproceso:
-                                {{$informacion->macroproceso}}
+                                Macroproceso: 
+                                @isset($informacion->macroproceso)
+                                    {{$informacion->macroproceso}}
+                                @else
+                                    Sin macroproceso....
+                                @endisset
+                                
                             </div>
                             <a href="{{route('procesos.create')}}" class="ml-1 btn waves-effect waves-light tooltipped red" 
                                 data-position="bottom" data-tooltip="Nueva proceso">

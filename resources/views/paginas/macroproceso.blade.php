@@ -9,7 +9,11 @@
                         <div class="col m12 d-flex justify-center">
                             <div class="card-title">
                                 Macroproceso:
-                                {{$informacion->macroproceso}}
+                                @isset($informacion->macroproceso)
+                                    {{$informacion->macroproceso}}
+                                @else
+                                    Sin macroproceso....
+                                @endisset
                             </div>
                         </div>
                     </div>

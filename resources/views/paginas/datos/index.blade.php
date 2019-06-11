@@ -4,15 +4,15 @@
 <div class="row">
     <div class="col m12">
         <div class="row">
-            <div class="col m12 d-flex justify-center align-items-center">
-                <h5>Resumen de resultados del BSC</h5>
+            <div class="col m12 center-align">
+                <h5>Lista de datos de cada indicador</h5>
             </div>
         </div>
         <div class="row">
-            <div class="col m6 offset-m4">
-                <form action="{{route('maestro.resumen')}}" method="get">
-                    <div class="row">
-                        <div class="input-field col m8">
+            <div class="col m5 offset-m4 padding-ultra-small">
+                <form action="{{route('paginas.datos')}}" method="get">
+                    <div class="row d-flex">
+                        <div class="input-field col m12">
                             <select name="perspectiva" id="perspectiva">
                                 @forelse ($perspectivas as $perspectiva)
                                 <option value="{{$perspectiva->slug}}" {{$perspectiva->slug === $perspectivaObjetivos->slug 
@@ -31,35 +31,35 @@
                 </form>
             </div>
         </div>
-
+        
         @if(count($perspectivas) > 0)
             @if ($perspectivaObjetivos->slug === 'FI')
-            @include('admin.maestro.perspectivaObjetivosResumen', [
-            'perspectivaObjetivos' => $perspectivaObjetivos,
+            @include('paginas.datos.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
             ])
             @elseif ($perspectivaObjetivos->slug === 'CL')
-            @include('admin.maestro.perspectivaObjetivosResumen', [
-            'perspectivaObjetivos' => $perspectivaObjetivos,
+            @include('paginas.datos.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
             ])
 
             @elseif ($perspectivaObjetivos->slug === 'PR')
-            @include('admin.maestro.perspectivaObjetivosResumen', [
-            'perspectivaObjetivos' => $perspectivaObjetivos,
+            @include('paginas.datos.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
             ])
 
             @elseif ($perspectivaObjetivos->slug === 'AP')
-            @include('admin.maestro.perspectivaObjetivosResumen', [
-            'perspectivaObjetivos' => $perspectivaObjetivos,
+            @include('paginas.datos.perspectivaObjetivos', [
+            'perspectivaObjetivos' => $perspectivaObjetivos
             ])
             @else
             <div>No existe esta perspectiva.</div>
 
             @endif
-
         @else
         <div>No hay perspectivas registradas.</div>
 
         @endif
+
 
 
     </div>

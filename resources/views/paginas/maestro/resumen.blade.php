@@ -10,7 +10,7 @@
         </div>
         <div class="row">
             <div class="col m6 offset-m4">
-                <form action="{{route('maestro.resumen')}}" method="get">
+                <form action="{{route('paginas.resumen')}}" method="get">
                     <div class="row">
                         <div class="input-field col m8">
                             <select name="perspectiva" id="perspectiva">
@@ -34,21 +34,21 @@
 
         @if(count($perspectivas) > 0)
             @if ($perspectivaObjetivos->slug === 'FI')
-            @include('admin.maestro.perspectivaObjetivosResumen', [
+            @include('paginas.maestro.perspectivaObjetivosResumen', [
             'perspectivaObjetivos' => $perspectivaObjetivos,
             ])
             @elseif ($perspectivaObjetivos->slug === 'CL')
-            @include('admin.maestro.perspectivaObjetivosResumen', [
+            @include('paginas.maestro.perspectivaObjetivosResumen', [
             'perspectivaObjetivos' => $perspectivaObjetivos,
             ])
 
             @elseif ($perspectivaObjetivos->slug === 'PR')
-            @include('admin.maestro.perspectivaObjetivosResumen', [
+            @include('paginas.maestro.perspectivaObjetivosResumen', [
             'perspectivaObjetivos' => $perspectivaObjetivos,
             ])
 
             @elseif ($perspectivaObjetivos->slug === 'AP')
-            @include('admin.maestro.perspectivaObjetivosResumen', [
+            @include('paginas.maestro.perspectivaObjetivosResumen', [
             'perspectivaObjetivos' => $perspectivaObjetivos,
             ])
             @else

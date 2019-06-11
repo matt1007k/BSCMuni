@@ -51,43 +51,17 @@
         <div class="card">
             <div class="card-content">
                 <span class="title">Relación de Objetivos</span>
-                <div class="row mt-2">
-                    <div class="col m6">
-                        <form action="{{route('mapas.store')}}" method="POST">
-                            @csrf
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <textarea name="relacion" id="relacion" class="materialize-textarea" cols="30" rows="3"></textarea>
-                                    <label for="relacion">Relación de objetivos</label>
-                                    @if ($errors->has('relacion'))
-                                    <span class="helper-text red-text darken-1">
-                                        {{ $errors->first('relacion') }}
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn">Guardar</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col m6">
+                <div class="row">
+                    <div class="col s12">
                         <table>
                             <thead>
-                                <th>Relación</th>
-                                <th>Acción</th>
+                                <th>Relación de objetivos segun perspectiva</th>
                             </thead>
                             <tbody>
                                 @forelse ($relaciones as $key => $relacion)
                                     <tr>
-                                        <td class="w-30" style="width: 80%"><h6>{{$key + 1}} - {{$relacion->campos}}</h6> </td>
-                                        <td class="d-flex">
-                                            {{-- <button id="editar" class="btn">editar</button> --}}
-                                            <form action="{{route('mapas.destroy', $relacion->id)}}" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn red">Eliminar</button>
-                                            </form>
+                                        <td>
+                                            <h6>{{$key + 1}} - {{$relacion->campos}}</h6> 
                                         </td>
                                     </tr>
                                 @empty
