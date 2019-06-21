@@ -111,30 +111,51 @@ class DatoController extends Controller
 
         $porcentaje = 0;
 
-        foreach ($indicador->datos as $dato_db) {
-            if ($indicador->tipo == 'porcentaje') {
-                if (count($indicador->datos) >= 1) {
-                    $porcentaje = number_format(($total / ($indicador->datos->sum('total') + $total)) * 100, 2);
-                }
-            } elseif ($indicador->tipo == 'reducir') {
-                if (count($indicador->datos) >= 1) {
-                    $porcentaje = number_format(($dato_db->total - $total) * 100, 2);
+        if ($indicador->tipo == 'porcentaje') {
+            $porcentaje = number_format(($total / ($indicador->datos->sum('total') + $total)) * 100, 2);
+        } elseif ($indicador->tipo == 'reducir') {
+            foreach ($indicador->datos as $dato_db) {
+                if (count($indicador->datos) > 0) {
+                    $porcentaje = number_format((($dato_db->total - $total) / $dato_db->total) * 100, 2);
                     $dato->anterior = $dato_db->id;
                 }
-            } elseif ($indicador->tipo == 'incremento') {
-                if (count($indicador->datos) >= 1) {
-                    $porcentaje = number_format(($total - $dato_db->total) * 100, 2);
+            }
+        } elseif ($indicador->tipo == 'incremento') {
+            foreach ($indicador->datos as $dato_db) {
+                if (count($indicador->datos) > 0) {
+                    $porcentaje = number_format((($total - $dato_db->total) / $total) * 100, 2);
                     $dato->anterior = $dato_db->id;
 
                 }
-            } else {
-                $porcentaje = 0;
             }
+        } else {
+            $porcentaje = 0;
         }
 
-        $dato->porcentaje = $porcentaje;
+        $dato->porcentaje = round($porcentaje);
 
         if ($dato->save()) {
+            $indicador_db = Indicador::findOrfail($request->indicador_id);
+            if ($indicador_db->datos->count() > 0) {
+
+                if ($indicador_db->tipo == 'porcentaje') {
+
+                    foreach ($indicador_db->datos as $dato_db) {
+                        if (isset($indicador_db)) {
+                            $porcentaje_new = 0;
+                            if ($dato->id == $dato_db->id) {
+                                $porcentaje_new = number_format(($total / $indicador_db->datos->sum('total')) * 100, 2);
+
+                            } else {
+                                $porcentaje_new = number_format(($dato_db->total / $indicador_db->datos->sum('total')) * 100, 2);
+
+                            }
+                            $dato_db->porcentaje = round($porcentaje_new);
+                            $dato_db->save();
+                        }
+                    };
+                }
+            }
             return redirect()->route('datos.index')
                 ->with('msg', 'Los datos se registraron correctamente');
         } else {
@@ -192,20 +213,19 @@ class DatoController extends Controller
         $dato->indicador_id = $request->indicador_id;
 
         $diferencia = 0;
+        $porcentaje = 0;
         if ($dato->total !== $total) {
             $diferencia = $dato->total - $total;
         }
-        $porcentaje = 0;
 
         foreach ($indicador->datos as $dato_db) {
             if ($indicador->tipo == 'porcentaje') {
-                if (count($indicador->datos) >= 1) {
-                    if ($dato->total != $total) {
-                        $diferencia = $dato->total - $total;
-                        $porcentaje = number_format(($total / ($indicador->datos->sum('total') - $diferencia)) * 100, 2);
-
+                if (count($indicador->datos) > 0) {
+                    if ($dato->total !== $total) {
+                        if ($id == $dato_db->id) {
+                            $porcentaje = number_format(($total / ($indicador->datos->sum('total') - $diferencia)) * 100, 2);}
                     } else {
-                        $porcentaje = number_format(($dato->total / $indicador->datos->sum('total')) * 100, 2);
+                        $porcentaje = $dato->porcentaje;
                     }
                 }
             } elseif ($indicador->tipo == 'reducir') {
@@ -213,8 +233,10 @@ class DatoController extends Controller
                     if ($dato->total != $total) {
                         if ($id == $dato_db->id) {
                             $anterior = Dato::findOrfail($dato_db->anterior);
-                            $porcentaje = number_format((($anterior->total - $total) * 100) / $anterior->total, 2);
+                            $porcentaje = number_format((($anterior->total - $total) / $anterior->total) * 100, 2);
                         }
+                    } else {
+                        $porcentaje = $dato->porcentaje;
                     }
                 }
             } elseif ($indicador->tipo == 'incremento') {
@@ -222,8 +244,10 @@ class DatoController extends Controller
                     if ($dato->total != $total) {
                         if ($id == $dato_db->id) {
                             $anterior = Dato::findOrfail($dato_db->anterior);
-                            $porcentaje = number_format((($total - $anterior->total) * 100) / $total, 2);
+                            $porcentaje = number_format((($total - $anterior->total) / $total) * 100, 2);
                         }
+                    } else {
+                        $porcentaje = $dato->porcentaje;
                     }
 
                 }
@@ -231,20 +255,25 @@ class DatoController extends Controller
                 $porcentaje = 0;
             }
         }
+        // return round($porcentaje);
         $dato->total = $total;
-        $dato->porcentaje = $porcentaje;
+        $dato->porcentaje = round($porcentaje);
 
         if ($dato->save()) {
-            foreach ($indicador->datos as $dato_db) {
+            if (count($indicador->datos) > 0) {
                 if ($indicador->tipo == 'porcentaje') {
-                    if (count($indicador->datos) >= 1) {
-                        if ($id == $dato_db->id) {
-                            $dato_db->porcentaje = number_format((($total / $indicador->datos->sum('total')) * 100), 2);
+                    // return $indicador->datos;
+                    foreach ($indicador->datos as $dato_db) {
+
+                        $porcentaje_new = 0;
+                        if ($dato->id == $dato_db->id) {
+                            $porcentaje_new = number_format((($total / ($indicador->datos->sum('total') - $diferencia)) * 100), 2);
                         } else {
-                            $dato_db->porcentaje = number_format((($dato_db->total / $indicador->datos->sum('total')) * 100), 2);
+                            $porcentaje_new = number_format((($dato_db->total / ($indicador->datos->sum('total') - $diferencia)) * 100), 2);
                         }
-                        //$dato_db->porcentaje = number_format((($dato_db->total / $indicador->datos->sum('total')) * 100), 2);
+                        $dato_db->porcentaje = round($porcentaje_new);
                         $dato_db->save();
+
                     }
                 }
             }
@@ -258,7 +287,25 @@ class DatoController extends Controller
     public function destroy($id)
     {
         $dato = Dato::findOrFail($id);
+        $indicador = $dato->indicador;
+        $total_deleted = $dato->total;
         if ($dato->delete()) {
+
+            if (count($indicador->datos) > 0) {
+                if ($indicador->tipo == 'porcentaje') {
+                    // return $indicador->datos;
+                    foreach ($indicador->datos as $dato_db) {
+
+                        $porcentaje_new = 0;
+                        $porcentaje_new = number_format((($dato_db->total / ($indicador->datos->sum('total') - $total_deleted)) * 100), 2);
+
+                        $dato_db->porcentaje = round($porcentaje_new);
+                        $dato_db->save();
+
+                    }
+                }
+            }
+
             return redirect()->route('datos.index')
                 ->with('msg', 'El dato se elimino correctamente');
         } else {
