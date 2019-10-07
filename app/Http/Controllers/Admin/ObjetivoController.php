@@ -27,6 +27,7 @@ class ObjetivoController extends Controller
 
         return view('admin.objetivos.create', [
             'perspectivas' => $perspectivas,
+            'objetivo' => new Objetivo,
         ]);
     }
 
@@ -34,6 +35,7 @@ class ObjetivoController extends Controller
     {
         $request->validate([
             'contenido' => 'required|max:250',
+            'perspectiva_id' => 'required',
         ]);
 
         $objetivo = new Objetivo();
@@ -48,7 +50,7 @@ class ObjetivoController extends Controller
 
         if ($objetivo->save()) {
             return redirect()->route('objetivos.index')
-                ->with('msg', 'Registro creado correctamente');
+                ->with('msg', 'Registro completado con exito');
         } else {
             return back();
         }
@@ -70,6 +72,7 @@ class ObjetivoController extends Controller
     {
         $request->validate([
             'contenido' => 'required|max:250',
+            'perspectiva_id' => 'required',
         ]);
 
         $objetivo = Objetivo::findOrFail($id);
@@ -86,7 +89,7 @@ class ObjetivoController extends Controller
 
         if ($objetivo->save()) {
             return redirect()->route('objetivos.index')
-                ->with('msg', 'Registro se modifico correctamente');
+                ->with('msg', 'Registro editado con exito');
         } else {
             return back();
         }
@@ -97,7 +100,7 @@ class ObjetivoController extends Controller
         $objetivo = Objetivo::findOrFail($id);
         if ($objetivo->delete()) {
             return redirect()->route('objetivos.index')
-                ->with('msg', 'Registro se eliminado correctamente');
+                ->with('msg', 'Registro eliminado con exito');
         } else {
             return redirect()->route('objetivos.index')
                 ->with('msg', 'Error al eliminar el registro');
@@ -116,7 +119,7 @@ class ObjetivoController extends Controller
     public function asignar(Request $request, $id)
     {
         $messages = [
-            'required' => 'El objetivo debe tener :attribute.',
+            'required' => 'El objetivo debe tener :attribute, como minimo uno.',
         ];
 
         $validator = Validator::make($request->all(), [

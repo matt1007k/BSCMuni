@@ -1,56 +1,52 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
+
+    <div class="row mb-3">
+        <div class="col-md">
+            <div class="h3 text-center">
+                Las 5 fuerzas de porter
+            </div>
+        </div>
+    </div>          
     <div class="row">
-        <div class="col m12">
-            <div class="card">                
-                <div class="card-content ">                          
-                    <div class="row">
-                        <div class="col m12 d-flex justify-center">
-                            <div class="card-title">5 Fuerzas de Porter</div>
-                        
-                        </div>
+        @if (count($fuerzas) > 0)
+            @foreach ($fuerzas as $fuerza)
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header ">
+                        <div class="h5">{{ $fuerza->titulo }}</div>
                     </div>
-                    <div class="row">
-                        @if (count($fuerzas) > 0)
-                        <br>
-                            @foreach ($fuerzas as $fuerza)
-                            <div class="col m12">
-                                <div class="row ">
-                                    <div class="col m12 indigo lighten-2">  
-                                        <h6 class="text-white">{{ $fuerza->titulo }}</h6>
-                                    </div>
-                                    
+                    <div class="card-body">
+                        @forelse ($fuerza->factores as $factor)
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <p>- {{$factor->titulo}}</p>
+                                </li>
+                            </ul>
+                        @empty
+                            <div class="row">
+                                
+                                <div class="col-md-12">
+                                    <p>No tiene factores...</p>
                                 </div>
-                                @forelse ($fuerza->factores as $factor)
-                                    <div class="row" id="fila{{$factor->id}}">
-                                       
-                                        <div class="col m12">
-                                            <p>{{$factor->titulo}}</p>
-                                        </div> 
-                                        
-                                    </div>
-                                @empty
-                                    <div class="row">
-                                        
-                                        <div class="col m12">
-                                            <p>No tiene factores...</p>
-                                        </div>
-                                        
-                                    </div>
-                                @endforelse
                                 
                             </div>
-                            @endforeach
-                            <div class="w-100 center-align">
-                                {{ $fuerzas->links() }}
-                            </div>
-                        @else
-                            <h4 class="text-bold">No hay ningún registro!!!</h4>
-                        @endif
+                        @endforelse
+                    </div>
                 </div>
+                
+               
+                
             </div>
-            
-        </div>        
+            @endforeach
+            <div class="w-100 text-center">
+                {{ $fuerzas->links() }}
+            </div>
+        @else
+            <h4 class="w-100 text-center text-bold">No hay ningún registro!!!</h4>
+        @endif
     </div>
+</div>
 @endsection

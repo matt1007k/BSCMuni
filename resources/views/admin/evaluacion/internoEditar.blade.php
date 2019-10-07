@@ -1,20 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        <div class="col m6 offset-m3">
-            <a href="{{route('factor.interno')}}" class="btn btn-small waves-effect waves-light green margin-small">
-                <i class="material-icons left">arrow_back</i> Evaluar factor interno
+    <div class="row  d-flex justify-content-center">
+        <div class="col-md-6">
+            <a href="{{route('factor.interno')}}" class="btn btn-secondary">
+               <- Regresar
             </a>
             <div class="card">                
-                <div class="card-content ">                           
-                    
-                    <div class="card-title">Evaluar actividad: "{{$actividad->titulo}}"</div>
-                
+                <div class="card-header h3">Calificar la actividad: "{{$actividad->titulo}}"</div>
+                <div class="card-body ">                  
                     <form action="{{route('factor.evaluacionInterno', $actividad->id)}}" method="POST">
                         @csrf
                         @method('put') 
-                        <div class="row">
+                        <div class="form-group">
                             <h6>Importancia de éxito</h6>
                             <div class="input-field col m4">
                                 <label>
@@ -35,7 +33,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="row mt-3">
+                        <div class="form-group">
                             <h6>Desempeño de la empresa</h6>
                             <div class="input-field col m3 mb-2">
                                 <label>
@@ -64,7 +62,7 @@
                         </div>   
                         <div class="row mt-2">
                             <div class="col m12">
-                                <button type="submit" class="waves-effect waves-light btn">Guardar</button>
+                                <button type="submit" class="btn btn-primary btn-block">Calificar</button>
                             </div>
                         </div>
                     </form>

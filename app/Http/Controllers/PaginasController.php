@@ -38,62 +38,62 @@ class PaginasController extends Controller
         $paginas = [
             [
                 'titulo' => 'Información de la organización',
-                'icono' => 'eva eva-briefcase-outline',
+                // 'icono' => 'fa fa-building',
                 'ruta' => 'paginas.informacion',
             ],
             [
                 'titulo' => 'Macro Proceso',
-                'icono' => 'eva eva-corner-right-down-outline',
+                // 'icono' => 'eva eva-corner-right-down-outline',
                 'ruta' => 'paginas.macroproceso',
             ],
             [
                 'titulo' => 'Cadena de valor',
-                'icono' => 'eva eva-activity-outline',
+                // 'icono' => 'eva eva-activity-outline',
                 'ruta' => 'paginas.cadena',
             ],
             [
-                'titulo' => 'Fuerzas de porter',
-                'icono' => 'eva eva-shield-outline',
+                'titulo' => '5 Fuerzas de Porter',
+                // 'icono' => 'eva eva-shield-outline',
                 'ruta' => 'paginas.porter',
             ],
             [
-                'titulo' => 'Cadena de valor',
-                'icono' => 'eva eva-options-2-outline',
+                'titulo' => 'Factores Internos',
+                // 'icono' => 'eva eva-options-2-outline',
                 'ruta' => 'paginas.interno',
             ],
             [
-                'titulo' => '5 Fuerzas de Porter',
-                'icono' => 'eva eva-shield-off-outline',
+                'titulo' => 'Facfores Externos',
+                // 'icono' => 'eva eva-shield-off-outline',
                 'ruta' => 'paginas.externo',
             ],
             [
                 'titulo' => 'Matriz foda',
-                'icono' => 'eva eva-keypad-outline',
+                // 'icono' => 'eva eva-keypad-outline',
                 'ruta' => 'paginas.matrizFODA',
             ],
             [
                 'titulo' => 'Mapa Estratégico',
-                'icono' => 'eva eva-map',
+                // 'icono' => 'eva eva-map',
                 'ruta' => 'paginas.mapa',
             ],
             [
                 'titulo' => 'Indicadores',
-                'icono' => 'eva eva-bar-chart-outline',
+                // 'icono' => 'eva eva-bar-chart-outline',
                 'ruta' => 'paginas.indicadores',
             ],
             [
                 'titulo' => 'Datos',
-                'icono' => 'eva eva-pie-chart',
+                // 'icono' => 'eva eva-pie-chart',
                 'ruta' => 'paginas.datos',
             ],
             [
                 'titulo' => 'Maestro',
-                'icono' => 'eva eva-trending-up-outline',
+                // 'icono' => 'eva eva-trending-up-outline',
                 'ruta' => 'paginas.maestro',
             ],
             [
-                'titulo' => 'Resumen',
-                'icono' => 'eva eva-list-outline',
+                'titulo' => 'Resumen de BSC',
+                // 'icono' => 'eva eva-list-outline',
                 'ruta' => 'paginas.resumen',
             ],
         ];
@@ -194,7 +194,7 @@ class PaginasController extends Controller
     {
         $slug = $request->perspectiva;
         if (!isset($request->perspectiva)) {
-            $slug = 'FI';
+            $slug = Perspectiva::first()->slug;
         }
 
         $perspectivas = Perspectiva::all();
@@ -210,7 +210,7 @@ class PaginasController extends Controller
     {
         $slug = $request->perspectiva;
         if (!isset($request->perspectiva)) {
-            $slug = 'FI';
+            $slug = Perspectiva::first()->slug;
         }
 
         $perspectivas = Perspectiva::all();
@@ -254,14 +254,14 @@ class PaginasController extends Controller
         }
 
         // return $datos;
-        return view('paginas.datos.grafico', ['datos' => $datos]);
+        return view('paginas.datos.grafico', ['datos' => $datos, 'indicador' => $indicador]);
     }
 
     public function maestro(Request $request)
     {
         $slug = $request->perspectiva;
         if (!isset($request->perspectiva)) {
-            $slug = 'FI';
+            $slug = Perspectiva::first()->slug;
         }
 
         $anio_anterior = $request->anio_anterior ? $request->anio_anterior : '2018';
@@ -285,7 +285,7 @@ class PaginasController extends Controller
     {
         $slug = $request->perspectiva;
         if (!isset($request->perspectiva)) {
-            $slug = 'FI';
+            $slug = Perspectiva::first()->slug;
         }
         $perspectivas = Perspectiva::all();
         $perspectivaObjetivos = Perspectiva::where('slug', $slug)->first();

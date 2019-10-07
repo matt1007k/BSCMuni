@@ -1,58 +1,58 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container-fluid">
+
     <div class="row">
-        <div class="col m12">                     
+        <div class="col-md-12">                     
             <div class="row">
-                <div class="col m12 d-flex justify-center align-items-center">
-                    <h5>Matriz FODA</h5>
-                    <div class="ml-3 padding-ultra-small">
-                        <form action="{{route('paginas.matrizFODA')}}" method="get">                                
-                            <div class="row d-flex align-items-center">
-                                <div class="input-field col m8">                                
-                                    <select name="tipo" id="tipo">                                                                    
-                                        <option value="FO" {{$tipo === 'FO' ? 'selected' : ''}}>Estrategias FO</option>
-                                        <option value="FA" {{$tipo === 'FA' ? 'selected' : ''}}>Estrategias FA</option>
-                                        <option value="DO" {{$tipo === 'DO' ? 'selected' : ''}}>Estrategias DO</option>
-                                        <option value="DA" {{$tipo === 'DA' ? 'selected' : ''}}>Estrategias DA</option>
-                                    </select for="tipo">
-                                    <label>Seleccione la estrategia</label>                                
-                                </div>
-                                <div class="col m3">
-                                    <button class="btn" type="submit">Filtar</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                <div class="col-md-12 d-flex flex-column justify-content-center">
+                    <h3 class="text-center">Matriz FODA</h3>
+                </div>
+            </div>
+            <div class="w-100 text-center">
+                <div class="ml-3 padding-ultra-small">
+                    <div class="btn-group" role="group" aria-label="Filtro estrategia">
+                        <a href="{{url('/matriz-foda?tipo=FO')}}" class="btn btn-info @if($tipo == 'FO') active @endif">Estrategias FO</a>
+                        <a href="{{url('/matriz-foda?tipo=FA')}}" class="btn btn-info @if($tipo == 'FA') active @endif">Estrategias FA</a>
+                        <a href="{{url('/matriz-foda?tipo=DO')}}" class="btn btn-info @if($tipo == 'DO') active @endif">Estrategias DO</a>
+                        <a href="{{url('/matriz-foda?tipo=DA')}}" class="btn btn-info @if($tipo == 'DA') active @endif">Estrategias DA</a>
+                    </div>                        
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+
+                    @if ($tipo === 'FO')
+                        @include('paginas.estrategias.estrategiasFO', [
+                            'fortalezas' => $fortalezas,
+                            'oportunidades' => $oportunidades,
+                            'estrategias' => $estrategias
+                        ])
+                    @elseif($tipo === 'FA')
+                        @include('paginas.estrategias.estrategiasFA', [
+                            'fortalezas' => $fortalezas,
+                            'oportunidades' => $oportunidades,
+                            'estrategias' => $estrategias
+                        ])
+                    @elseif($tipo === 'DO')
+                        @include('paginas.estrategias.estrategiasDO', [
+                            'fortalezas' => $fortalezas,
+                            'oportunidades' => $oportunidades,
+                            'estrategias' => $estrategias
+                        ])
+                    @elseif($tipo === 'DA')
+                        @include('paginas.estrategias.estrategiasDA', [
+                            'fortalezas' => $fortalezas,
+                            'oportunidades' => $oportunidades,
+                            'estrategias' => $estrategias
+                        ])
+                    @endif
                 </div>
             </div>
             
-            @if ($tipo === 'FO')
-                @include('paginas.estrategias.estrategiasFO', [
-                    'fortalezas' => $fortalezas,
-                    'oportunidades' => $oportunidades,
-                    'estrategias' => $estrategias
-                ])
-            @elseif($tipo === 'FA')
-                @include('paginas.estrategias.estrategiasFA', [
-                    'fortalezas' => $fortalezas,
-                    'oportunidades' => $oportunidades,
-                    'estrategias' => $estrategias
-                ])
-            @elseif($tipo === 'DO')
-                @include('paginas.estrategias.estrategiasDO', [
-                    'fortalezas' => $fortalezas,
-                    'oportunidades' => $oportunidades,
-                    'estrategias' => $estrategias
-                ])
-            @elseif($tipo === 'DA')
-                @include('paginas.estrategias.estrategiasDA', [
-                    'fortalezas' => $fortalezas,
-                    'oportunidades' => $oportunidades,
-                    'estrategias' => $estrategias
-                ])
-            @endif
             
         </div>        
     </div>
+</div>
 @endsection

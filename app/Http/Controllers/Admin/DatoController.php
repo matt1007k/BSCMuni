@@ -15,7 +15,7 @@ class DatoController extends Controller
     {
         $slug = $request->perspectiva;
         if (!isset($request->perspectiva)) {
-            $slug = 'FI';
+            $slug = Perspectiva::first()->slug;
         }
 
         $perspectivas = Perspectiva::all();
@@ -32,6 +32,7 @@ class DatoController extends Controller
 
         return view('admin.datos.create', [
             'indicador_id' => $indicador_id,
+            'dato' => new Dato,
         ]);
     }
 
@@ -67,7 +68,7 @@ class DatoController extends Controller
         }
 
         // return $datos;
-        return view('admin.datos.grafico', ['datos' => $datos]);
+        return view('admin.datos.grafico', ['datos' => $datos, 'indicador' => $indicador]);
     }
 
     public function store(Request $request)
@@ -157,7 +158,7 @@ class DatoController extends Controller
                 }
             }
             return redirect()->route('datos.index')
-                ->with('msg', 'Los datos se registraron correctamente');
+                ->with('msg', 'Datos registrados con exito');
         } else {
             return back();
         }
@@ -278,7 +279,7 @@ class DatoController extends Controller
                 }
             }
             return redirect()->route('datos.index')
-                ->with('msg', 'Los datos se modificaron correctamente');
+                ->with('msg', 'Datos editados con exito');
         } else {
             return back();
         }
@@ -307,7 +308,7 @@ class DatoController extends Controller
             }
 
             return redirect()->route('datos.index')
-                ->with('msg', 'El dato se elimino correctamente');
+                ->with('msg', 'Datos eliminados con exito');
         } else {
             return redirect()->route('datos.index')
                 ->with('msg', 'Error al eliminar el registro');

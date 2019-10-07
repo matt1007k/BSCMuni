@@ -1,94 +1,67 @@
-<div class="row">
-    <div class="col m6">
-        <div class="foda">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="foda" style="max-width: 100%">
+                <img src="{{ asset('img/foda.svg') }}" alt="foda" class="w-100">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h5 class="text-center bg-primary p-2 text-white">Debilidades</h5>
+            <ul class="list-group">
+                @forelse ($debilidades as $debilidad)    
+                    <li class="list-group-item">
+                        <div class="row no-margin">
+                            <div class="col-md-2 bd1-gray">
+                                {{$debilidad->slug}}
+                            </div>
+                            <div class="col-md-10">
+                                {{$debilidad->titulo}}
+                            </div>
+                        </div> 
+                    </li>  
+                @empty
+                    <li class="list-group-item">No hay debilidades.</li>                                        
+                @endforelse
+            </ul>
         </div>
     </div>
-    <div class="col m6">
-        <h5 class="blue-text center-align">DEBILIDADES</h5>
-        <ul>
-            @forelse ($debilidades as $debilidad)                                        
-                <div class="card">
-                    <div class="card-content">
-                        <li>
-                            <div class="row no-margin">
-                                <div class="col m1">
-                                    {{$debilidad->slug}}
-                                </div>
-                                <div class="col m11">
-                                    {{$debilidad->titulo}}
-                                </div>
-                            </div> 
-                        </li>
-                    </div>
-                </div>   
-            @empty
-                <li>
-                    <div class="card">
-                        <div class="card-content">
-                            <li>No hay debilidades.</li>  
-                        </div>
-                    </div>     
-                </li>                                        
-            @endforelse
-        </ul>
-    </div>
-</div>
-<div class="row">
-    <div class="col m6">
-        <h5 class="blue-text center-align">AMENAZAS</h5>
-        <ul>
-            @forelse ($amenazas as $amenaza)   
-                <div class="card">
-                    <div class="card-content">                                     
-                        <li>                    
-                            <div class="row no-margin">
-                                <div class="col m1">
-                                    {{$amenaza->slug}}
-                                </div>
-                                <div class="col m11">
-                                    {{$amenaza->titulo}}
-                                </div>
-                            </div> 
-                        </li>
-                    </div>
-                </div>   
-            @empty
-                <div class="card">
-                    <div class="card-content">
-                        <li>No hay amenazas.</li>  
-                    </div>
-                </div>                                      
-            @endforelse
-        </ul>
-    </div>
-    <div class="col m6">
-        <div class="d-flex align-items-center justify-content-between">
-            <h5 class="blue-text">ESTRATEGIAS DA</h5>
-            
+    <div class="row">
+        <div class="col-md-6">
+            <h5 class="text-center bg-primary p-2 text-white">Amenazas</h5>
+            <ul class="list-group">
+                @forelse ($amenazas as $amenaza)                                      
+                    <li class="list-group-item">                    
+                        <div class="row no-margin">
+                            <div class="col-md-2 bd1-gray">
+                                {{$amenaza->slug}}
+                            </div>
+                            <div class="col-md-10">
+                                {{$amenaza->titulo}}
+                            </div>
+                        </div> 
+                    </li>
+                @empty
+                    <li class="list-group-item">No hay amenazas.</li>                                  
+                @endforelse
+            </ul>
         </div>
-        <ul>
-            @forelse ($estrategias as $estrategia)   
-                <div class="card">
-                    <div class="card-content">                                     
-                        <li>
-                            <div class="row no-margin">
-                                <div class="col m2">
-                                    {{$estrategia->foda}}
-                                </div>
-                                <div class="col m10">
-                                    {{$estrategia->contenido}}
-                                </div>
-                            </div> 
-                        </li>
-                    </div>
-                </div>  
-            @empty
-                <div class="card">
-                    <div class="card-content">
-                        <li>No hay estrategias.</li>  
-                    </div>
-                </div>                                       
-            @endforelse
-        </ul>
+        <div class="col-md-6">
+            <h5 class="text-center bg-primary p-2 text-white">Estrategias DA </h5>            
+            <ul class="list-group">
+               @forelse ($estrategias as $estrategia)                                 
+                    <li class="list-group-item">
+                        <div class="row no-margin">
+                            <div class="col-md-2 bd1-gray">
+                                {{$estrategia->foda}}
+                            </div>
+                            <div class="col-md-10">
+                                {{$estrategia->contenido}}
+                            </div>
+                        </div> 
+                    </li>
+                         
+                @empty
+                    <li class="list-group-item">No hay estrategias.</li>                                     
+                @endforelse
+            </ul>
+        </div>
     </div>
-</div>

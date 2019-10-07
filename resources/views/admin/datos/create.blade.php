@@ -1,22 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
-    <div class="col m6 offset-m3">
-        <a href="{{route('datos.index')}}" class="btn btn-small waves-effect waves-light green margin-small">
-            <i class="material-icons left">arrow_back</i> datos
-        </a>
-        <div class="card">
-            <div class="card-content ">
-                <div class="card-title">Registrar datos de un año</div>
-                <form action="{{route('datos.store')}}" method="POST">
-                    @csrf
-                    @include('admin.datos.form', ['indicador_id' => $indicador_id])
-                </form>
-
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <a href="{{route('datos.index')}}" class="btn btn-secondary">
+                <- Regresar
+            </a>
+            <div class="card">
+                <div class="card-header h3 text-center">Registrar datos de un indicador</div>
+                <div class="card-body">
+                    <form action="{{route('datos.store')}}" method="POST">                        
+                        @include('admin.datos._form')
+                    </form>
+ 
+                </div>
             </div>
+    
         </div>
-
     </div>
 </div>
 @endsection

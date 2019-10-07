@@ -2,29 +2,18 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col m6 offset-m3">
-            <a href="{{route('factores.index')}}" class="btn btn-small waves-effect waves-light green margin-small">
-                <i class="material-icons left">arrow_back</i> 5 fuerzas de porter
+<div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+            <a href="{{route('factores.index')}}" class="btn btn-secondary">
+                <- Regresar
             </a>
             <div class="card">                
-                <div class="card-content ">                            
-                    
-                    <div class="card-title">Modificar fuerza</div>
+                <div class="card-header h3">Editar fuerza</div>
+                <div class="card-body">  
                     <form action="{{route('fuerzas.update', $fuerza->id)}}" method="POST">
-                        @csrf
                         @method('put')
-                        <div class="row">
-                            <div class="input-field">
-                                <input type="text" name="titulo" id="titulo" class="valitates" value="{{$area->titulo}}">
-                                <label for="titulo">Titulo de la fuerza</label>
-                                @if ($errors->has('titulo'))
-                                    <span class="helper-text" data-error="{{ $errors->first('titulo') }}">{{ $errors->first('titulo') }}</span>
-                                @endif
-                            </div>
-                        </div>
                         
-                        <button type="submit" class="waves-effect waves-light btn">Guardar</button>
+                        @include('admin.fuerzas._form')
                     </form>
                 </div>
             </div>

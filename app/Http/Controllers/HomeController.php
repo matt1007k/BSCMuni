@@ -24,67 +24,67 @@ class HomeController extends Controller
         $paginas = [
             [
                 'titulo' => 'Información de la organización',
-                'icono' => 'eva eva-briefcase-outline',
+                // 'icono' => 'eva eva-briefcase-outline',
                 'ruta' => 'informaciones.index',
             ],
             [
                 'titulo' => 'Macro Proceso',
-                'icono' => 'eva eva-corner-right-down-outline',
+                // 'icono' => 'eva eva-corner-right-down-outline',
                 'ruta' => 'procesos.index',
             ],
             [
                 'titulo' => 'Cadena de valor',
-                'icono' => 'eva eva-activity-outline',
+                // 'icono' => 'eva eva-activity-outline',
                 'ruta' => 'actividades.index',
             ],
             [
                 'titulo' => 'Fuerzas de porter',
-                'icono' => 'eva eva-shield-outline',
+                // 'icono' => 'eva eva-shield-outline',
                 'ruta' => 'factores.index',
             ],
             [
                 'titulo' => 'Factores Internos',
-                'icono' => 'eva eva-options-2-outline',
+                // 'icono' => 'eva eva-options-2-outline',
                 'ruta' => 'factor.interno',
             ],
             [
                 'titulo' => 'Factores Externos',
-                'icono' => 'eva eva-shield-off-outline',
+                // 'icono' => 'eva eva-shield-off-outline',
                 'ruta' => 'factor.externo',
             ],
             [
                 'titulo' => 'Matriz foda',
-                'icono' => 'eva eva-keypad-outline',
+                // 'icono' => 'eva eva-keypad-outline',
                 'ruta' => 'estrategias.foda',
             ],
             [
                 'titulo' => 'Objetivos Estratégico',
-                'icono' => 'eva eva-checkmark-square-outline',
+                // 'icono' => 'eva eva-checkmark-square-outline',
                 'ruta' => 'objetivos.index',
             ],
             [
                 'titulo' => 'Mapa Estratégico',
-                'icono' => 'eva eva-map',
+                // 'icono' => 'eva eva-map',
                 'ruta' => 'mapas.index',
             ],
             [
                 'titulo' => 'Indicadores',
-                'icono' => 'eva eva-bar-chart-outline',
+                // 'icono' => 'eva eva-bar-chart-outline',
                 'ruta' => 'indicadores.index',
             ],
             [
                 'titulo' => 'Datos',
-                'icono' => 'eva eva-pie-chart',
+                // 'icono' => 'eva eva-pie-chart',
                 'ruta' => 'datos.index',
             ],
             [
                 'titulo' => 'Maestro',
-                'icono' => 'eva eva-trending-up-outline',
+                // 'icono' => 'eva eva-trending-up-outline',
                 'ruta' => 'maestro.index',
             ],
             [
-                'titulo' => 'Resumen',
-                'icono' => 'eva eva-list-outline',
+                'titulo' => 'Resumen de BSC',
+                // 'icono' => 'eva eva-list-outline',
                 'ruta' => 'maestro.resumen',
             ],
         ];

@@ -14,7 +14,7 @@ class IndicadorController extends Controller
     {
         $slug = $request->perspectiva;
         if (!isset($request->perspectiva)) {
-            $slug = 'FI';
+            $slug = Perspectiva::first()->slug;
         }
 
         $perspectivas = Perspectiva::all();
@@ -31,6 +31,7 @@ class IndicadorController extends Controller
 
         return view('admin.indicadores.create', [
             'objetivo_id' => $objetivo_id,
+            'indicador' => new Indicador,
         ]);
     }
 
@@ -60,7 +61,7 @@ class IndicadorController extends Controller
 
         if ($indicador->save()) {
             return redirect()->route('indicadores.index')
-                ->with('msg', 'Indicador registrado correctamente');
+                ->with('msg', 'Indicador registrado con exito');
         } else {
             return back();
         }
@@ -103,7 +104,7 @@ class IndicadorController extends Controller
 
         if ($indicador->save()) {
             return redirect()->route('indicadores.index')
-                ->with('msg', 'Indicador modifico correctamente');
+                ->with('msg', 'Indicador editado con exito');
         } else {
             return back();
         }
@@ -114,7 +115,7 @@ class IndicadorController extends Controller
         $indicador = Indicador::findOrFail($id);
         if ($indicador->delete()) {
             return redirect()->route('indicadores.index')
-                ->with('msg', 'Indicador eliminado correctamente');
+                ->with('msg', 'Indicador eliminado con exito');
         } else {
             return redirect()->route('indicadores.index')
                 ->with('msg', 'Error al eliminar el registro');

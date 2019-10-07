@@ -8,13 +8,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>BSC Colegio Saco Oliveros</title>
+    <title>BSC Constructora</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/fontawesome.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -22,21 +23,22 @@
         @include('partials.navbar')
 
         @if (session('msg'))
-        <main class="container-fluid">
-            <div class="green darken-1 padding-small text-white">
+        <div class="container-fluid">
+            <div class="alert alert-success padding-small">
                 {{session('msg')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-    </div>
-    @endif
-
-    <main class="container-fluid">
+        </div>
+        @endif
+        
         @yield('content')
-    </main>
+
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <script src="{{asset('js/materialize.min.js')}}"></script>
+    
     @stack('scripts')
 </body>
 

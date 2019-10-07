@@ -169,5 +169,13 @@ return [
         'subject' => 'asunto',
         'message' => 'mensaje',
         'anio' => 'año',
+        'proceso_id' => 'proceso',
+        'area_id' => 'area',
+        'actividad_id' => 'actividad',
+        'fuerza_id' => 'fuerza',
+        'factor_id' => 'factor',
+        'objectivo_id' => 'objetivo',
+        'indicador_id' => 'indicador',
+        'dato_id' => 'dato',
     ],
 ];

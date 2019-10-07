@@ -13,7 +13,7 @@ class MaestroController extends Controller
     {
         $slug = $request->perspectiva;
         if (!isset($request->perspectiva)) {
-            $slug = 'FI';
+            $slug = Perspectiva::first()->slug;
         }
 
         $anio_anterior = $request->anio_anterior ? $request->anio_anterior : '2018';
@@ -22,14 +22,6 @@ class MaestroController extends Controller
 
         $perspectivas = Perspectiva::all();
         $perspectivaObjetivos = Perspectiva::where('slug', $slug)->first();
-
-        // foreach ($perspectivaObjetivos->objetivos as $objetivo) {
-        //     foreach ($objetivo->indicadores as $indicador) {
-        //         // return $indicador->With(['datos'])->get();
-        //         return $indicador->datos->last();
-        //         // return $indicador->datos->byAnio($anio_actual)->first();
-        //     }
-        // }
 
         return view('admin.maestro.index', [
             'perspectivas' => $perspectivas,
@@ -44,7 +36,7 @@ class MaestroController extends Controller
     {
         $slug = $request->perspectiva;
         if (!isset($request->perspectiva)) {
-            $slug = 'FI';
+            $slug = Perspectiva::first()->slug;
         }
         $perspectivas = Perspectiva::all();
         $perspectivaObjetivos = Perspectiva::where('slug', $slug)->first();

@@ -11,7 +11,7 @@ class PerspectivaController extends Controller
 
     public function create()
     {
-        return view('admin.perspectivas.create');
+        return view('admin.perspectivas.create', ['perspectiva' => new Perspectiva]);
     }
 
     public function store(Request $request)
@@ -31,7 +31,7 @@ class PerspectivaController extends Controller
 
         if ($perspectiva->save()) {
             return redirect()->route('objetivos.index')
-                ->with('msg', 'Perspectiva registrado correctamente');
+                ->with('msg', 'Perspectiva registrado con exito');
         }
     }
 
@@ -57,7 +57,7 @@ class PerspectivaController extends Controller
 
         if ($perspectiva->save()) {
             return redirect()->route('objetivos.index')
-                ->with('msg', 'Perspectiva modifico correctamente');
+                ->with('msg', 'Perspectiva editada con exito');
         } else {
             return back();
         }
@@ -68,7 +68,7 @@ class PerspectivaController extends Controller
         $perspectiva = Perspectiva::findOrFail($id);
         if ($perspectiva->delete()) {
             return redirect()->route('objetivos.index')
-                ->with('msg', 'Perspectiva elimino correctamente');
+                ->with('msg', 'Perspectiva elimino con exito');
         } else {
             return redirect()->route('objetivos.index')
                 ->with('msg', 'Error al eliminar el registro');

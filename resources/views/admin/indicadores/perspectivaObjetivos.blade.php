@@ -1,101 +1,89 @@
 <div class="row">
-    <div class="col m12">
-        <h3 class="blue-text center-align">{{$perspectivaObjetivos->titulo}}</h3>
-        <ul>
+    <div class="col-md-12">
+        <h3 class="text-center text-white bg-info p-3">{{$perspectivaObjetivos->titulo}}</h3>
+        <ul class="list-group">
             @forelse ($perspectivaObjetivos->objetivos as $objetivo)
-            <div class="d-flex align-items-center">
-                <h5>"{{$objetivo->contenido}}"</h5>
-                <a href="{{route('indicadores.create', $objetivo->id)}}" class=" ml-3 btn">Agregar Indicador</a>
+            <div class="d-flex align-items-center justify-content-between bg-primary p-2">
+                <h5 class="text-white">Objetivo: {{$objetivo->contenido}}</h5>
+                <a href="{{route('indicadores.create', $objetivo->id)}}" class="ml-3 btn btn-success">Agregar Indicador</a>
+            </div>
+            <div class="row no-margin px-4 py-2">
+                <div class="col-md-3 text-center font-weight-bold bd1-gray">
+                    Indicador
+                </div>
+                <div class="col-md-1 no-padding text-center font-weight-bold bd1-gray">
+                    Unidad
+                </div>
+                <div class="col-md-2 no-padding text-center font-weight-bold bd1-gray">
+                    Tiempo
+                </div>
+                <div class="col-md-1 text-center font-weight-bold bd1-gray">
+                    Meta
+                </div>
+                <div class="col-md-1 text-center font-weight-bold text-success bd1-gray">
+                    Verde
+                </div>
+                <div class="col-md-2 text-center font-weight-bold text-warning bd1-gray">
+                    Amarillo
+                </div>
+                <div class="col-md-1 text-center font-weight-bold text-danger bd1-gray">
+                    Rojo
+                </div>
+                <div class="col-md-1">
+
+                </div>
             </div>
             @forelse ($objetivo->indicadores as $indicador)
-            <div class="card">
-                <div class="card-content">
-                    <li>
-                        <div class="row no-margin teal padding-ultra-small">
-                            <div class="col m2 white-text">
-                                Indicador
-                            </div>
-                            <div class="col m2 white-text">
-                                Unidad
-                            </div>
-                            <div class="col m1 white-text">
-                                Tiempo
-                            </div>
-                            <div class="col m1 white-text">
-                                Meta
-                            </div>
-                            <div class="col m1 white-text">
-                                Verde
-                            </div>
-                            <div class="col m1 white-text">
-                                Amarillo
-                            </div>
-                            <div class="col m1 white-text">
-                                Rojo
-                            </div>
-                            <div class="col m3 white-text">
+                
+            <li class="list-group-item">                        
+                <div class="row no-margin padding-ultra-small">
+                    <div class="col-md-3 bd1-gray">
+                        {{$indicador->indicador}}
+                    </div>
+                    <div class="col-md-1 text-center bd1-gray">
+                        {{$indicador->unidad}}
+                    </div>
+                    <div class="col-md-2 bd1-gray">
+                        {{$indicador->tiempo}}
+                    </div>
+                    <div class="col-md-1 text-center bd1-gray">
+                        {{$indicador->meta}}
+                    </div>
+                    <div class="col-md-1 text-center bd1-gray">
+                        {{$indicador->verde}}
+                    </div>
+                    <div class="col-md-2 text-center bd1-gray">
+                        {{$indicador->amarillo}}
+                    </div>
+                    <div class="col-md-1 text-center bd1-gray">
+                        {{$indicador->rojo}}
+                    </div>
+                    <div class="col-md-1 text-center">
+                        <a href="{{route('indicadores.edit',[$indicador->id, $objetivo->id])}} "
+                            class="btn btn-sm btn-info">
+                            Editar
+                        </a>
+                        <form action="{{route('indicadores.destroy',$indicador->id)}}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="mt-1 btn btn-sm btn-danger">
+                                Eliminar
+                            </button>
+                        </form>
+                    </div>
 
-                            </div>
-                        </div>
-                        <div class="row no-margin padding-ultra-small">
-                            <div class="col m2">
-                                {{$indicador->indicador}}
-                            </div>
-                            <div class="col m2">
-                                {{$indicador->unidad}}
-                            </div>
-                            <div class="col m1">
-                                {{$indicador->tiempo}}
-                            </div>
-                            <div class="col m1">
-                                {{$indicador->meta}}
-                            </div>
-                            <div class="col m1">
-                                {{$indicador->verde}}
-                            </div>
-                            <div class="col m1">
-                                {{$indicador->amarillo}}
-                            </div>
-                            <div class="col m1">
-                                {{$indicador->rojo}}
-                            </div>
-                            <div class="col m3 d-flex">
-                                <a href="{{route('indicadores.edit',[$indicador->id, $objetivo->id])}} "
-                                    class="btn btn-small waves-effect waves-light primary">
-                                    Modificar
-                                </a>
-                                <form action="{{route('indicadores.destroy',$indicador->id)}}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="ml-1 btn btn-small waves-effect waves-light red">
-                                        Eliminar
-                                    </button>
-                                </form>
-                            </div>
-
-                        </div>
-                    </li>
                 </div>
-            </div>
+            </li>
             @empty
-            <div class="card">
-                <div class="card-content">
-                    <li>
-                        Este objetivo no tiene indicadores.
-                    </li>
-                </div>
-            </div>
-
+            <li class="list-group-item">
+                Este objetivo no tiene indicadores.
+            </li>
             @endforelse
 
             @empty
-            <div class="card">
-                <div class="card-content">
-                    <li>
-                        Esta perspectiva no tiene objetivos.
-                    </li>
-                </div>
-            </div>
+            <li class="list-group-item">
+                Esta perspectiva no tiene objetivos.
+            </li>
             @endforelse
         </ul>
     </div>
