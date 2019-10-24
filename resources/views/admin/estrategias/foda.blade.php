@@ -5,22 +5,30 @@
 
         <div class="row">
             <div class="col-md-12">                     
-                <div class="row">
-                    <div class="col-md-12 d-flex flex-column justify-content-center">
-                        <h3 class="text-center">Matriz FODA</h3>
+                <div class="w-100 mb-4">
+                    <div class="pl-2">
+                        <h3 class="">Matriz FODA</h3>
+                        <p>Las extragias para afrontar los factores externos y factores internos.</p>
                     </div>
                 </div>
-                <div class="w-100 text-center">
-                    <div class="ml-3 padding-ultra-small">
-                        <div class="btn-group" role="group" aria-label="Filtro estrategia">
-                            <a href="{{url('/foda?tipo=FO')}}" class="btn btn-info @if($tipo == 'FO') active @endif">Estrategias FO</a>
-                            <a href="{{url('/foda?tipo=FA')}}" class="btn btn-info @if($tipo == 'FA') active @endif">Estrategias FA</a>
-                            <a href="{{url('/foda?tipo=DO')}}" class="btn btn-info @if($tipo == 'DO') active @endif">Estrategias DO</a>
-                            <a href="{{url('/foda?tipo=DA')}}" class="btn btn-info @if($tipo == 'DA') active @endif">Estrategias DA</a>
-                        </div>                        
-                    </div>
-                </div>
+              
                 <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link @if($tipo == 'FO') active @endif" href="{{url('/foda?tipo=FO')}}">Estrategias FO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if($tipo == 'FA') active @endif" href="{{url('/foda?tipo=FA')}}">Estrategias FA</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if($tipo == 'DO') active @endif" href="{{url('/foda?tipo=DO')}}">Estrategias DO</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if($tipo == 'DA') active @endif" href="{{url('/foda?tipo=DA')}}">Estrategias DA</a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="card-body">
 
                         @if ($tipo === 'FO')

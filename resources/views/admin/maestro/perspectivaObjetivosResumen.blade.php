@@ -1,23 +1,23 @@
 <div class="row">
     <div class="col m12">
-        <h3 class="bg-info text-white text-center p-2">{{$perspectivaObjetivos->titulo}}</h3>        
-        <table class="table table-dark table-striped">
-            <thead>
+        <h3 class="bg-dark text-white text-center p-2">{{$perspectivaObjetivos->titulo}}</h3>        
+        <table class="table table-bordered">
+            <thead  class="text-center">
                 <th>Objetivos</th>
                 <th>Indicador</th>
                 <th>Meta</th>
-                <th class="text-center">Actual</th>
-                <th class="text-center">Semáforo</th>
+                <th>Actual</th>
+                <th>Semáforo</th>
             </thead>
             <tbody>
                 @forelse ($perspectivaObjetivos->objetivos as $objetivo)
                 <tr>                                      
-                    <td>{{$objetivo->contenido}}</td>
+                    <td rowspan="{{$objetivo->indicadores->count() + 1}}">{{$objetivo->contenido}}</td>
                     @forelse ($objetivo->indicadores as $indicador)
                     <tr>
-                        <td></td>
+                       
                         <td>{{$indicador->indicador}}</td>
-                        <td>{{$indicador->meta}}</td>
+                        <td class="text-center">{{$indicador->meta}}</td>
 
                     @if (count($indicador->datos)) 
                         
@@ -30,7 +30,7 @@
                         </td>  
                         
                     @else                                       
-                        <td>No exite el año</td>  
+                        <td>Año no registrado</td>  
                     @endif
                     
                     @if (count($indicador->datos)) 
@@ -39,51 +39,51 @@
                             @if ($indicador->tipo == "numero" )
                                 @if ($indicador->datos->last()->total >= $indicador->meta) 
                                     <div class="text-success">
-                                        O
+                                        <span class="fas fa-check"></span>
                                     </div>
                                 @elseif ($indicador->datos->last()->total < $indicador->meta && $indicador->datos->last()->total >= (int)substr($indicador->rojo, -2))
                                     <div class="text-warning">
-                                        O
+                                        <span class="fas fa-check"></span>
                                     </div>
                                 @elseif ($indicador->datos->last()->total < (int)substr($indicador->rojo, -2))
                                     <div class="text-danger">
-                                        O
+                                        <span class="fas fa-check"></span>
                                     </div>
                                 @endif
                             @elseif ($indicador->tipo == "reducir") 
 
                                 @if ($indicador->datos->last()->porcentaje <= $indicador->meta)
                                     <div class="text-success">
-                                        O
+                                        <span class="fas fa-check"></span>
                                     </div>
                                 @elseif ($indicador->datos->last()->porcentaje > $indicador->meta && $indicador->datos->last()->porcentaje <= (int)substr($indicador->rojo, -2)) 
                                     <div class="text-warning">
-                                        O
+                                        <span class="fas fa-check"></span>
                                     </div>
                                 @elseif ($indicador->datos->last()->porcentaje > (int)substr($indicador->rojo, -2)) 
                                     <div class="text-danger">
-                                        O
+                                        <span class="fas fa-check"></span>
                                     </div>
                                 @endif
                             @else
                                 @if ($indicador->datos->last()->porcentaje >= $indicador->meta) 
                                     <div class="text-success">
-                                        O
+                                        <span class="fas fa-check"></span>
                                     </div>
                                 @elseif ($indicador->datos->last()->porcentaje < $indicador->meta && $indicador->datos->last()->porcentaje >= (int)substr($indicador->rojo, -2))
                                     <div class="text-warning">
-                                        O
+                                        <span class="fas fa-check"></span>
                                     </div>
                                 @elseif ($indicador->datos->last()->porcentaje < (int)substr($indicador->rojo, -2)) 
                                     <div class="text-danger">
-                                        O
+                                        <span class="fas fa-check"></span>
                                     </div>
                                 @endif
                             @endif
                         </td>
                         
                     @else
-                        <td>No exite el año</td>  
+                        <td>Año no registrado</td>  
                     @endif
                         
                     
@@ -92,7 +92,7 @@
                     <tr>
                         <td></td>
                         <td colspan="10">
-                            Este objetivo no tiene indicador.
+                            No hay indicadores.
                         </td>
                     </tr>
                 @endforelse
@@ -100,7 +100,7 @@
                 @empty
                 <tr>
                     <td colspan="10">
-                        Esta perspectiva no tiene objetivos.
+                        No hay objetivos.
                     </td>
                 </tr>
                 @endforelse
@@ -108,12 +108,12 @@
         </table>
     </div>            
     <div class="w-100 p-3">
-        <table class="table table-dark table-striped">
-            <thead>
+        <table class="table table-bordered">
+            <thead class="text-center">
                 <th>Indicadores</th>
-                <th class="text-center text-white text-success"> Verde </th> 
-                <th class="text-center text-white text-warning"> Amarillo </th> 
-                <th class="text-center text-white text-danger"> Rojo </th>
+                <th> Verde </th> 
+                <th> Amarillo </th> 
+                <th> Rojo </th>
             </thead>
             <tbody>
                 @forelse ($perspectivaObjetivos->objetivos as $objetivo)
@@ -126,13 +126,13 @@
                     </tr>
                     @empty
                         <tr>
-                            <td colspan="4">Este objetivo no tiene indicadores</td>
+                            <td colspan="4">No hay indicadores</td>
                         </tr>
                     @endforelse
                     
                 @empty
                     <tr>
-                        <td colspan="">Esta perspectiva no tiene objetivos.</td>
+                        <td colspan="4">No hay objetivos.</td>
                     </tr>
                 @endforelse
             </tbody>

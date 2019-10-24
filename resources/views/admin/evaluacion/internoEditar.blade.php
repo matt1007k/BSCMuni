@@ -3,11 +3,8 @@
 @section('content')
     <div class="row  d-flex justify-content-center">
         <div class="col-md-6">
-            <a href="{{route('factor.interno')}}" class="btn btn-secondary">
-               <- Regresar
-            </a>
-            <div class="card">                
-                <div class="card-header h3">Calificar la actividad: "{{$actividad->titulo}}"</div>
+            <div class="card border-dark">                
+                <div class="card-header bg-dark text-white h3">Actividad: "{{$actividad->titulo}}"</div>
                 <div class="card-body ">                  
                     <form action="{{route('factor.evaluacionInterno', $actividad->id)}}" method="POST">
                         @csrf
@@ -62,13 +59,16 @@
                         </div>   
                         <div class="row mt-2">
                             <div class="col m12">
-                                <button type="submit" class="btn btn-primary btn-block">Calificar</button>
+                                <button type="submit" class="btn btn-primary text-uppercase">Evaluar</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            
+            <a href="{{route('factor.interno')}}" class="btn btn-link text-uppercase">
+               <- Ir a factores internos 
+            </a>
+
         </div>        
     </div>
 @endsection

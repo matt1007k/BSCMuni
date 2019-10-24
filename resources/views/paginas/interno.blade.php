@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">                
-            <div class="h2 text-center">Factores Internos</div>
-            <div class="card-body">                            
-                
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="h2 mb-3 pl-2">Factores Internos</div>
+                    
                 <div class="row no-margin text-weight-bold" style="margin: 0 0 10px 0;">
                     <div class="col-md-5 text-center">
                         <div class="bg-info text-white "> Tabla de Evaluación </div>
@@ -39,11 +39,11 @@
                     </div>
                     <div class="col-md-1"></div>
                 </div>
-              
+                  
                 @forelse($areas as $area)
                     <div class="row padding-ultra-small no-margin">
                         <div class="col-md-12 bg-secondary text-white">
-                             <div >{{$area->titulo}} </div>
+                                <div >{{$area->titulo}} </div>
                         </div>
                     </div>
                     @forelse($area->actividades as $actividad)
@@ -78,7 +78,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 @if ($actividad->muy_bueno > 0)
-                                                   {{ $actividad->muy_bueno}}
+                                                    {{ $actividad->muy_bueno}}
                                                 @endif
                                             </div>
                                             <div class="col-md-3">
@@ -109,6 +109,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-1">
+                              
+                            </div>
                         </div>
                     @empty
                         <div class="row no-margin">
@@ -124,21 +127,20 @@
                         </div>
                     </div>
                 @endforelse
-                <div class="w-100 text-center">
-                    {{$areas->links()}}
+            <div class="w-100 text-center">
+                {{$areas->links()}}
+            </div>
+                  
+            <div class="row no-margin mt-3">
+                <div class="col-md-6">
+                    <h5 class="text-danger text-weight-bold">Debilidades: Valor Ponderado < 0</h5>
                 </div>
-              
-                <div class="row no-margin">
-                    <div class="col-md-6">
-                        <h5 class="text-danger text-weight-bold">Debilidades: Valor Ponderado < 0</h5>
-                    </div>
-                    <div class="col-md-6">
-                        <h5 class="text-primary text-weight-bold">Fortalezas: Valor Ponderado > 0</h5>
-                    </div>
+                <div class="col-md-6">
+                    <h5 class="text-primary text-weight-bold">Fortalezas: Valor Ponderado > 0</h5>
                 </div>
             </div>
-        </div>
-        
-    </div>        
+            
+        </div>        
+    </div>
 </div>
 @endsection

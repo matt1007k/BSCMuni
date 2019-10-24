@@ -4,33 +4,33 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="h3 text-center">Objetivos Estratégicos</div>
-            <div class="w-100 mb-3">
-                <a href="{{route('perspectivas.create')}}" class="btn btn-success">
-                    Agregar perspectiva
+            <div class="row d-flex justify-content-between">
+                <div class="h3 text-center">Perspectivas y sus objetivos Estratégicos</div>
+                <a href="{{route('perspectivas.create')}}" class="btn btn-outline-success text-uppercase">
+                    + perspectiva
                 </a>
             </div>
             <div class="row">
                 @if (count($perspectivas) > 0)
                 <div class="mb-1">
-                    <a href="{{route('objetivos.create')}} " class="btn btn-link">Agregar objetivo</a>
+                    <a href="{{route('objetivos.create')}} " class="btn btn-link text-uppercase">Registrar objetivo</a>
                 </div>
                 <br>
                 @foreach ($perspectivas as $perspectiva)
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header row">
-                            <h4 class="col-md-10">{{ $perspectiva->titulo }}</h4>
-                            <div class="col-md d-flex">
-                                <a href="{{route('perspectivas.edit',$perspectiva->id)}}" class="btn btn-sm btn-info">
-                                    Editar
+                <div class="col-md-12 mb-2">
+                    <div class="card border-dark">
+                        <div class="card-header d-flex justify-content-between bg-dark">
+                            <h4 class="text-white no-margin">{{ $perspectiva->titulo }}</h4>
+                            <div class="d-flex">
+                                <a href="{{route('perspectivas.edit',$perspectiva->id)}}" class="btn btn-sm btn-outline-info text-uppercase">
+                                    - Editar
                                 </a>
                                 <form action="{{route('perspectivas.destroy',$perspectiva->id)}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button type="submit"
-                                        class="ml-1 btn btn-sm btn-danger">
-                                        Eliminar
+                                        class="ml-1 btn btn-sm btn-outline-danger text-uppercase">
+                                        x Eliminar
                                     </button>
                                 </form>
                             </div>
@@ -39,45 +39,33 @@
                     
                         <div class="card-body">
 
+                            <ul class="list-unstyled no-margin">
                             @forelse ($perspectiva->objetivos as $objetivo)
-                            <ul class="list-group">
-                                <li class="list-group-item row">                                
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <p class="no-margin">{{$objetivo->slug}}</p>
-                                        </div>
-                
-                                        <div class="col-md-7">
-                                            <p>{{$objetivo->contenido}}</p>
-                                        </div>
-                                        <div class="col-md d-flex">
-                                            <a href="{{route('asignarEstrategia',$objetivo->id)}}" class="btn btn-sm btn-dark">
-                                                Asignar estrategias
-                                            </a>
-                                            <a href="{{route('objetivos.edit',$objetivo->id)}} " class="ml-1 btn btn-sm btn-info">
-                                                Editar
-                                            </a>
-                                            <form action="{{route('objetivos.destroy',$objetivo->id)}}" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="ml-1 btn btn-sm btn-danger">
-                                                    Eliminar
-                                                </button>
-                                            </form>
-                                        </div>
-                
+                                <li class="d-flex justify-content-between pt-2 pb-2"> 
+                                    <div>
+                                        <span class="no-margin pr-2 font-weight-bold">{{$objetivo->slug}}:</span>                        
+                                        <span class="no-margin text-left">{{$objetivo->contenido}}</span>                                        
+                                    </div>  
+                                    <div class="d-flex">                                            
+                                        <a href="{{route('objetivos.edit',$objetivo->id)}}" class="ml-1 btn btn-sm btn-outline-info text-uppercase">
+                                            - Editar
+                                        </a>
+                                        <form action="{{route('objetivos.destroy',$objetivo->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="ml-1 btn btn-sm btn-outline-danger text-uppercase">
+                                                x Eliminar
+                                            </button>
+                                        </form>
                                     </div>
+                
                                 </li>
+                                @empty
+                                <li>
+                                    <p class="no-margin">No tiene objetivos...</p>
+                                </li>
+                                @endforelse
                             </ul>
-                            @empty
-                            <div class="row">
-        
-                                <div class="col-md-12">
-                                    <p>No tiene objetivos...</p>
-                                </div>
-        
-                            </div>
-                            @endforelse
                         </div>
                     </div>
                 </div>

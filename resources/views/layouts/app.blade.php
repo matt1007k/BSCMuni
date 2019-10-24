@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>BSC Constructora</title>
+    <title>BSC </title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -18,20 +18,16 @@
     <link href="{{ asset('css/fontawesome.min.css') }}" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
     <div id="app">
+        @if (session('msg'))
+            <div class="bg-success text-white text-center h6 p-3 no-margin">
+                {{session('msg')}}                
+            </div>
+        @endif
         @include('partials.navbar')
 
-        @if (session('msg'))
-        <div class="container-fluid">
-            <div class="alert alert-success padding-small">
-                {{session('msg')}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-        @endif
+        
         
         @yield('content')
 

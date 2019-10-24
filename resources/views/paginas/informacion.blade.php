@@ -1,55 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+    <div class="container">
 
-    <div class="row">
-        <div class="col-md">                                   
-            <div class="row mb-2">
-                <div class="col-md-12">
-                    <div class="card-title h3 text-center">
-                        Información de la organización
+        <div class="row">
+            <div class="col-md">                                   
+                <div class="row mb-2 d-flex">
+                    <div class="col-md">
+                        <div class="h3 ">
+                            Datos de la organización
+                        </div>
+                        
                     </div>
-                </div>
-            </div>  
-            <div class="row">    
-                <div class="col-md-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Misión</th>
-                                <th>Visión</th>
-                                <th>Macroproceso</th>
-                            </tr>
-                        </thead>
-                
-                        <tbody>
-                            @forelse ($informaciones as $informacion)
-                                <tr>
-                                    <td>{{ $informacion->nombre }}</td>
-                                    <td>{{ $informacion->mision }}</td>
-                                    <td>{{ $informacion->vision }}</td>
-                                    <td>{{ $informacion->macroproceso }}</td>
-                                    
-                                </tr>
-                            @empty                                        
-                                
-                                <tr>
-                                    <td colspan="5">No hay ningún registro!!!</td>
-                                </tr>
-                                    
-                            @endforelse
-                                                            
+                    
+                </div>  
+                <div class="row">    
+                    <div class="col-md-12">
+                        @forelse ($informaciones as $informacion)
+                        <div class="card">
+                            <div class="card-body row">
+                                <div class="col-md-8">
+                                    <div class="card-title h4">{{ $informacion->nombre }}</div>
+                                    <div class="card-text"><span class="font-weight-bold">Macroproceso: </span>{{ $informacion->macroproceso }}</div>
+                                    <div class="d-flex">
+                                        <span class="font-weight-bold mr-2">Vision: </span> {{ $informacion->vision }}
+                                    </div>
+                                    <div class="d-flex">
+                                        <span class="font-weight-bold mr-2">Mision: </span> {{ $informacion->mision }}
+                                    </div>
+                                </div>
+                                 
+                            </div>
+                        </div>
+                    </div>
+                    @empty                                        
+                             
+                        <div class="h3">No hay ningún registro!!!</div>
                             
-                        </tbody>
-                    </table>
+                    @endforelse
                     <div class="w-100 text-center">
                         {{ $informaciones->links() }}
-                    </div>    
+                    </div>   
                 </div>
-            </div>
-        </div>      
+            </div>      
+        </div>
     </div>
-</div>
 @endsection

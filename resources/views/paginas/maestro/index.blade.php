@@ -3,30 +3,32 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 d-flex justify-center align-items-center">
+        <div class="col-md-12">
             <h3>Maestro</h3>
+            <p>Filtrar para comparar si se cumplieron los objetivos</p>
         </div>
     </div>
-    <div class="w-100 pl-4">
+    <div class="w-100 pr-4 mb-2 d-flex justify-content-end">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalFiltrar">
-            Filtrar por valor
+        <button type="button" class="btn btn-outline-primary text-uppercase" data-toggle="modal" data-target="#modalFiltrar">
+            Filtrar
         </button>
 
         @include('paginas.maestro._modalFiltrar')
     </div>
-    <div class="w-100 text-center">
-        <div class="ml-3 padding-ultra-small">
-            <div class="btn-group" role="group" aria-label="Filtro perspectivas">
+    <div class="card border-dark mb-4">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
                 @forelse ($perspectivas as $perspectiva)
-                    <a href="{{url('/maestro?perspectiva='.$perspectiva->slug)}}" class="btn btn-info @if($perspectiva->slug === $perspectivaObjetivos->slug) active @endif">{{$perspectiva->titulo}}</a>
+                    <li class="nav-item">
+                        <a class="nav-link @if($perspectiva->slug === $perspectivaObjetivos->slug) active @endif" href="{{url('/maestro?perspectiva='.$perspectiva->slug)}}">{{$perspectiva->titulo}}</a>
+                    </li>
                 @empty
-                    <option value="">No hay perspectiva</option>
+                    <li>No hay perspectiva</li>
                 @endforelse
-            </div>                        
+                
+            </ul>
         </div>
-    </div>
-    <div class="card">
         <div class="card-body">
             @if(count($perspectivas) > 0)
                 @if ($perspectivaObjetivos->slug === 'FI')
@@ -53,7 +55,7 @@
                 ])
         
                 @elseif ($perspectivaObjetivos->slug === 'AP')
-                @include('admin.maestro.perspectivaObjetivos', [
+                @include('paginas.maestro.perspectivaObjetivos', [
                 'perspectivaObjetivos' => $perspectivaObjetivos,
                 'anio_anterior' => $anio_anterior,
                 'anio_actual' => $anio_actual,
@@ -70,4 +72,6 @@
     </div>
 
 </div>
+
+
 @endsection

@@ -2,23 +2,25 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-12 d-flex justify-center align-items-center">
-            <h3>Resumen del BSC</h3>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h3>Resumen</h3>
+            <p>Resumen del BSC por objetivos a lograr</p>
         </div>
     </div>
-    <div class="w-100 text-center">
-        <div class="ml-3 padding-ultra-small">
-            <div class="btn-group" role="group" aria-label="Filtro perspectivas">
+    <div class="card border-dark mb-4">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
                 @forelse ($perspectivas as $perspectiva)
-                    <a href="{{url('/perspectivas-resumen?perspectiva='.$perspectiva->slug)}}" class="btn btn-info @if($perspectiva->slug === $perspectivaObjetivos->slug) active @endif">{{$perspectiva->titulo}}</a>
+                    <li class="nav-item">
+                        <a class="nav-link @if($perspectiva->slug === $perspectivaObjetivos->slug) active @endif" href="{{url('/perspectivas-resumen?perspectiva='.$perspectiva->slug)}}">{{$perspectiva->titulo}}</a>
+                    </li>
                 @empty
-                    <option value="">No hay perspectiva</option>
+                    <li>No hay perspectiva</li>
                 @endforelse
-            </div>                        
+                
+            </ul>
         </div>
-    </div>
-    <div class="card">
         <div class="card-body">
 
             @if(count($perspectivas) > 0)

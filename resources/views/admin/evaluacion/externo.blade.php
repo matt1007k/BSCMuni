@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container-fluid">
+
     <div class="row">
         <div class="col-md-12">
-            <div class="card">                
-                <div class="text-center h3">Factores Externo</div>
-                <div class="card-body">                            
+                           
+            <div class="h3 mb-3">Factores Externos</div>
+                                        
                     
                     <div class="row no-margin text-weight-bold" style="margin: 0 0 10px 0;">
                         <div class="col-md-5 text-center">
@@ -110,13 +112,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md">
-                                    <a href="{{route('factor.externoEditar', $factor->id)}}" class="btn btn-info btn-sm">
-                                        Calificar
+                                    <a href="{{route('factor.externoEditar', $factor->id)}}" class="btn btn-outline-info btn-sm text-uppercase">
+                                        Evaluar
                                     </a>
                                 </div>
                             </div>
                         @empty
-                            <div class="row no-margin">
+                            <div class="row no-margin  mb-3">
                                 <div class="col-md-12">
                                     No tiene factores
                                 </div>
@@ -146,4 +148,5 @@
             
         </div>        
     </div>
+</div>
 @endsection

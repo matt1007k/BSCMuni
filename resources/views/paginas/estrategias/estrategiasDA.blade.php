@@ -1,7 +1,7 @@
-    <div class="row">
+<div class="row">
         <div class="col-md-6">
             <div class="foda" style="max-width: 100%">
-                <img src="{{ asset('img/foda.svg') }}" alt="foda" class="w-100">
+                <img src="{{ asset('img/foda.png') }}" alt="foda" class="w-100">
             </div>
         </div>
         <div class="col-md-6">
@@ -45,7 +45,7 @@
             </ul>
         </div>
         <div class="col-md-6">
-            <h5 class="text-center bg-primary p-2 text-white">Estrategias DA </h5>            
+            <h5 class="text-center bg-dark p-2 text-white d-flex justify-content-between"><span>Estrategias DA</span> </h5>            
             <ul class="list-group">
                @forelse ($estrategias as $estrategia)                                 
                     <li class="list-group-item">
@@ -53,9 +53,10 @@
                             <div class="col-md-2 bd1-gray">
                                 {{$estrategia->foda}}
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-7">
                                 {{$estrategia->contenido}}
                             </div>
+                            
                         </div> 
                     </li>
                          

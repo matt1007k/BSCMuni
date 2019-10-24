@@ -1,9 +1,9 @@
 @csrf
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="titulo">Titulo de la perspectiva</label>
-    <textarea name="titulo" id="titulo" class="form-control @error('titulo') is-invalid @enderror">{{ old('titulo', $perspectiva->titulo) }}</textarea>
+    <textarea name="titulo" id="titulo" class="form-control form-control-sm  @error('titulo') is-invalid @enderror">{{ old('titulo', $perspectiva->titulo) }}</textarea>
     @error('titulo')
         <span class="invalid-feedback" role="alert">{{ $message }}</span>
     @enderror
 </div>
-<button type="submit" class="btn btn-primary btn-block">Guardar</button>
+<button type="submit" class="btn btn-primary text-uppercase">{{ $btnT }}</button>

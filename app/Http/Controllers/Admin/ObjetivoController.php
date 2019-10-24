@@ -24,9 +24,11 @@ class ObjetivoController extends Controller
     public function create()
     {
         $perspectivas = Perspectiva::orderBy('titulo')->get();
+        $estrategias = Estrategia::all();
 
         return view('admin.objetivos.create', [
             'perspectivas' => $perspectivas,
+            'estrategias' => $estrategias,
             'objetivo' => new Objetivo,
         ]);
     }
@@ -48,6 +50,10 @@ class ObjetivoController extends Controller
         $length = Objetivo::where('perspectiva_id', $perspectiva->id)->get();
         $objetivo->slug = $primera_letra . ($length->count() + 1);
 
+        if ($request->has('estrategias')) {
+            $objetivo->estrategias()->sync($request->estrategias);
+        }
+
         if ($objetivo->save()) {
             return redirect()->route('objetivos.index')
                 ->with('msg', 'Registro completado con exito');
@@ -61,9 +67,11 @@ class ObjetivoController extends Controller
     {
         $objetivo = Objetivo::findOrFail($id);
         $perspectivas = Perspectiva::orderBy('titulo')->get();
+        $estrategias = Estrategia::all();
 
         return view('admin.objetivos.edit', [
             'perspectivas' => $perspectivas,
+            'estrategias' => $estrategias,
             'objetivo' => $objetivo,
         ]);
     }
@@ -86,6 +94,10 @@ class ObjetivoController extends Controller
         }
 
         $objetivo->perspectiva_id = $request->perspectiva_id;
+
+        if ($request->has('estrategias')) {
+            $objetivo->estrategias()->sync($request->estrategias);
+        }
 
         if ($objetivo->save()) {
             return redirect()->route('objetivos.index')
@@ -110,7 +122,7 @@ class ObjetivoController extends Controller
     public function asignarEstrategias($objetivo_id)
     {
         $objetivo = Objetivo::findOrFail($objetivo_id);
-        $estrategias = Estrategia::paginate(10);
+        $estrategias = Estrategia::all();
         return view('admin.objetivos.asignarEstrategia', [
             'estrategias' => $estrategias,
             'objetivo' => $objetivo,

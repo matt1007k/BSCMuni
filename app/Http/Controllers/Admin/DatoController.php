@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Dato;
 use App\Http\Controllers\Controller;
 use App\Indicador;
+use App\Objetivo;
 use App\Perspectiva;
 use Illuminate\Http\Request;
 
@@ -38,37 +39,73 @@ class DatoController extends Controller
 
     public function grafica($indicador_id)
     {
-        $indicador = Indicador::findOrFail($indicador_id);
+        $objetivo = Objetivo::findOrFail($indicador_id);
 
-        $datos = array();
+        $indicadores = array();
 
-        foreach ($indicador->datos as $dato) {
-            $random_number1 = rand(0, 255);
-            $random_number2 = rand(0, 255);
-            $random_number3 = rand(0, 255);
-            array_push($datos, (object) [
-                "label" => $dato->anio,
-                "backgroundColor" => "rgb($random_number1, $random_number2, $random_number3)",
-                //Data to be represented on y-axis
-                "data" => [
-                    $dato->enero,
-                    $dato->febrero,
-                    $dato->marzo,
-                    $dato->abril,
-                    $dato->mayo,
-                    $dato->junio,
-                    $dato->julio,
-                    $dato->agosto,
-                    $dato->septiembre,
-                    $dato->octubre,
-                    $dato->noviembre,
-                    $dato->diciembre,
-                ],
+        foreach ($objetivo->indicadores as $indicador) {
+            $datos = array();
+            foreach ($indicador->datos as $dato) {
+                $random_number1 = rand(0, 255);
+                $random_number2 = rand(0, 255);
+                $random_number3 = rand(0, 255);
+                array_push($datos, (object) [
+                    "label" => $dato->anio,
+                    "backgroundColor" => "rgb($random_number1, $random_number2, $random_number3)",
+                    //Data to be represented on y-axis
+                    "data" => [
+                        $dato->enero,
+                        $dato->febrero,
+                        $dato->marzo,
+                        $dato->abril,
+                        $dato->mayo,
+                        $dato->junio,
+                        $dato->julio,
+                        $dato->agosto,
+                        $dato->septiembre,
+                        $dato->octubre,
+                        $dato->noviembre,
+                        $dato->diciembre,
+                    ],
+                ]);
+            }
+
+            array_push($indicadores, [
+                'indicador' => $indicador,
+                'datos_grafica' => $datos,
             ]);
         }
 
+        // return $indicadores;
+        // $datos = array();
+
+        // foreach ($indicador->datos as $dato) {
+        //     $random_number1 = rand(0, 255);
+        //     $random_number2 = rand(0, 255);
+        //     $random_number3 = rand(0, 255);
+        //     array_push($datos, (object) [
+        //         "label" => $dato->anio,
+        //         "backgroundColor" => "rgb($random_number1, $random_number2, $random_number3)",
+        //         //Data to be represented on y-axis
+        //         "data" => [
+        //             $dato->enero,
+        //             $dato->febrero,
+        //             $dato->marzo,
+        //             $dato->abril,
+        //             $dato->mayo,
+        //             $dato->junio,
+        //             $dato->julio,
+        //             $dato->agosto,
+        //             $dato->septiembre,
+        //             $dato->octubre,
+        //             $dato->noviembre,
+        //             $dato->diciembre,
+        //         ],
+        //     ]);
+        // }
+
         // return $datos;
-        return view('admin.datos.grafico', ['datos' => $datos, 'indicador' => $indicador]);
+        return view('admin.datos.grafico', ['objetivo' => $objetivo, 'indicadores' => $indicadores]);
     }
 
     public function store(Request $request)

@@ -1,56 +1,59 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <h3>Todos los indicadores</h3>
+<div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <h3>Lista de Indicadores</h3>
+            </div>
         </div>
-    </div>
-    <div class="w-100 text-center">
-        <div class="ml-3 padding-ultra-small">
-            <div class="btn-group" role="group" aria-label="Filtro perspectivas">
-                @forelse ($perspectivas as $perspectiva)
-                    <a href="{{url('/objetivos/indicadores?perspectiva='.$perspectiva->slug)}}" class="btn btn-info @if($perspectiva->slug === $perspectivaObjetivos->slug) active @endif">{{$perspectiva->titulo}}</a>
-                @empty
-                    <option value="">No hay perspectiva</option>
-                @endforelse
-            </div>                        
-        </div>
-    </div>
-
-    
-    <div class="card">
-        <div class="card-body">
-            @if(count($perspectivas) > 0)
-                @if ($perspectivaObjetivos->slug === 'FI')
-                @include('paginas.indicadores.perspectivaObjetivos', [
-                'perspectivaObjetivos' => $perspectivaObjetivos
-                ])
-                @elseif ($perspectivaObjetivos->slug === 'CL')
-                @include('paginas.indicadores.perspectivaObjetivos', [
-                'perspectivaObjetivos' => $perspectivaObjetivos
-                ])
-    
-                @elseif ($perspectivaObjetivos->slug === 'PR')
-                @include('paginas.indicadores.perspectivaObjetivos', [
-                'perspectivaObjetivos' => $perspectivaObjetivos
-                ])
-    
-                @elseif ($perspectivaObjetivos->slug === 'AP')
-                @include('paginas.indicadores.perspectivaObjetivos', [
-                'perspectivaObjetivos' => $perspectivaObjetivos
-                ])
+        
+        <div class="card border-dark mb-4">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    @forelse ($perspectivas as $perspectiva)
+                        <li class="nav-item">
+                            <a class="nav-link @if($perspectiva->slug === $perspectivaObjetivos->slug) active @endif" href="{{url('/objetivos/indicadores?perspectiva='.$perspectiva->slug)}}">{{$perspectiva->titulo}}</a>
+                        </li>
+                    @empty
+                        <li>No hay perspectiva</li>
+                    @endforelse
+                    
+                </ul>
+            </div>
+            <div class="card-body">
+                @if(count($perspectivas) > 0)
+                    @if ($perspectivaObjetivos->slug === 'FI')
+                    @include('paginas.indicadores.perspectivaObjetivos', [
+                    'perspectivaObjetivos' => $perspectivaObjetivos
+                    ])
+                    @elseif ($perspectivaObjetivos->slug === 'CL')
+                    @include('paginas.indicadores.perspectivaObjetivos', [
+                    'perspectivaObjetivos' => $perspectivaObjetivos
+                    ])
+        
+                    @elseif ($perspectivaObjetivos->slug === 'PR')
+                    @include('paginas.indicadores.perspectivaObjetivos', [
+                    'perspectivaObjetivos' => $perspectivaObjetivos
+                    ])
+        
+                    @elseif ($perspectivaObjetivos->slug === 'AP')
+                    @include('paginas.indicadores.perspectivaObjetivos', [
+                    'perspectivaObjetivos' => $perspectivaObjetivos
+                    ])
+                    @else
+                    <div>No existe esta perspectiva.</div>
+        
+                    @endif
+        
                 @else
-                <div>No existe esta perspectiva.</div>
-    
+                <div>No hay perspectivas registradas.</div>
+        
                 @endif
-    
-            @else
-            <div>No hay perspectivas registradas.</div>
-    
-            @endif
+            </div>
         </div>
-    </div>
+        
+
+
 </div>
 @endsection

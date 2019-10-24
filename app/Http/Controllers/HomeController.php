@@ -23,7 +23,7 @@ class HomeController extends Controller
     {
         $paginas = [
             [
-                'titulo' => 'Información de la organización',
+                'titulo' => 'La organización',
                 // 'icono' => 'eva eva-briefcase-outline',
                 'ruta' => 'informaciones.index',
             ],
