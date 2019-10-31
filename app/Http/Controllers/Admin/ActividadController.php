@@ -19,6 +19,11 @@ class ActividadController extends Controller
         ]);
     }
 
+    public function fceCm()
+    {
+        $actividades = Actividad::all();
+        return view('admin.actividades.fceCm', ['actividades' => $actividades]);
+    }
     public function create()
     {
         $areas = Area::orderBy('titulo')->get();

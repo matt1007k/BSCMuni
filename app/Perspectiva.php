@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perspectiva extends Model
 {
-   protected $fillable = ['slug', 'titulo'];
+    protected $fillable = ['slug', 'titulo'];
 
-   public function objetivos(){
-     return $this->hasMany('App\Objetivo');
-   }
+    public function objetivos()
+    {
+        return $this->hasMany('App\Objetivo');
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Estrategia;
 use App\Http\Controllers\Controller;
+use App\Informacion;
 use App\Objetivo;
 use App\Perspectiva;
 use Illuminate\Http\Request;
@@ -18,6 +19,19 @@ class ObjetivoController extends Controller
 
         return view('admin.objetivos.index', [
             'perspectivas' => $perspectivas,
+        ]);
+    }
+
+    public function visionAccion(Request $request)
+    {
+        $perspectivas = Perspectiva::orderBy('created_at')->get();
+        $estrategias = Estrategia::all();
+        $informacion = Informacion::first();
+
+        return view('admin.objetivos.vision_accion', [
+            'perspectivas' => $perspectivas,
+            'estrategias' => $estrategias,
+            'informacion' => $informacion,
         ]);
     }
 
@@ -85,7 +99,7 @@ class ObjetivoController extends Controller
 
         $objetivo = Objetivo::findOrFail($id);
         $objetivo->contenido = $request->contenido;
-        if ($request->perspectiva_id !== $objetivo->perspectiva_id) {
+        if ($request->perspectiva_id != $objetivo->perspectiva_id) {
             $perspectiva = Perspectiva::findOrFail($request->perspectiva_id);
             $primera_letra = substr($perspectiva->slug, 0, 1);
 

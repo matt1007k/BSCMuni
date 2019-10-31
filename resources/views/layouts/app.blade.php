@@ -21,20 +21,20 @@
 <body class="bg-light">
     <div id="app">
         @if (session('msg'))
-            <div class="bg-success text-white text-center h6 p-3 no-margin">
-                {{session('msg')}}                
-            </div>
+        <div class="bg-success text-white text-center h6 p-3 no-margin">
+            {{session('msg')}}
+        </div>
         @endif
         @include('partials.navbar')
 
-        
-        
+
+
         @yield('content')
 
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    
+
     @stack('scripts')
 </body>
 

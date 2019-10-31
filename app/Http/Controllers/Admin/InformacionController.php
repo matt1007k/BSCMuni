@@ -16,6 +16,11 @@ class InformacionController extends Controller
         ]);
     }
 
+    public function organigrama()
+    {
+        return view('admin.informaciones.organigrama');
+    }
+
     public function create()
     {
         return view('admin.informaciones.create', [

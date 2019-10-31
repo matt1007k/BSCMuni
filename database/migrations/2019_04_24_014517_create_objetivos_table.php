@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateObjetivosTable extends Migration
 {
@@ -17,9 +17,10 @@ class CreateObjetivosTable extends Migration
             $table->bigIncrements('id');
             $table->string('slug', 10);
             $table->text('contenido');
+            $table->string('relacion', 5);
             $table->unsignedBigInteger('perspectiva_id');
             $table->foreign('perspectiva_id')->references('id')
-                    ->on('perspectivas')->onDelete('cascade');
+                ->on('perspectivas')->onDelete('cascade');
             $table->timestamps();
         });
     }

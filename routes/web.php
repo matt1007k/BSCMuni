@@ -35,13 +35,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::namespace ('Admin')->group(function () {
 
-        Route::resource('informaciones', 'InformacionController')
-            ->except(['show']);
+        Route::resource('informaciones', 'InformacionController')->except(['show']);
+        Route::get('/organigrama', 'InformacionController@organigrama')->name('informaciones.organigrama');
 
-        Route::resource('procesos', 'ProcesoController')
-            ->except(['show']);
-        Route::resource('subprocesos', 'SubprocesoController')
-            ->except(['index, show']);
+        Route::resource('procesos', 'ProcesoController')->except(['show']);
+        Route::resource('subprocesos', 'SubprocesoController')->except(['index, show']);
 
         Route::resource('areas', 'AreaController');
         Route::resource('actividades', 'ActividadController');
@@ -49,20 +47,17 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('fuerzas', 'FuerzaController');
         Route::resource('factores', 'FactorController');
 
-        Route::resource('perspectivas', 'PerspectivaController')
-            ->except(['index, show']);
-        Route::resource('objetivos', 'ObjetivoController')
-            ->except(['show']);
-        Route::resource('mapas', 'MapaController')
-            ->except(['create', 'edit', 'show']);
+        Route::resource('perspectivas', 'PerspectivaController')->except(['index, show']);
+        Route::resource('objetivos', 'ObjetivoController')->except(['show']);
+        Route::get('/vision-accion', 'ObjetivoController@visionAccion')->name('objetivos.accion');
 
-        Route::resource('indicadores', 'IndicadorController')
-            ->except(['show', 'create', 'edit']);
+        Route::resource('mapas', 'MapaController')->except(['update', 'create', 'edit', 'show']);
+
+        Route::resource('indicadores', 'IndicadorController')->except(['show', 'create', 'edit']);
         Route::get('/indicadores/create/{objetivo_id}', 'IndicadorController@create')->name('indicadores.create');
         Route::get('/indicadores/{id}/edit/{objetivo_id}', 'IndicadorController@edit')->name('indicadores.edit');
 
-        Route::resource('datos', 'DatoController')
-            ->except(['show', 'create', 'edit']);
+        Route::resource('datos', 'DatoController')->except(['show', 'create', 'edit']);
         Route::get('/datos/create/{indicador_id}', 'DatoController@create')->name('datos.create');
         Route::get('/datos/{id}/edit/{indicador_id}', 'DatoController@edit')->name('datos.edit');
         Route::get('/datos/grafica/{indicador_id}', 'DatoController@grafica')->name('datos.grafica');
@@ -82,11 +77,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/foda/estrategia/{tipo}', 'EstrategiaController@create')->name('estrategias.create');
         Route::get('/foda/estrategia/{tipo}/{id}', 'EstrategiaController@edit')->name('estrategias.edit');
 
-        Route::resource('estrategias', 'EstrategiaController')
-            ->except(['index, show', 'create', 'edit']);
+        Route::resource('estrategias', 'EstrategiaController')->except(['index, show', 'create', 'edit']);
 
         Route::get('perspectivas-maestro', 'MaestroController@maestro')->name('maestro.index');
         Route::get('perspectivas-resumen', 'MaestroController@resumen')->name('maestro.resumen');
+        Route::get('fce-cm', 'ActividadController@fceCm')->name('fce.cm');
+        Route::resource('proposiciones', 'ProposicionController')->except(['show']);
     });
 
 });

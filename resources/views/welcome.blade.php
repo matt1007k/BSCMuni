@@ -19,7 +19,7 @@
                     </li>
                 @endforeach    
             </ul>
-            <div class="col-md-7" style="background: url(https://images.pexels.com/photos/1005638/pexels-photo-1005638.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940); background-cover:center">
+            <div class="col-md-7" style="background: url({{asset('img/tienda.jpeg')}}); background-cover:center">
             </div>
         </div>
         

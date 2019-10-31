@@ -33,6 +33,10 @@ class HomeController extends Controller
                 'ruta' => 'procesos.index',
             ],
             [
+                'titulo' => 'Organigrama',
+                'ruta' => 'informaciones.organigrama',
+            ],
+            [
                 'titulo' => 'Cadena de valor',
                 // 'icono' => 'eva eva-activity-outline',
                 'ruta' => 'actividades.index',
@@ -53,9 +57,21 @@ class HomeController extends Controller
                 'ruta' => 'factor.externo',
             ],
             [
+                'titulo' => 'Factores Claves del Exito vs Capacidades Medulares',
+                'ruta' => 'fce.cm',
+            ],
+            [
                 'titulo' => 'Matriz foda',
                 // 'icono' => 'eva eva-keypad-outline',
                 'ruta' => 'estrategias.foda',
+            ],
+            [
+                'titulo' => 'Proposición de Valor',
+                'ruta' => 'proposiciones.index',
+            ],
+            [
+                'titulo' => 'Visión en Acción',
+                'ruta' => 'objetivos.accion',
             ],
             [
                 'titulo' => 'Objetivos Estratégico',
