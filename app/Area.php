@@ -11,4 +11,5 @@ class Area extends Model
    public function actividades(){
        return $this->hasMany('App\Actividad');
    }
+   
 }

@@ -1,41 +1,42 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light p-4 mb-2">
-    <div class="container">
+<!-- partial:partials/_navbar.html -->
+<nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        <a class="navbar-brand brand-logo" href="index.html">
+            <img src="{{ asset('/images/logo.svg') }}" alt="logo" />
+        </a>
+        <a class="navbar-brand brand-logo-mini" href="index.html">
+            <img src="{{ asset('/images/logo-mini.svg') }}" alt="logo" />
+        </a>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-center">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+                <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown"
+                    aria-expanded="false">
+                    <img class="img-xs rounded-circle" src="{{ asset('/images/faces/face8.jpg') }}" alt="Profile image">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                    <div class="dropdown-header text-center">
+                        <img class="img-md rounded-circle" src="{{ asset('/images/faces/face8.jpg') }}"
+                            alt="Profile image">
+                        <p class="mb-1 mt-3 font-weight-semibold">{{ Auth::user()->name }}</p>
+                        <p class="font-weight-light text-muted mb-0">{{ Auth::user()->email }}</p>
+                    </div>
+                    <a href="#" class="dropdown-item">Mi perfil</a>
 
-        @guest
-            <a href="{{ url('/') }}" class="navbar-brand h4"><span class="text-primary">BSC</span>Tienda</a>
-        @else    
-            <a href="{{ url('/home') }}" class="navbar-brand h4"><span class="text-primary">BSC</span>Tienda</a>
-        @endguest
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                @guest
-                <li class="nav-item">
-                    <a href="{{ route('login') }}" class="nav-link text-uppercase">Ingresar</a>
-                    
-                </li>
-                {{-- @if (Route::has('register')) --}}
-                <li class="nav-item">
-                    <a href="{{ route('register') }}" class="btn btn-outline-info text-uppercase">Crear cuenta</a>
-                </li>
-                {{-- @endif --}}
-                @else
-                <li class="nav-item">
-                    
-                    <a href="{{ route('logout') }}"
-                        class="btn btn-outline-danger text-uppercase"
-                        onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();"
-                            >Salir del sistema</a>
-                
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <a href="#" class="dropdown-item"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Cerrar
+                        sesión<i class="dropdown-item-icon ti-power-off"></i></a>
+                    <form id="logout-form" class="d-none" action="{{ route('logout') }}" method="POST"
+                        style="display: none;">
                         @csrf
                     </form>
-                </li>
-                @endguest
-            </ul>
-        </div>
+                </div>
+            </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+            data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+        </button>
     </div>
 </nav>

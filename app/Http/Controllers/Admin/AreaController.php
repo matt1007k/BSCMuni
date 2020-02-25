@@ -8,17 +8,15 @@ use Illuminate\Http\Request;
 
 class AreaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        $areas = Area::orderBy('created_at')->paginate(6);
+
         return view('admin.areas.index', [
             'areas' => $areas,
         ]);
     }
+
 
     public function create()
     {

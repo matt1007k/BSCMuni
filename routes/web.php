@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,9 +33,10 @@ Route::get('/resumen', 'PaginasController@resumen')->name('paginas.resumen');
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', 'HomeController@index')->name('home');
+    // Route::get('/home', 'HomeController@index')->name('home');
+    Route::redirect('/home', '/informaciones', 301);
 
-    Route::namespace ('Admin')->group(function () {
+    Route::namespace('Admin')->group(function () {
 
         Route::resource('informaciones', 'InformacionController')->except(['show']);
         Route::get('/organigrama', 'InformacionController@organigrama')->name('informaciones.organigrama');
@@ -42,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('subprocesos', 'SubprocesoController')->except(['index, show']);
 
         Route::resource('areas', 'AreaController');
-        Route::resource('actividades', 'ActividadController');
+        Route::resource('areas.activities', 'ActividadController')->only(['create', 'store', 'edit', 'update', 'destroy']);
 
         Route::resource('fuerzas', 'FuerzaController');
         Route::resource('factores', 'FactorController');
@@ -83,6 +86,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('perspectivas-resumen', 'MaestroController@resumen')->name('maestro.resumen');
         Route::get('fce-cm', 'ActividadController@fceCm')->name('fce.cm');
         Route::resource('proposiciones', 'ProposicionController')->except(['show']);
-    });
 
+        Route::get('/resumen/grafica/{perspectiva_id}', 'MaestroController@grafica')->name('maestro.resumen.grafica');
+    });
 });

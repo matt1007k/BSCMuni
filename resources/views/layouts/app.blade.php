@@ -10,32 +10,69 @@
 
     <title>BSC </title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/vendors/iconfonts/ionicons/css/ionicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('/vendors/iconfonts/typicons/src/font/typicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('/vendors/css/vendor.bundle.addons.css') }}">
+    <link rel="stylesheet" href="{{ asset('/vendors/jquery-toast/jquery.toast.css') }}">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/fontawesome.min.css') }}" rel="stylesheet">
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{ asset('/css/shared/style.css') }}">
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{{ asset('/css/demo_1/style.css') }}">
 </head>
 
-<body class="bg-light">
+<body>
     <div id="app">
-        @if (session('msg'))
-        <div class="bg-success text-white text-center h6 p-3 no-margin">
-            {{session('msg')}}
+        <div class="container-scroller">
+            <!-- partial -->
+            @include('partials.navbar')
+            <div class="container-fluid page-body-wrapper">
+                @include('partials.sidebar')
+                <!-- main -->
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        @yield('header-content')
+
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </div>
-        @endif
-        @include('partials.navbar')
+        <!-- Scripts -->
+        <script src="{{ asset('/vendors/js/vendor.bundle.base.js') }}"></script>
+        <script src="{{ asset('/vendors/js/vendor.bundle.addons.js') }}"></script>
+        <script src="{{ asset('/vendors/jquery-toast/jquery.toast.js') }}"></script>
+        <!-- endinject -->
+        <!-- inject:js -->
+        <script src="{{ asset('/js/shared/off-canvas.js') }}"></script>
+        <script src="{{ asset('/js/shared/misc.js') }}"></script>
 
+        <!-- Custom js for this page-->
+        <script src="{{ asset('js/demo_1/dashboard.js') }}" defer></script>
 
-
-        @yield('content')
-
-    </div>
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    @stack('scripts')
+        @stack('scripts')
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+            @if(session('msg'))
+            $.toast({
+                heading: 'Mensaje del sistema',
+                text: "{{session('msg')}}",
+                icon: 'success',
+                position: 'top-right',       // Change it to false to disable loader
+                loaderBg: '#9EC600'  // To change the background
+            })
+            @endif
+        </script>
+        <style>
+            .nav-item.active {
+                background: rgb(15, 37, 213);
+            }
+        </style>
 </body>
 
 </html>

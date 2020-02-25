@@ -9,90 +9,54 @@ use Illuminate\Http\Request;
 
 class ActividadController extends Controller
 {
-
-    public function index()
-    {
-        $areas = Area::orderBy('created_at')->paginate(6);
-
-        return view('admin.actividades.index', [
-            'areas' => $areas,
-        ]);
-    }
-
     public function fceCm()
     {
         $actividades = Actividad::all();
         return view('admin.actividades.fceCm', ['actividades' => $actividades]);
     }
-    public function create()
-    {
-        $areas = Area::orderBy('titulo')->get();
 
+    public function create(Area $area)
+    {
         return view('admin.actividades.create', [
-            'areas' => $areas,
+            'area' => $area,
             'actividad' => new Actividad,
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Area $area)
     {
         $request->validate([
-            'titulo' => 'required|max:100',
-            'area_id' => 'required',
+            'titulo' => 'required|max:100'
         ]);
 
-        $actividad = new Actividad();
-        $actividad->titulo = $request->titulo;
-        $actividad->area_id = $request->area_id;
-
-        if ($actividad->save()) {
-            return redirect()->route('actividades.index')
-                ->with('msg', 'Actividad registrado con exito');
-        } else {
-            return back();
-        }
-
+        $area->actividades()->create($request->all());
+        return redirect()->route('areas.index')
+            ->with('msg', 'Actividad registrado con exito');
     }
 
-    public function edit($id)
+    public function edit(Area $area, Actividad $activity)
     {
-        $actividad = Actividad::findOrFail($id);
-        $areas = Area::orderBy('titulo')->get();
-
         return view('admin.actividades.edit', [
-            'areas' => $areas,
-            'actividad' => $actividad,
+            'area' => $area,
+            'actividad' => $activity,
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Area $area, Actividad $activity)
     {
         $request->validate([
-            'titulo' => 'required|max:100',
-            'area_id' => 'required',
+            'titulo' => 'required|max:100'
         ]);
 
-        $actividad = Actividad::findOrFail($id);
-        $actividad->titulo = $request->titulo;
-        $actividad->area_id = $request->area_id;
-
-        if ($actividad->save()) {
-            return redirect()->route('actividades.index')
-                ->with('msg', 'Actividad editada con exito');
-        } else {
-            return back();
-        }
+        $activity->update($request->all());
+        return redirect()->route('areas.index')
+            ->with('msg', 'Actividad editada con exito');
     }
 
-    public function destroy($id)
+    public function destroy(Actividad $activity)
     {
-        $actividad = Actividad::findOrFail($id);
-        if ($actividad->delete()) {
-            return redirect()->route('actividades.index')
-                ->with('msg', 'Actividad eliminado con exito');
-        } else {
-            return redirect()->route('actividades.index')
-                ->with('msg', 'Error al eliminar el registro');
-        }
+        $activity->delete();
+        return redirect()->route('areas.index')
+            ->with('msg', 'Actividad eliminado con exito');
     }
 }

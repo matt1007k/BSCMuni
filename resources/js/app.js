@@ -25,6 +25,11 @@ Vue.component(
 );
 
 Vue.component(
+    "grafica-resumen",
+    require("./components/GraficaResumen.vue").default
+);
+
+Vue.component(
     "mapa-estrategico",
     require("./components/MapaEstrategico.vue").default
 );

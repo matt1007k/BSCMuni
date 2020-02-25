@@ -17,7 +17,7 @@ class CreateObjetivosTable extends Migration
             $table->bigIncrements('id');
             $table->string('slug', 10);
             $table->text('contenido');
-            $table->string('relacion', 5);
+            $table->string('relacion', 5)->nullable();
             $table->unsignedBigInteger('perspectiva_id');
             $table->foreign('perspectiva_id')->references('id')
                 ->on('perspectivas')->onDelete('cascade');

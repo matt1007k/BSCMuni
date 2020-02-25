@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col m12">
-        <h3 class="bg-dark text-white text-center p-2">{{$perspectivaObjetivos->titulo}}</h3>        
+        <h3 class="bg-dark text-white text-center p-2">{{$perspectivaObjetivos->titulo}}
+            <a href="{{route('maestro.resumen.grafica', $perspectivaObjetivos->id)}}" target="_blank" class="btn btn-success">Ver grafica</a>
+        </h3>
         <table class="table table-bordered">
             <thead  class="text-center">
                 <th>Objetivos</th>
