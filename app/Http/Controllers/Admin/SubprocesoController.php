@@ -10,70 +10,51 @@ use Illuminate\Http\Request;
 class SubprocesoController extends Controller
 {
 
-    public function create()
+    public function create(Proceso $proceso)
     {
-        $procesos = Proceso::orderBy('titulo')->get();
         return view('admin.subprocesos.create', [
-            'procesos' => $procesos,
+            'proceso' => $proceso,
             'subproceso' => new Subproceso,
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Proceso $proceso)
     {
         $request->validate([
             'titulo' => 'required|max:100',
-            'proceso_id' => 'required',
         ]);
 
-        $subprocesos = new Subproceso();
-        $subprocesos->titulo = $request->titulo;
-        $subprocesos->proceso_id = $request->proceso_id;
+        $proceso->subprocesos()->create($request->all());
 
-        if ($subprocesos->save()) {
-            return redirect()->route('procesos.index')
-                ->with('msg', 'Registro completado con exito');
-        }
+        return redirect()->route('procesos.index')
+            ->with('msg', 'Registro completado con exito');
     }
 
-    public function edit($id)
+    public function edit(Proceso $proceso, Subproceso $subproceso)
     {
-        $procesos = Proceso::orderBy('titulo')->get();
-        $subproceso = Subproceso::findOrFail($id);
         return view('admin.subprocesos.edit', [
-            'procesos' => $procesos,
+            'proceso' => $proceso,
             'subproceso' => $subproceso,
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Proceso $proceso, Subproceso $subproceso)
     {
         $request->validate([
             'titulo' => 'required|max:100',
             'proceso_id' => 'required',
         ]);
 
-        $subproceso = Subproceso::findOrFail($id);
-        $subproceso->titulo = $request->titulo;
-        $subproceso->proceso_id = $request->proceso_id;
+        $subproceso->update($request->all());
 
-        if ($subproceso->save()) {
-            return redirect()->route('procesos.index')
-                ->with('msg', 'Edicion completada con exito');
-        } else {
-            return back();
-        }
+        return redirect()->route('procesos.index')
+            ->with('msg', 'Edicion completada con exito');
     }
 
-    public function destroy($id)
+    public function destroy(Proceso $proceso, Subproceso $subproceso)
     {
-        $subproceso = Subproceso::findOrFail($id);
-        if ($subproceso->delete()) {
-            return redirect()->route('procesos.index')
-                ->with('msg', 'Registro eliminado con exito');
-        } else {
-            return redirect()->route('procesos.index')
-                ->with('msg', 'Error al eliminar el registro');
-        }
+        $subproceso->delete();
+        return redirect()->route('procesos.index')
+            ->with('msg', 'Registro eliminado con exito');
     }
 }

@@ -10,6 +10,8 @@ class FuerzaController extends Controller
 {
     public function index()
     {
+        $fuerzas = Fuerza::orderBy('created_at')->paginate(6);
+
         return view('admin.fuerzas.index', [
             'fuerzas' => $fuerzas,
         ]);
@@ -26,47 +28,33 @@ class FuerzaController extends Controller
             'titulo' => 'required|max:100',
         ]);
 
-        $fuerza = new Fuerza();
-        $fuerza->titulo = $request->titulo;
+        Fuerza::create($request->all());
 
-        if ($fuerza->save()) {
-            return redirect()->route('factores.index')
-                ->with('msg', 'Fuerza registrado con exito.');
-        }
+        return redirect()->route('fuerzas.index')
+            ->with('msg', 'Registro registrado con exito.');
     }
 
-    public function edit($id)
+    public function edit(Fuerza $fuerza)
     {
-        $fuerza = Fuerza::findOrFail($id);
         return view('admin.fuerzas.edit', ['fuerza' => $fuerza]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Fuerza $fuerza)
     {
         $request->validate([
             'titulo' => 'required|max:100',
         ]);
 
-        $fuerza = Fuerza::findOrFail($id);
-        $fuerza->titulo = $request->titulo;
+        $fuerza->update($request->all());
 
-        if ($fuerza->save()) {
-            return redirect()->route('factores.index')
-                ->with('msg', 'Fuerza editada con exito.');
-        } else {
-            return back();
-        }
+        return redirect()->route('fuerzas.index')
+            ->with('msg', 'Registro editada con exito.');
     }
 
-    public function destroy($id)
+    public function destroy(Fuerza $fuerza)
     {
-        $fuerza = Fuerza::findOrFail($id);
-        if ($fuerza->delete()) {
-            return redirect()->route('factores.index')
-                ->with('msg', 'Fuerza se elimino con exito.');
-        } else {
-            return redirect()->route('factores.index')
-                ->with('msg', 'Error al eliminar el registro');
-        }
+        $fuerza->delete();
+        return redirect()->route('fuerzas.index')
+            ->with('msg', 'Registro se elimino con exito.');
     }
 }

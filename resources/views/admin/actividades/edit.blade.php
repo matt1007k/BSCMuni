@@ -12,14 +12,6 @@
                     </a>
                 </li>
             </ul>
-            {{-- <ul class="quick-links ml-auto">
-                <li>
-                    <a href="{{ route('procesos.index') }}">
-            Macro Proceso
-            <i class="mdi mdi-arrow-right"></i>
-            </a>
-            </li>
-            </ul> --}}
         </div>
     </div>
 </div>
@@ -29,7 +21,6 @@
     <div class="col-md-10">
         <div class="card">
             <div class="card-body">
-                <div class="mb-3 font-weight-bold h3">Editar actividad</div>
 
                 <form action="{{route('areas.activities.update', [$area, $actividad])}}" method="POST">
                     @method('PUT')

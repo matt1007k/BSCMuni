@@ -31,7 +31,7 @@ class ActividadController extends Controller
 
         $area->actividades()->create($request->all());
         return redirect()->route('areas.index')
-            ->with('msg', 'Actividad registrado con exito');
+            ->with('msg', 'Registro guardado con exito');
     }
 
     public function edit(Area $area, Actividad $activity)
@@ -50,13 +50,13 @@ class ActividadController extends Controller
 
         $activity->update($request->all());
         return redirect()->route('areas.index')
-            ->with('msg', 'Actividad editada con exito');
+            ->with('msg', 'Registro editado con exito');
     }
 
-    public function destroy(Actividad $activity)
+    public function destroy(Area $area, Actividad $activity)
     {
         $activity->delete();
         return redirect()->route('areas.index')
-            ->with('msg', 'Actividad eliminado con exito');
+            ->with('msg', 'Registro eliminado con exito');
     }
 }

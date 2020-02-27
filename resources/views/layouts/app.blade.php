@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('/css/shared/style.css') }}">
     <!-- Layout styles -->
     <link rel="stylesheet" href="{{ asset('/css/demo_1/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/helpers.css') }}">
 </head>
 
 <body>

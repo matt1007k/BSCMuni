@@ -42,13 +42,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/organigrama', 'InformacionController@organigrama')->name('informaciones.organigrama');
 
         Route::resource('procesos', 'ProcesoController')->except(['show']);
-        Route::resource('subprocesos', 'SubprocesoController')->except(['index, show']);
+        Route::resource('procesos.subprocesos', 'SubprocesoController')->except(['index, show']);
 
         Route::resource('areas', 'AreaController');
-        Route::resource('areas.activities', 'ActividadController')->only(['create', 'store', 'edit', 'update', 'destroy']);
+        Route::resource('areas.activities', 'ActividadController')->except(['index', 'show']);
 
         Route::resource('fuerzas', 'FuerzaController');
-        Route::resource('factores', 'FactorController');
+        Route::resource('fuerzas.factores', 'FactorController')->except(['index, show']);
 
         Route::resource('perspectivas', 'PerspectivaController')->except(['index, show']);
         Route::resource('objetivos', 'ObjetivoController')->except(['show']);

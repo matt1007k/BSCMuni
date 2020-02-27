@@ -31,47 +31,33 @@ class AreaController extends Controller
             'titulo' => 'required|max:100',
         ]);
 
-        $area = new Area();
-        $area->titulo = $request->titulo;
+        Area::create($request->all());
 
-        if ($area->save()) {
-            return redirect()->route('actividades.index')
-                ->with('msg', 'Área registrado con exito');
-        }
+        return redirect()->route('areas.index')
+            ->with('msg', 'Área registrado con exito');
     }
 
-    public function edit($id)
+    public function edit(Area $area)
     {
-        $area = Area::findOrFail($id);
         return view('admin.areas.edit', ['area' => $area]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Area $area)
     {
         $request->validate([
             'titulo' => 'required|max:100',
         ]);
 
-        $area = Area::findOrFail($id);
-        $area->titulo = $request->titulo;
+        $area->update($request->all());
 
-        if ($area->save()) {
-            return redirect()->route('actividades.index')
-                ->with('msg', 'Área editada con exito');
-        } else {
-            return back();
-        }
+        return redirect()->route('areas.index')
+            ->with('msg', 'Registro editado con exito');
     }
 
-    public function destroy($id)
+    public function destroy(Area $area)
     {
-        $area = Area::findOrFail($id);
-        if ($area->delete()) {
-            return redirect()->route('actividades.index')
-                ->with('msg', 'Área elimino con exito');
-        } else {
-            return redirect()->route('actividades.index')
-                ->with('msg', 'Error al eliminar el registro');
-        }
+        $area->delete();
+        return redirect()->route('areas.index')
+            ->with('msg', 'Registro elimino con exito');
     }
 }

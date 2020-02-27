@@ -3,14 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Dato;
-use App\Http\Controllers\Controller;
-use App\Indicador;
 use App\Objetivo;
+use App\Indicador;
 use App\Perspectiva;
 use Illuminate\Http\Request;
+use App\Services\YearsService;
+use App\Http\Controllers\Controller;
 
 class DatoController extends Controller
 {
+    protected $years;
+    public function __construct(YearsService $years)
+    {
+        $this->years = $years;
+    }
 
     public function index(Request $request)
     {
@@ -30,10 +36,10 @@ class DatoController extends Controller
 
     public function create($indicador_id)
     {
-
         return view('admin.datos.create', [
             'indicador_id' => $indicador_id,
             'dato' => new Dato,
+            'years' => $this->years->getYearsCustom(),
         ]);
     }
 
@@ -163,7 +169,6 @@ class DatoController extends Controller
                 if (count($indicador->datos) > 0) {
                     $porcentaje = number_format((($total - $dato_db->total) / $total) * 100, 2);
                     $dato->anterior = $dato_db->id;
-
                 }
             }
         } else {
@@ -183,10 +188,8 @@ class DatoController extends Controller
                             $porcentaje_new = 0;
                             if ($dato->id == $dato_db->id) {
                                 $porcentaje_new = number_format(($total / $indicador_db->datos->sum('total')) * 100, 2);
-
                             } else {
                                 $porcentaje_new = number_format(($dato_db->total / $indicador_db->datos->sum('total')) * 100, 2);
-
                             }
                             $dato_db->porcentaje = round($porcentaje_new);
                             $dato_db->save();
@@ -199,7 +202,6 @@ class DatoController extends Controller
         } else {
             return back();
         }
-
     }
 
     public function edit($id, $indicador_id)
@@ -209,6 +211,7 @@ class DatoController extends Controller
         return view('admin.datos.edit', [
             'dato' => $dato,
             'indicador_id' => $indicador_id,
+            'years' => $this->years->getYearsCustom(),
         ]);
     }
 
@@ -261,7 +264,8 @@ class DatoController extends Controller
                 if (count($indicador->datos) > 0) {
                     if ($dato->total !== $total) {
                         if ($id == $dato_db->id) {
-                            $porcentaje = number_format(($total / ($indicador->datos->sum('total') - $diferencia)) * 100, 2);}
+                            $porcentaje = number_format(($total / ($indicador->datos->sum('total') - $diferencia)) * 100, 2);
+                        }
                     } else {
                         $porcentaje = $dato->porcentaje;
                     }
@@ -287,7 +291,6 @@ class DatoController extends Controller
                     } else {
                         $porcentaje = $dato->porcentaje;
                     }
-
                 }
             } else {
                 $porcentaje = 0;
@@ -311,7 +314,6 @@ class DatoController extends Controller
                         }
                         $dato_db->porcentaje = round($porcentaje_new);
                         $dato_db->save();
-
                     }
                 }
             }
@@ -339,7 +341,6 @@ class DatoController extends Controller
 
                         $dato_db->porcentaje = round($porcentaje_new);
                         $dato_db->save();
-
                     }
                 }
             }

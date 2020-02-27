@@ -33,48 +33,32 @@ class ProcesoController extends Controller
         $request->validate([
             'titulo' => 'required|max:100',
         ]);
+        Proceso::create($request->all());
 
-        $proceso = new Proceso();
-        $proceso->titulo = $request->titulo;
-
-        if ($proceso->save()) {
-            return redirect()->route('procesos.index')
-                ->with('msg', 'Registro completado con exito');
-        }
+        return redirect()->route('procesos.index')
+            ->with('msg', 'Registro completado con exito');
     }
 
-    public function edit($id)
+    public function edit(Proceso $proceso)
     {
-        $proceso = Proceso::findOrFail($id);
         return view('admin.procesos.edit', ['proceso' => $proceso]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Proceso $proceso)
     {
         $request->validate([
             'titulo' => 'required|max:100',
         ]);
 
-        $proceso = Proceso::findOrFail($id);
-        $proceso->titulo = $request->titulo;
-
-        if ($proceso->save()) {
-            return redirect()->route('procesos.index')
-                ->with('msg', 'Edicion completada con exito');
-        } else {
-            return back();
-        }
+        $proceso->update($request->all());
+        return redirect()->route('procesos.index')
+            ->with('msg', 'Edicion completada con exito');
     }
 
-    public function destroy($id)
+    public function destroy(Proceso $proceso)
     {
-        $proceso = Proceso::findOrFail($id);
-        if ($proceso->delete()) {
-            return redirect()->route('procesos.index')
-                ->with('msg', 'Registro eliminado con exito');
-        } else {
-            return redirect()->route('procesos.index')
-                ->with('msg', 'Error al eliminar el registro');
-        }
+        $proceso->delete();
+        return redirect()->route('procesos.index')
+            ->with('msg', 'Registro eliminado con exito');
     }
 }

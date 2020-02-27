@@ -2,20 +2,20 @@
 @section('header-content')
 <div class="row mb-3">
     <div class="col-12">
-        <h4 class="page-title">Cadena de valor</h4>
+        <h4 class="page-title">Las 5 Fuerzas de Porter</h4>
         <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
             <ul class="quick-links">
                 <li>
-                    <a href="{{ route('procesos.index') }}">
+                    <a href="{{ route('fuerzas.index') }}">
                         <i class="mdi mdi-arrow-left"></i>
-                        Macroproceso
+                        Cadena de Valor
                     </a>
                 </li>
             </ul>
             <ul class="quick-links ml-auto">
                 <li>
-                    <a href="{{ route('fuerzas.index') }}">
-                        Las 5 Fuerzas de Porter
+                    <a href="{{ route('factor.interno') }}">
+                        Factores Internos
                         <i class="mdi mdi-arrow-right"></i>
                     </a>
                 </li>
@@ -27,25 +27,25 @@
 @section('content')
 <div class="">
 
-    <a href="{{route('areas.create')}}" class="btn btn-success mb-3">
-        Registrar área
+    <a href="{{route('fuerzas.create')}}" class="btn btn-success mb-3">
+        Registrar fuerza
     </a>
     <div class="">
-        @if (count($areas) > 0)
-        @foreach ($areas as $area)
+        @if (count($fuerzas) > 0)
+        @foreach ($fuerzas as $fuerza)
         <div class="card mb-3">
             <div class="p-3 d-flex justify-content-between align-items-center">
 
-                <h6 class="h4 font-weight-bold text-dark">{{ $area->titulo }}</h6>
+                <h6 class="h4 font-weight-bold text-dark">{{ $fuerza->titulo }}</h6>
                 <div class="d-flex align-items-center">
-                    <a href="{{route('areas.activities.create', $area)}} " class="btn btn-success mr-1">
-                        Registrar actividad
+                    <a href="{{route('fuerzas.factores.create', $fuerza)}} " class="btn btn-success mr-1">
+                        Registrar factor
                     </a>
-                    <a href="{{route('areas.edit', $area->id)}} " class="btn btn-rounded btn-icons btn-info btn-sm"
+                    <a href="{{route('fuerzas.edit', $fuerza)}} " class="btn btn-rounded btn-icons btn-info btn-sm"
                         data-toggle="tooltip" data-placement="top" title="Editar registro">
                         <i class="mdi mdi-pencil"></i>
                     </a>
-                    <form action="{{route('areas.destroy',$area->id)}}" method="post">
+                    <form action="{{route('fuerzas.destroy',$fuerza)}}" method="post">
                         @csrf
                         @method('delete')
                         <button type="submit" class="ml-1 btn btn-rounded btn-icons btn-danger btn-sm"
@@ -57,18 +57,17 @@
             </div>
             <div class="card-body py-3">
                 <ul class="m-0">
-                    @forelse ($area->actividades as $actividad)
+                    @forelse ($fuerza->factores as $factor)
                     <li class="p-1">
                         <div class="d-flex justify-content-between align-items-center">
-                            <p class="m-0">{{$actividad->titulo}}</p>
+                            <p class="m-0">{{$factor->titulo}}</p>
                             <div class="d-flex align-items-center">
-                                <a href="{{route('areas.activities.edit',[$area, $actividad->id])}}"
+                                <a href="{{route('fuerzas.factores.edit',[$fuerza, $factor])}}"
                                     class="btn btn-rounded btn-icons btn-info btn-sm" data-toggle="tooltip"
                                     data-placement="top" title="Editar registro">
                                     <i class="mdi mdi-pencil"></i>
                                 </a>
-                                <form action="{{route('areas.activities.destroy',[$area, $actividad->id])}}"
-                                    method="post">
+                                <form action="{{route('fuerzas.factores.destroy',[$fuerza, $factor])}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="ml-1 btn btn-rounded btn-icons btn-danger btn-sm"
@@ -82,7 +81,7 @@
                     </li>
                     @empty
                     <li>
-                        <p class="no-margin">No tiene actividades.</p>
+                        <p class="no-margin">No tiene factores.</p>
                     </li>
                     @endforelse
                 </ul>
@@ -94,7 +93,7 @@
     </div>
     @endforeach
     <div class="w-100 d-flex justify-content-center">
-        {{ $areas->links() }}
+        {{ $fuerzas->links() }}
     </div>
     @else
     <h4 class="w-100 d-flex justify-content-center text-bold">No hay ningún registro!!!</h4>

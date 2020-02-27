@@ -42,15 +42,16 @@
                         src="{{ asset('images/business.png') }}" alt="profile image">
                     @forelse ($informaciones as $informacion)
                     <div class="px-4">
-                        <div class="d-flex justify-content-between pt-4">
+                        <div class="d-flex justify-content-between align-items-center pt-4">
                             <div class="wrapper">
                                 <h5 class="font-weight-medium mb-0 ellipsis">{{ $informacion->nombre }}</h5>
                                 <p class="mb-0 text-muted ellipsis"></p>
                             </div>
                             <div>
                                 <a href="{{ route('informaciones.edit', $informacion->id) }}"
-                                    class="btn btn-outline-info rounded-lg">
-                                    <i class="mdi mdi-pencil"></i> Editar
+                                    class="btn  btn-rounded btn-icons btn-info btn-sm" data-toggle="tooltip"
+                                    data-placement="top" title="Editar registro">
+                                    <i class="mdi mdi-pencil"></i>
                                 </a>
                             </div>
                         </div>

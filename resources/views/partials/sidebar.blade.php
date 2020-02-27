@@ -33,7 +33,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{ route('factores.index') }}">
+      <a class="nav-link" href="{{ route('fuerzas.index') }}">
         <i class="menu-icon typcn typcn-th-large-outline"></i>
         <span class="menu-title">5 Fuerzas de Porter</span>
       </a>
@@ -65,7 +65,7 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('proposiciones.index') }}">
         <i class="menu-icon typcn typcn-user-outline"></i>
-        <span class="menu-title">Proposición de Valor para el Cliente</span>
+        <span class="menu-title">Proposición de Valor</span>
       </a>
     </li>
     <li class="nav-item">

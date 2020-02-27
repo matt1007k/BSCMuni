@@ -9,84 +9,50 @@ use Illuminate\Http\Request;
 
 class FactorController extends Controller
 {
-    public function index()
+    public function create(Fuerza $fuerza)
     {
-        $fuerzas = Fuerza::orderBy('created_at')->paginate(6);
-
-        return view('admin.factores.index', [
-            'fuerzas' => $fuerzas,
-        ]);
-    }
-
-    public function create()
-    {
-        $fuerzas = Fuerza::orderBy('titulo')->get();
-
         return view('admin.factores.create', [
-            'fuerzas' => $fuerzas,
+            'fuerza' => $fuerza,
             'factor' => new Factor,
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Fuerza $fuerza)
     {
         $request->validate([
             'titulo' => 'required|max:100',
-            'fuerza_id' => 'required',
         ]);
 
-        $factor = new Factor();
-        $factor->titulo = $request->titulo;
-        $factor->fuerza_id = $request->fuerza_id;
+        $fuerza->factores()->create($request->all());
 
-        if ($factor->save()) {
-            return redirect()->route('factores.index')
-                ->with('msg', 'Factor registrado con exito');
-        } else {
-            return back();
-        }
-
+        return redirect()->route('fuerzas.index')
+            ->with('msg', 'Registro registrado con exito');
     }
 
-    public function edit($id)
+    public function edit(Fuerza $fuerza, Factor $factore)
     {
-        $factor = Factor::findOrFail($id);
-        $fuerzas = Fuerza::orderBy('titulo')->get();
-
         return view('admin.factores.edit', [
-            'fuerzas' => $fuerzas,
-            'factor' => $factor,
+            'fuerza' => $fuerza,
+            'factor' => $factore,
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Fuerza $fuerza, Factor $factore)
     {
         $request->validate([
             'titulo' => 'required|max:100',
-            'fuerza_id' => 'required',
         ]);
 
-        $factor = Factor::findOrFail($id);
-        $factor->titulo = $request->titulo;
-        $factor->fuerza_id = $request->fuerza_id;
+        $factore->update($request->all());
 
-        if ($factor->save()) {
-            return redirect()->route('factores.index')
-                ->with('msg', 'Factor editado con exito');
-        } else {
-            return back();
-        }
+        return redirect()->route('fuerzas.index')
+            ->with('msg', 'Registro editado con exito');
     }
 
-    public function destroy($id)
+    public function destroy(Fuerza $fuerza, Factor $factore)
     {
-        $factor = Factor::findOrFail($id);
-        if ($factor->delete()) {
-            return redirect()->route('factores.index')
-                ->with('msg', 'Factor eliminado con exito');
-        } else {
-            return redirect()->route('factores.index')
-                ->with('msg', 'Error al eliminar el registro');
-        }
+        $factore->delete();
+        return redirect()->route('fuerzas.index')
+            ->with('msg', 'Registro eliminado con exito');
     }
 }

@@ -1,22 +1,33 @@
 @extends('layouts.app')
-
-@section('content')
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-6">
-            <div class="card border-dark">                
-                <div class="card-header bg-dark text-white text-center h3">Editar area</div>
-                <div class="card-body">  
-                    <form action="{{route('areas.update', $area->id)}}" method="POST">
-                        @method('put')
-                        
-                        @include('admin.areas._form', ['btnT' => 'Editar'])
-                    </form>
-                </div>
-            </div>
-            <a href="{{route('actividades.index')}}" class="btn btn-link text-uppercase">
-                <- Ir a cadena de valor
-            </a>
-
-        </div>        
+@section('header-content')
+<div class="row mb-3">
+    <div class="col-12">
+        <h4 class="page-title">Editar área</h4>
+        <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
+            <ul class="quick-links">
+                <li>
+                    <a href="{{ route('areas.index') }}">
+                        <i class="mdi mdi-arrow-left"></i>
+                        Cadena de valor
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
+</div>
+@endsection
+@section('content')
+<div class="row d-flex justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{route('areas.update', $area)}}" method="POST">
+                    @method('put')
+
+                    @include('admin.areas._form', ['btnT' => 'Editar'])
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

@@ -1,21 +1,32 @@
 @extends('layouts.app')
-
-@section('content')
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-6">
-            <div class="card border-dark">                
-                <div class="card-header bg-dark text-white text-center h3">Registrar factor</div>
-                <div class="card-body">  
-                    <form action="{{route('factores.store')}}" method="POST">
-                        
-                        @include('admin.factores._form', ['btnT' => 'Registrar'])
-                    </form>
-                </div>
-            </div>
-            <a href="{{route('factores.index')}}" class="btn btn-link text-uppercase">
-                <- Ir a las 5 fuerzas de porter
-            </a>
-
-        </div>        
+@section('header-content')
+<div class="row mb-3">
+    <div class="col-12">
+        <h4 class="page-title">Registrar factor</h4>
+        <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
+            <ul class="quick-links">
+                <li>
+                    <a href="{{ route('fuerzas.index') }}">
+                        <i class="mdi mdi-arrow-left"></i>
+                        Las 5 Fuerzas de Porter
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
+</div>
+@endsection
+@section('content')
+<div class="row d-flex justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{route('fuerzas.factores.store', $fuerza)}}" method="POST">
+
+                    @include('admin.factores._form', ['btnT' => 'Registrar'])
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
