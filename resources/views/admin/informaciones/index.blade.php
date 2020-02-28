@@ -4,14 +4,6 @@
     <div class="col-12">
         <h4 class="page-title">Información de la organización</h4>
         <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
-            {{-- <ul class="quick-links">
-                <li>
-                    <a href="{{ route('informaciones.index') }}">
-            <i class="mdi mdi-arrow-left"></i>
-            Informaciones
-            </a>
-            </li>
-            </ul> --}}
             <ul class="quick-links ml-auto">
                 <li>
                     <a href="{{ route('procesos.index') }}">
@@ -29,13 +21,6 @@
 
     <div class="row">
         <div class="col-md">
-            <div class="row mb-2 d-flex">
-                @if ($informaciones->count() < 1) <a href="{{route('informaciones.create')}}"
-                    class="ml-2 btn btn-success">
-                    Agregar información de la empresa
-                    </a>
-                    @endif
-            </div>
             <div class="row">
                 <div class="col-md-12">
                     <img class="img-fluid w-100 rounded-lg" style="height:350px"
@@ -48,11 +33,17 @@
                                 <p class="mb-0 text-muted ellipsis"></p>
                             </div>
                             <div>
-                                <a href="{{ route('informaciones.edit', $informacion->id) }}"
-                                    class="btn  btn-rounded btn-icons btn-info btn-sm" data-toggle="tooltip"
-                                    data-placement="top" title="Editar registro">
-                                    <i class="mdi mdi-pencil"></i>
-                                </a>
+                                @if ($informaciones->count() < 1) <a href="{{route('informaciones.create')}}"
+                                    class="btn btn-success">
+                                    Agregar información de la empresa
+                                    </a>
+                                    @else
+                                    <a href="{{ route('informaciones.edit', $informacion->id) }}"
+                                        class="btn  btn-rounded btn-icons btn-info btn-sm" data-toggle="tooltip"
+                                        data-placement="top" title="Editar registro">
+                                        <i class="mdi mdi-pencil"></i>
+                                    </a>
+                                    @endif
                             </div>
                         </div>
                         <div class="pt-3">

@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 class PerspectivaController extends Controller
 {
 
+    public function index()
+    {
+        $perspectivas = Perspectiva::orderBy('created_at')->paginate(6);
+
+        return view('admin.perspectivas.index', [
+            'perspectivas' => $perspectivas,
+        ]);
+    }
+
     public function create()
     {
         return view('admin.perspectivas.create', ['perspectiva' => new Perspectiva]);
@@ -19,59 +28,49 @@ class PerspectivaController extends Controller
         $request->validate([
             'titulo' => 'required|max:100|min:4',
         ]);
-
-        $perspectiva = new Perspectiva();
-
-        $dos_letras = substr($request->titulo, 0, 2);
+        $titulo = $request->titulo;
+        $dos_letras = substr($titulo, 0, 2);
         // Convertimos en mayusculas
         $slug = strtoupper($dos_letras);
 
-        $perspectiva->slug = $slug;
-        $perspectiva->titulo = $request->titulo;
+        Perspectiva::create([
+            'slug' => $slug,
+            'titulo' => $titulo,
+        ]);
 
-        if ($perspectiva->save()) {
-            return redirect()->route('objetivos.index')
-                ->with('msg', 'Perspectiva registrado con exito');
-        }
+        return redirect()->route('perspectivas.index')
+            ->with('msg', 'Registro completado con exito');
     }
 
-    public function edit($id)
+    public function edit(Perspectiva $perspectiva)
     {
-        $perspectiva = Perspectiva::findOrFail($id);
         return view('admin.perspectivas.edit', ['perspectiva' => $perspectiva]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Perspectiva $perspectiva)
     {
         $request->validate([
             'titulo' => 'required|max:100',
         ]);
 
-        $perspectiva = Perspectiva::findOrFail($id);
-        $dos_letras = substr($request->titulo, 0, 2);
+        $titulo = $request->titulo;
+        $dos_letras = substr($titulo, 0, 2);
         // Convertimos en mayusculas
         $slug = strtoupper($dos_letras);
 
-        $perspectiva->slug = $slug;
-        $perspectiva->titulo = $request->titulo;
+        $perspectiva->update([
+            'slug' => $slug,
+            'titulo' => $titulo,
+        ]);
 
-        if ($perspectiva->save()) {
-            return redirect()->route('objetivos.index')
-                ->with('msg', 'Perspectiva editada con exito');
-        } else {
-            return back();
-        }
+        return redirect()->route('perspectivas.index')
+            ->with('msg', 'Registro editada con exito');
     }
 
-    public function destroy($id)
+    public function destroy(Perspectiva $perspectiva)
     {
-        $perspectiva = Perspectiva::findOrFail($id);
-        if ($perspectiva->delete()) {
-            return redirect()->route('objetivos.index')
-                ->with('msg', 'Perspectiva elimino con exito');
-        } else {
-            return redirect()->route('objetivos.index')
-                ->with('msg', 'Error al eliminar el registro');
-        }
+        $perspectiva->delete();
+        return redirect()->route('perspectivas.index')
+            ->with('msg', 'Registro elimino con exito');
     }
 }

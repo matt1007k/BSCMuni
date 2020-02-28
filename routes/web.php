@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/home', 'HomeController@index')->name('home');
     Route::redirect('/home', '/informaciones', 301);
 
-    Route::namespace('Admin')->group(function () {
+    Route::namespace ('Admin')->group(function () {
 
         Route::resource('informaciones', 'InformacionController')->except(['show']);
         Route::get('/organigrama', 'InformacionController@organigrama')->name('informaciones.organigrama');
@@ -50,8 +50,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('fuerzas', 'FuerzaController');
         Route::resource('fuerzas.factores', 'FactorController')->except(['index, show']);
 
-        Route::resource('perspectivas', 'PerspectivaController')->except(['index, show']);
-        Route::resource('objetivos', 'ObjetivoController')->except(['show']);
+        Route::resource('perspectivas', 'PerspectivaController')->except(['show']);
+        Route::resource('perspectivas.objetivos', 'ObjetivoController')->except(['index', 'show']);
         Route::get('/vision-accion', 'ObjetivoController@visionAccion')->name('objetivos.accion');
 
         Route::resource('mapas', 'MapaController')->except(['update', 'create', 'edit', 'show']);
@@ -71,8 +71,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/factor-interno', 'EvaluacionController@interno')->name('factor.interno');
         Route::get('/factor-externo', 'EvaluacionController@externo')->name('factor.externo');
 
-        Route::get('/factor-interno-evaluar/{id}', 'EvaluacionController@internoEditar')->name('factor.internoEditar');
-        Route::get('/factor-externo-evaluar/{id}', 'EvaluacionController@externoEditar')->name('factor.externoEditar');
+        Route::get('/factor-interno/evaluar/{id}', 'EvaluacionController@internoEditar')->name('factor.internoEditar');
+        Route::get('/factor-externo/evaluar/{id}', 'EvaluacionController@externoEditar')->name('factor.externoEditar');
         Route::put('/factor-interno/{id}', 'EvaluacionController@evaluacionInterno')->name('factor.evaluacionInterno');
         Route::put('/factor-externo/{id}', 'EvaluacionController@evaluacionExterno')->name('factor.evaluacionExterno');
 

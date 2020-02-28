@@ -1,76 +1,78 @@
 <div class="row">
     <div class="col-md-6">
         <div class="foda" style="max-width: 100%">
-            <img src="{{ asset('img/foda.png') }}" alt="foda" class="w-100">
+            <img src="{{ asset('images/foda.png') }}" alt="foda" class="w-100">
         </div>
     </div>
     <div class="col-md-6">
-        <h5 class="text-center bg-primary p-2 text-white">Fortalezas</h5>
+        <h5 class="h3 font-weight-bold p-2 text-dark">Fortalezas</h5>
         <ul class="list-group">
-            @forelse ($fortalezas as $fortaleza)    
-                <li class="list-group-item">
-                    <div class="row no-margin">
-                        <div class="col-md-2 bd1-gray">
-                            {{$fortaleza->slug}}
-                        </div>
-                        <div class="col-md-10">
-                            {{$fortaleza->titulo}}
-                        </div>
-                    </div> 
-                </li>  
+            @forelse ($fortalezas as $fortaleza)
+            <li class="list-group-item d-flex">
+                <div class="mr-1 text-muted">
+                    {{$fortaleza->slug}}:
+                </div>
+                <div class="">
+                    {{$fortaleza->titulo}}
+                </div>
+            </li>
             @empty
-                <li class="list-group-item">No hay fortalezas.</li>                                        
+            <li class="list-group-item">No hay fortalezas.</li>
             @endforelse
         </ul>
     </div>
 </div>
 <div class="row">
     <div class="col-md-6">
-        <h5 class="text-center bg-primary p-2 text-white">Oportunidades</h5>
+        <h5 class="h3 font-weight-bold p-2 text-dark">Oportunidades</h5>
         <ul class="list-group">
-            @forelse ($oportunidades as $oportunidad)                                      
-                <li class="list-group-item">                    
-                    <div class="row no-margin">
-                        <div class="col-md-2 bd1-gray">
-                            {{$oportunidad->slug}}
-                        </div>
-                        <div class="col-md-10">
-                            {{$oportunidad->titulo}}
-                        </div>
-                    </div> 
-                </li>
+            @forelse ($oportunidades as $oportunidad)
+            <li class="list-group-item d-flex">
+                <div class="mr-1 text-muted">
+                    {{$oportunidad->slug}}
+                </div>
+                <div class="">
+                    {{$oportunidad->titulo}}
+                </div>
+            </li>
             @empty
-                <li class="list-group-item">No hay oportunidades.</li>                                  
+            <li class="list-group-item">No hay oportunidades.</li>
             @endforelse
         </ul>
     </div>
     <div class="col-md-6">
-        <h5 class="text-center bg-dark p-2 text-white d-flex justify-content-between"><span>Estrategias FO</span> <a href="{{route('estrategias.create', $tipo)}}" class="btn btn-outline-success btn-sm text-uppercase">+ estrategia</a></h5>            
+        <h5 class="h3 font-weight-bold p-2 text-dark text-uppercase"><span>Estrategias FO</span> <a
+                href="{{route('estrategias.create', $tipo)}}" class="btn btn-success btn-sm">
+                Registrar estratégia</a></h5>
         <ul class="list-group">
-            @forelse ($estrategias as $estrategia)                                 
-                <li class="list-group-item">
-                    <div class="row no-margin">
-                        <div class="col-md-2 bd1-gray">
-                            {{$estrategia->foda}}
-                        </div>
-                        <div class="col-md-7">
-                            {{$estrategia->contenido}}
-                        </div>
-                        <div class="col-md-3">
-                            <a href="{{route('estrategias.edit', [$tipo, $estrategia->id] )}}" class="btn btn-outline-info btn-sm text-uppercase">- Editar</a>
-                            <form action="{{route('estrategias.destroy', $estrategia->id)}}" method="POST">
-                                @csrf                                 
-                                @method('delete')
-                                <button type="submit" class="mt-1 btn btn-outline-danger btn-sm text-uppercase">
-                                    x Eliminar
-                                </button>                                    
-                            </form>
-                        </div>
-                    </div> 
-                </li>
-                     
+            @forelse ($estrategias as $estrategia)
+            <li class="list-group-item d-flex justify-content-between">
+                <div>
+                    <div class="text-muted text-uppercase font-weight-bold flex-1">
+                        {{$estrategia->foda}}
+                    </div>
+                    <div class="text-justify">
+                        {{$estrategia->contenido}}
+                    </div>
+                </div>
+                <div class="ml-2">
+                    <a href="{{route('estrategias.edit', [$tipo, $estrategia->id] )}}"
+                        class="btn btn-rounded btn-icons btn-info" data-toggle="tooltip" data-placement="top"
+                        title="Editar registro">
+                        <i class="mdi mdi-pencil"></i></a>
+                    <form action="{{route('estrategias.destroy', $estrategia->id)}}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="mt-1 btn btn-rounded btn-icons btn-danger" data-toggle="tooltip"
+                            data-placement="top" title="Eliminar registro">
+                            <i class="mdi mdi-delete"></i>
+                        </button>
+                    </form>
+                </div>
+            </li>
+
             @empty
-                <li class="list-group-item">No hay estrategias.</li>                                     
+            <li class="list-group-item">No hay estrategias.</li>
             @endforelse
         </ul>
     </div>

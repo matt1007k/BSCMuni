@@ -192,7 +192,7 @@
         </div>
     </div>
 </div>
-<div class="mt-2 mb-3 bg-primary p-3 d-flex justify-content-center align-items-center text-uppercase">
+<div class="h4 mt-2 mb-3 bg-primary p-3 d-flex justify-content-center align-items-center text-uppercase">
     <div class="text-white">
         <strong>Total:</strong>
         <span class="text-secondary">{{ $dato->total ? $dato->total : 0}}</span>

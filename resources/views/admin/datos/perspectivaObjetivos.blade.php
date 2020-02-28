@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-md p-0">
-        <h3 class="py-2 font-weight-bold text-uppercase text-muted">{{$perspectivaObjetivos->titulo}}</h3>
+        <div class="display-3 font-weight-bold text-uppercase text-dark">{{$perspectivaObjetivos->titulo}}</div>
         @forelse ($perspectivaObjetivos->objetivos as $objetivo)
         <div class=" d-flex justify-content-between pt-2 pb-2">
-            <h4 class="font-italic text-uppercase text-black">{{$objetivo->slug}}: <span
-                    class="font-weight-normal">{{$objetivo->contenido}}</span></h4>
+            <h4 class="h3 font-weight-bold"><span class="text-muted">{{$objetivo->slug}}:</span>
+                {{$objetivo->contenido}}</h4>
             @if ($objetivo->indicadores->count() > 0)
 
             {{-- <a href="{{route('datos.grafica', $objetivo->id)}}" class="btn btn-primary text-uppercase">
@@ -12,12 +12,13 @@
             </a> --}}
             @endif
         </div>
-        <div class="h3">Indicadores</div>
-        @forelse ($objetivo->indicadores as $indicador)
+        <div class="h3 font-italic">Indicadores</div>
+        @forelse ($objetivo->indicadores as $key => $indicador)
         <div class="d-flex align-items-center justify-content-between">
-            <h5 class="cr-pointer text-primary" data-toggle="collapse" href="#collapsed{{$indicador->id}}" role="button"
-                aria-expanded="false" aria-controls="collapseExample"><span
-                    class="font-weight-normal">"{{$indicador->indicador}}"</span></h5>
+            <h5 class="" data-toggle="collapse" href="#collapsed{{$indicador->id}}" role="button" aria-expanded="false"
+                aria-controls="collapseExample"><span class="font-weight-bold">{{ $key + 1}}.-
+                    "{{$indicador->indicador}}"</span>
+            </h5>
             <div>
                 <a href="{{route('datos.create', $indicador->id)}}" class="ml-3 btn btn-success">
                     Registrar datos de un año
@@ -28,7 +29,7 @@
                 </a>
             </div>
         </div>
-        <div class="collapsed" id="collapse{{$indicador->id}}">
+        <div class="collapsed mb-3" id="collapse{{$indicador->id}}">
             <table class="table  table-striped table-responsive">
                 <thead class="">
                     <th>Año</th>
@@ -113,15 +114,15 @@
 
 
         @empty
-        <div class="cardd">
-            <div class="card-bodyd">No tiene indicadores.</div>
+        <div class="p-3 bg-secondary">
+            <div class="font-italic">No tiene indicadores.</div>
         </div>
 
         @endforelse
 
         @empty
-        <div class="cardd">
-            <div class="card-bodyd">No tiene objetivos.</div>
+        <div class="p-3 bg-secondary">
+            <div class="font-italic">No tiene objetivos.</div>
         </div>
         @endforelse
 

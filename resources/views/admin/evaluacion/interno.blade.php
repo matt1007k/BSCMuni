@@ -28,28 +28,29 @@
 <div class="">
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 bg-white shadow-lg">
 
-            <div class="row no-margin text-weight-bold" style="margin: 0 0 10px 0;">
-                <div class="col-md-5 text-center">
+            <div class="row mt-3 text-weight-bold" style="margin: 0 0 10px 0;">
+                <div class="col-md-5 text-center text-small">
                     <div class="bg-info text-white "> Tabla de Evaluación </div>
-                    <div style="height: 100%;" class="d-flex justify-center align-items-center"> Factores Internos
+                    <div style="height: 100%;" class="d-flex justify-content-center align-items-center">
+                        Factores Internos
                     </div>
 
                 </div>
                 <div class="col-md text-center">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="bg-secondary text-white ">Importancia de éxito</div>
-                            <div class="row">
+                            <div class="bg-warning text-white text-small">Importancia de éxito</div>
+                            <div class="row text-small">
                                 <div class="col-md-4">Alta (3)</div>
                                 <div class="col-md-4">Media (2)</div>
                                 <div class="col-md-4">Baja (1)</div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="bg-primary text-white ">Desempeño de la empresa</div>
-                            <div class="row">
+                            <div class="bg-primary text-white text-small">Desempeño de la empresa</div>
+                            <div class="row text-small">
                                 <div class="col-md-3">Muy bueno (+2)</div>
                                 <div class="col-md-3">Bueno (+1)</div>
                                 <div class="col-md-3">Deficiente (-1)</div>
@@ -57,7 +58,7 @@
                             </div>
                         </div>
                         <div class="col-md-2 bg-danger d-flex align-items-center">
-                            <div class=" text-white ">Valor ponderado del factor</div>
+                            <div class="text-small text-white">Valor ponderado del factor</div>
                         </div>
                     </div>
                 </div>
@@ -65,15 +66,18 @@
             </div>
 
             @forelse($areas as $area)
-            <div class="row padding-ultra-small no-margin">
-                <div class="col-md-12 bg-secondary text-white">
-                    <div>{{$area->titulo}} </div>
+            <div class="row px-2 py-3">
+                <div class="col-md-12 text-dark font-weight-bold text-uppercase">
+                    <div class="h4">{{$area->titulo}} </div>
                 </div>
             </div>
             @forelse($area->actividades as $actividad)
-            <div class="row padding-ultra-small no-margin">
-                <div class="col-md-5 ">
-                    <div>{{$actividad->titulo}} </div>
+            <div class="row px-2 py-3">
+                <div class="col-md-5 pl-4">
+                    <div>
+                        <i class="mdi mdi-arrow-right mr-2 text-info"></i>
+                        {{$actividad->titulo}}
+                    </div>
                 </div>
                 <div class="col-md-6 text-center ">
 
@@ -81,17 +85,17 @@
                         <div class="col-md-4">
 
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-4 text-small font-weight-bold">
                                     @if ($actividad->alta > 0)
                                     {{$actividad->alta}}
                                     @endif
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 text-small font-weight-bold">
                                     @if ($actividad->media > 0)
                                     {{$actividad->media}}
                                     @endif
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 text-small font-weight-bold">
                                     @if ($actividad->baja > 0)
                                     {{$actividad->baja}}
                                     @endif
@@ -100,23 +104,24 @@
                         </div>
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-3 text-small font-weight-bold">
                                     @if ($actividad->muy_bueno > 0)
                                     {{ $actividad->muy_bueno}}
                                     @endif
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 text-small font-weight-bold">
                                     @if ($actividad->bueno > 0)
                                     {{$actividad->bueno}}
                                     @endif
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 text-small font-weight-bold">
                                     @if ($actividad->deficiente < 0) {{$actividad->deficiente}} @endif </div> <div
-                                        class="col-md-3">
+                                        class="col-md-3 text-small font-weight-bold">
                                         @if ($actividad->muy_deficiente < 0) {{$actividad->muy_deficiente}} @endif
-                                            </div> </div> </div> <div class="col-md-2">
+                                            </div> </div> </div> <div class="col-md-2 text-small font-weight-bold">
                                             <div class="text-weight-bold">
-                                                @if ($actividad->valor < 0) <p class="text-danger">{{$actividad->valor}}
+                                                @if ($actividad->valor < 0) <p class="text-danger">
+                                                    {{$actividad->valor}}
                                                     </p>
                                                     @else
                                                     <p class="text-primary"> {{$actividad->valor}}</p>
@@ -125,40 +130,41 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md">
                             <a href="{{route('factor.internoEditar', $actividad->id)}}"
-                                class="btn btn-outline-info btn-sm text-uppercase">
-                                Evaluar
+                                class="btn btn-rounded btn-icons btn-info btn-sm" data-toggle="tooltip"
+                                data-placement="top" title="Evaluar">
+                                <i class="mdi mdi-format-list-checks"></i>
                             </a>
                         </div>
                     </div>
                     @empty
                     <div class="row no-margin">
-                        <div class="col-md-12">
+                        <div class="col-md-12 ml-4 font-italic">
                             No tiene actividades
                         </div>
                     </div>
                     @endforelse
                     @empty
                     <div class="row no-margin">
-                        <div class="col-md-12">
+                        <div class="col-md-12 ml-4 font-italic">
                             No tiene ningun registro
                         </div>
                     </div>
                     @endforelse
-                    <div class="w-100 text-center">
+                    <div class="d-flex justify-content-center">
                         {{$areas->links()}}
                     </div>
 
-                    <div class="row no-margin mt-3">
-                        <div class="col-md-6">
-                            <h5 class="text-danger text-weight-bold">Debilidades: Valor Ponderado < 0</h5> </div> <div
-                                    class="col-md-6">
-                                    <h5 class="text-primary text-weight-bold">Fortalezas: Valor Ponderado > 0</h5>
+                    <div class="row my-3">
+                        <div class="col-md-6 text-center">
+                            <div class="text-danger font-weight-bold h4">Debilidades: Valor Ponderado < 0</div> </div>
+                                    <div class="col-md-6 text-center">
+                                    <div class="text-primary font-weight-bold h4">Fortalezas: Valor Ponderado > 0</div>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-        @endsection
+            @endsection

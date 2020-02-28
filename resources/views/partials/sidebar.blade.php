@@ -75,7 +75,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{ route('objetivos.index') }}">
+      <a class="nav-link" href="{{ route('perspectivas.index') }}">
         <i class="menu-icon typcn typcn-user-outline"></i>
         <span class="menu-title">Objetivos Estratégico</span>
       </a>

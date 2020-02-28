@@ -52,7 +52,7 @@
                     </a>
                     <form action="{{route('procesos.destroy',$proceso)}}" method="post">
                         @csrf
-                        @method('delete')
+                        @method('DELETE')
                         <button type="submit" class="ml-1 btn btn-rounded btn-icons btn-danger btn-sm"
                             data-toggle="tooltip" data-placement="top" title="Eliminar registro">
                             <i class="mdi mdi-delete"></i>

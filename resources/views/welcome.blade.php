@@ -3,7 +3,7 @@
 @section('content')
 <div class="col-md-10 mx-auto bg-white rounded-lg shadow-lg text-center">
 
-    <div class="display-1"><span class="font-weight-bold">BSC </span>Nombre</div>
+    <div class="display-1"><span class="font-weight-bold">BSC </span>Direccion Regional Agraria Ayacucho</div>
     <p class="mb-2 text-avatar">Mejora y cumple tus objetivos estratégicos empresariales.</p>
     <a href="{{ route('login') }}" class="btn btn-primary">Ingresar</a>
 

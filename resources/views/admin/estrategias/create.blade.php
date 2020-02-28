@@ -6,20 +6,12 @@
         <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
             <ul class="quick-links">
                 <li>
-                    <a href="{{ route('estrategias.foda') }}">
+                    <a href="{{ url('/foda?tipo='.$tipo) }}">
                         <i class="mdi mdi-arrow-left"></i>
                         Matriz FODA
                     </a>
                 </li>
             </ul>
-            {{-- <ul class="quick-links ml-auto">
-                <li>
-                    <a href="{{ route('maestro.index') }}">
-            Maestro
-            <i class="mdi mdi-arrow-right"></i>
-            </a>
-            </li>
-            </ul> --}}
         </div>
     </div>
 </div>

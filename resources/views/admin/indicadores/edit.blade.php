@@ -1,24 +1,33 @@
 @extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-7">
-            <div class="card border-dark">
-                <div class="card-header h3 bg-dark text-white text-center">Editar indicador</div>
-                <div class="card-body ">
-                    <form action="{{route('indicadores.update', $indicador->id)}}" method="POST">
-                        @method('put')
-                        @include('admin.indicadores._form', ['btnT' => 'Editar'])  
-                    </form>
-    
-                </div>
-            </div>
-            <a href="{{route('indicadores.index')}}" class="btn btn-link text-uppercase">
-                <- Ir a los indicadores
-            </a>
+@section('header-content')
+<div class="row mb-3">
+    <div class="col-12">
+        <h4 class="page-title">Editar Indicador</h4>
+        <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
+            <ul class="quick-links">
+                <li>
+                    <a href="{{ route('indicadores.index') }}">
+                        <i class="mdi mdi-arrow-left"></i>
+                        Indicadores
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
+</div>
+@endsection
+@section('content')
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{route('indicadores.update', $indicador->id)}}" method="POST">
+                    @method('put')
+                    @include('admin.indicadores._form', ['btnT' => 'Editar'])
+                </form>
 
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

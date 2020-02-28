@@ -13,15 +13,6 @@ use Illuminate\Support\Facades\Validator;
 class ObjetivoController extends Controller
 {
 
-    public function index(Request $request)
-    {
-        $perspectivas = Perspectiva::orderBy('created_at')->paginate(6);
-
-        return view('admin.objetivos.index', [
-            'perspectivas' => $perspectivas,
-        ]);
-    }
-
     public function visionAccion(Request $request)
     {
         $perspectivas = Perspectiva::orderBy('created_at')->get();
@@ -35,102 +26,79 @@ class ObjetivoController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Perspectiva $perspectiva)
     {
-        $perspectivas = Perspectiva::orderBy('titulo')->get();
         $estrategias = Estrategia::all();
 
         return view('admin.objetivos.create', [
-            'perspectivas' => $perspectivas,
+            'perspectiva' => $perspectiva,
             'estrategias' => $estrategias,
             'objetivo' => new Objetivo,
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Perspectiva $perspectiva)
     {
         $request->validate([
             'contenido' => 'required|max:250',
-            'perspectiva_id' => 'required',
         ]);
 
-        $objetivo = new Objetivo();
-        $objetivo->contenido = $request->contenido;
-        $objetivo->perspectiva_id = $request->perspectiva_id;
-
-        $perspectiva = Perspectiva::findOrFail($request->perspectiva_id);
         $primera_letra = substr($perspectiva->slug, 0, 1);
-
         $length = Objetivo::where('perspectiva_id', $perspectiva->id)->get();
-        $objetivo->slug = $primera_letra . ($length->count() + 1);
+        $slug = $primera_letra . ($length->count() + 1);
+
+        $objetivo = $perspectiva->objetivos()->create([
+            'slug' => $slug,
+            'contenido' => $request->contenido,
+        ]);
 
         if ($request->has('estrategias')) {
             $objetivo->estrategias()->sync($request->estrategias);
         }
 
-        if ($objetivo->save()) {
-            return redirect()->route('objetivos.index')
-                ->with('msg', 'Registro completado con exito');
-        } else {
-            return back();
-        }
-
+        return redirect()->route('perspectivas.index')
+            ->with('msg', 'Registro completado con exito');
     }
 
-    public function edit($id)
+    public function edit(Perspectiva $perspectiva, Objetivo $objetivo)
     {
-        $objetivo = Objetivo::findOrFail($id);
-        $perspectivas = Perspectiva::orderBy('titulo')->get();
         $estrategias = Estrategia::all();
 
         return view('admin.objetivos.edit', [
-            'perspectivas' => $perspectivas,
+            'perspectiva' => $perspectiva,
             'estrategias' => $estrategias,
             'objetivo' => $objetivo,
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Perspectiva $perspectiva, Objetivo $objetivo)
     {
         $request->validate([
             'contenido' => 'required|max:250',
-            'perspectiva_id' => 'required',
         ]);
 
-        $objetivo = Objetivo::findOrFail($id);
-        $objetivo->contenido = $request->contenido;
-        if ($request->perspectiva_id != $objetivo->perspectiva_id) {
-            $perspectiva = Perspectiva::findOrFail($request->perspectiva_id);
-            $primera_letra = substr($perspectiva->slug, 0, 1);
+        $objetivo->update($request->all());
+        // if ($request->perspectiva_id != $objetivo->perspectiva_id) {
+        //     $perspectiva = Perspectiva::findOrFail($request->perspectiva_id);
+        //     $primera_letra = substr($perspectiva->slug, 0, 1);
 
-            $length = Objetivo::where('perspectiva_id', $perspectiva->id)->get();
-            $objetivo->slug = $primera_letra . ($length->count() + 1);
-        }
-
-        $objetivo->perspectiva_id = $request->perspectiva_id;
+        //     $length = Objetivo::where('perspectiva_id', $perspectiva->id)->get();
+        //     $objetivo->slug = $primera_letra . ($length->count() + 1);
+        // }
 
         if ($request->has('estrategias')) {
             $objetivo->estrategias()->sync($request->estrategias);
         }
 
-        if ($objetivo->save()) {
-            return redirect()->route('objetivos.index')
-                ->with('msg', 'Registro editado con exito');
-        } else {
-            return back();
-        }
+        return redirect()->route('perspectivas.index')
+            ->with('msg', 'Registro editado con exito');
     }
 
-    public function destroy($id)
+    public function destroy(Perspectiva $perspectiva, Objetivo $objetivo)
     {
-        $objetivo = Objetivo::findOrFail($id);
-        if ($objetivo->delete()) {
-            return redirect()->route('objetivos.index')
-                ->with('msg', 'Registro eliminado con exito');
-        } else {
-            return redirect()->route('objetivos.index')
-                ->with('msg', 'Error al eliminar el registro');
-        }
+        $objetivo->delete();
+        return redirect()->route('perspectivas.index')
+            ->with('msg', 'Registro eliminado con exito');
     }
 
     public function asignarEstrategias($objetivo_id)
@@ -164,7 +132,7 @@ class ObjetivoController extends Controller
         $objetivo = Objetivo::findOrFail($id);
         $objetivo->estrategias()->sync($request->estrategias);
 
-        return redirect()->route('objetivos.index')
+        return redirect()->route('perspectivas.index')
             ->with('msg', 'Estrategias asignadas con exitó');
 
     }

@@ -91,13 +91,13 @@
 
 
 
+        @endforeach
+        <div class="w-100 d-flex justify-content-center">
+            {{ $areas->links() }}
+        </div>
+        @else
+        <h4 class="w-100 d-flex justify-content-center text-bold">No hay ningún registro!!!</h4>
+        @endif
     </div>
-    @endforeach
-    <div class="w-100 d-flex justify-content-center">
-        {{ $areas->links() }}
-    </div>
-    @else
-    <h4 class="w-100 d-flex justify-content-center text-bold">No hay ningún registro!!!</h4>
-    @endif
 </div>
 @endsection

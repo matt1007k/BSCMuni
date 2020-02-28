@@ -1,9 +1,34 @@
 @extends('layouts.app')
+@section('header-content')
+<div class="row mb-3">
+    <div class="col-md-12">
+        <h4 class="page-title">Factores Clave del Exito vs Capacidades Medulares</h4>
+        <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
+            <ul class="quick-links">
+                <li>
+                    <a href="{{ route('factor.externo') }}">
+                        <i class="mdi mdi-arrow-left"></i>
+                        Factores Externos
+                    </a>
+                </li>
+            </ul>
+            <ul class="quick-links ml-auto">
+                <li>
+                    <a href="{{ route('estrategias.index') }}">
+                        Matriz FODA
+                        <i class="mdi mdi-arrow-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+@endsection
+
 @section('content')
-<div class="container">
+<div class="">
     <div class="row">
         <div class="col-md-12">
-            <h3 class="mb-3">Factores Clave del Exito vs Capacidades Medulares</h3>
             <div class="card">
                 <div class="card-body">
 

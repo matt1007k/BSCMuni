@@ -64,7 +64,7 @@ class EvaluacionController extends Controller
                     // Actualizamos el slug en orden ascendente
                     $slugUpdate = Fortaleza::all();
                     if (count($slugUpdate) > 0) {
-                        foreach ($slugUpdate as $factor => $value) {
+                        foreach ($slugUpdate as $key => $value) {
                             $value->slug = 'F' . $numero++;
                             $value->save();
                         }
@@ -87,7 +87,7 @@ class EvaluacionController extends Controller
                     // Actualizamos el slug en orden ascendente
                     $slugUpdate = Debilidad::all();
                     if (count($slugUpdate) > 0) {
-                        foreach ($slugUpdate as $factor => $value) {
+                        foreach ($slugUpdate as $key => $value) {
                             $value->slug = 'D' . $numero++;
                             $value->save();
                         }
@@ -145,12 +145,13 @@ class EvaluacionController extends Controller
                     // Actualizamos el slug en orden ascendente
                     $slugUpdate = Oportunidad::all();
                     if (count($slugUpdate) > 0) {
-                        foreach ($slugUpdate as $factor => $value) {
+                        foreach ($slugUpdate as $key => $value) {
                             $value->slug = 'O' . $numero++;
                             $value->save();
                         }
                     }
-                    // Copiamos a las amenazaes
+
+                    // Copiamos a las amenazas
                     $length = Amenaza::all();
                     $amenaza = new Amenaza();
                     $amenaza->titulo = $factor->titulo;
@@ -168,7 +169,7 @@ class EvaluacionController extends Controller
                     // Actualizamos el slug en orden ascendente
                     $slugUpdate = Amenaza::all();
                     if (count($slugUpdate) > 0) {
-                        foreach ($slugUpdate as $factor => $value) {
+                        foreach ($slugUpdate as $key => $value) {
                             $value->slug = 'A' . $numero++;
                             $value->save();
                         }
