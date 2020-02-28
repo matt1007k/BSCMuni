@@ -42,21 +42,23 @@
                 </div>
             </div>
         </div>
-        <!-- Scripts -->
-        <script src="{{ asset('/vendors/js/vendor.bundle.base.js') }}"></script>
-        <script src="{{ asset('/vendors/js/vendor.bundle.addons.js') }}"></script>
-        <script src="{{ asset('/vendors/jquery-toast/jquery.toast.js') }}"></script>
-        <!-- endinject -->
-        <!-- inject:js -->
-        <script src="{{ asset('/js/shared/off-canvas.js') }}"></script>
-        <script src="{{ asset('/js/shared/misc.js') }}"></script>
+    </div>
+    <!-- Scripts -->
+    <script src="{{ asset('/vendors/js/vendor.bundle.base.js') }}"></script>
+    <script src="{{ asset('/vendors/js/vendor.bundle.addons.js') }}"></script>
+    <script src="{{ asset('/vendors/jquery-toast/jquery.toast.js') }}"></script>
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="{{ asset('/js/shared/off-canvas.js') }}"></script>
+    <script src="{{ asset('/js/shared/misc.js') }}"></script>
 
-        <!-- Custom js for this page-->
-        <script src="{{ asset('js/demo_1/dashboard.js') }}" defer></script>
+    <!-- Custom js for this page-->
+    <script src="{{ asset('js/demo_1/dashboard.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
-        @stack('scripts')
-        <script>
-            $(function () {
+    @stack('scripts')
+    <script>
+        $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
             })
             @if(session('msg'))
@@ -68,12 +70,12 @@
                 loaderBg: '#9EC600'  // To change the background
             })
             @endif
-        </script>
-        <style>
-            .nav-item.active {
-                background: rgb(15, 37, 213);
-            }
-        </style>
+    </script>
+    <style>
+        .nav-item.active {
+            background: rgb(15, 37, 213);
+        }
+    </style>
 </body>
 
 </html>

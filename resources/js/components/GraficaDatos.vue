@@ -12,7 +12,7 @@ export default {
     datos: Array
   },
   mounted() {
-    console.log("Component mounted.");
+    console.log(this.datos);
   }
 };
 </script>

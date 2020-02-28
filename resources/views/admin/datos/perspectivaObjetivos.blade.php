@@ -2,14 +2,15 @@
     <div class="col-md p-0">
         <div class="display-3 font-weight-bold text-uppercase text-dark">{{$perspectivaObjetivos->titulo}}</div>
         @forelse ($perspectivaObjetivos->objetivos as $objetivo)
-        <div class=" d-flex justify-content-between pt-2 pb-2">
+        <div class=" d-flex justify-content-between align-items-center pt-2 pb-2">
             <h4 class="h3 font-weight-bold"><span class="text-muted">{{$objetivo->slug}}:</span>
                 {{$objetivo->contenido}}</h4>
             @if ($objetivo->indicadores->count() > 0)
 
-            {{-- <a href="{{route('datos.grafica', $objetivo->id)}}" class="btn btn-primary text-uppercase">
-            <span>Graficas</span>
-            </a> --}}
+            <a href="{{route('datos.graficas', $objetivo->id)}}" class="btn btn-primary text-uppercase"
+                data-toggle="tooltip" data-placement="top" title="Comparar en gráficas">
+                <i class="mdi mdi-chart-bar"></i>
+            </a>
             @endif
         </div>
         <div class="h3 font-italic">Indicadores</div>
@@ -17,16 +18,16 @@
         <div class="d-flex align-items-center justify-content-between">
             <h5 class="" data-toggle="collapse" href="#collapsed{{$indicador->id}}" role="button" aria-expanded="false"
                 aria-controls="collapseExample"><span class="font-weight-bold">{{ $key + 1}}.-
-                    "{{$indicador->indicador}}"</span>
+                    {{$indicador->indicador}}</span>
             </h5>
             <div>
                 <a href="{{route('datos.create', $indicador->id)}}" class="ml-3 btn btn-success">
                     Registrar datos de un año
                 </a>
-                <a href="{{route('datos.grafica', $objetivo->id)}}" class="btn btn-primary text-uppercase"
-                    data-toggle="tooltip" data-placement="top" title="Ver gráfica">
-                    <i class="mdi mdi-chart-bar"></i>
-                </a>
+                {{-- <a href="{{route('datos.grafica', $indicador->id)}}" class="btn btn-primary text-uppercase"
+                data-toggle="tooltip" data-placement="top" title="Ver gráfica">
+                <i class="mdi mdi-chart-bar"></i>
+                </a> --}}
             </div>
         </div>
         <div class="collapsed mb-3" id="collapse{{$indicador->id}}">

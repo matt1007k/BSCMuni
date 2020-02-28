@@ -64,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/datos/create/{indicador_id}', 'DatoController@create')->name('datos.create');
         Route::get('/datos/{id}/edit/{indicador_id}', 'DatoController@edit')->name('datos.edit');
         Route::get('/datos/grafica/{indicador_id}', 'DatoController@grafica')->name('datos.grafica');
+        Route::get('/datos/graficas/{objetivo}', 'DatoController@graficas')->name('datos.graficas');
 
         Route::get('/asignar-estrategia/{objetivo_id}', 'ObjetivoController@asignarEstrategias')->name('asignarEstrategia');
         Route::put('/asignar-estrategia/{id}', 'ObjetivoController@asignar')->name('asignar');

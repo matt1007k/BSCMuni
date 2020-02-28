@@ -1,32 +1,51 @@
 @extends('layouts.app')
-
+@section('header-content')
+<div class="row mb-3">
+    <div class="col-md-12">
+        <h4 class="page-title font-weight-bold">
+            <span class="text-muted">{{$objetivo->slug}}:</span>
+            {{$objetivo->contenido}}
+        </h4>
+        <div class="quick-link-wrapper w-100 d-md-flex flex-md-wrap">
+            <ul class="quick-links">
+                <li>
+                    <a href="{{ route('datos.index') }}">
+                        <i class="mdi mdi-arrow-left"></i>
+                        Datos
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+@endsection
 @section('content')
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h4>Gráficas del objetivo: {{$objetivo->contenido}}</h4>
-            <p>Comparar datos de cada indicador</p>
-           <div class="row">
-                @foreach ($indicadores as $indicador)
-                    <div class="col-md-6">
-                        <div class="card border-dark">
-                            <div class="card-header h5 bg-dark text-white text-center">Gráfica del indicador</div>
-                            <div class="card-body">
-                                <div class="card-title d-flex justify-content-between">
-                                    <span class="h6">{{ $indicador['indicador']['indicador'] }}</span>
-                                    {{-- <span class="text-success h4">Meta a cumplir: {{ $indicador['meta'] }}</span> --}}
-                                </div>
-                                <grafica-datos :datos='@json($indicador['datos_grafica'])'></grafica-datos>    
+            <div class="row">
+                @foreach ($indicadores as $key => $indicador)
+                <div class="col-md-12 mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="h4 font-weight-bold text-dark ">
+                                Meta a cumplir por {{ $indicador['indicador']['tiempo']}}: <span
+                                    class="text-success">{{ $indicador['indicador']['meta'] }}</span>
+
                             </div>
+                            <div class="card-title d-flex justify-content-between">
+                                <span class="h6">{{ $key + 1}}.- {{ $indicador['indicador']['indicador'] }}</span>
+                                {{-- @json($indicador['indicador']['datos']) --}}
+                            </div>
+                            <grafica-datos :datos='@json($indicador["datos_grafica"])'></grafica-datos>
                         </div>
                     </div>
+                </div>
                 @endforeach
-           </div>
-            
-            
-            <a href="{{route('datos.index')}}" class="btn btn-link text-uppercase">
-                <- Ir a los datos 
-            </a>
+            </div>
+
+
+
         </div>
     </div>
 </div>

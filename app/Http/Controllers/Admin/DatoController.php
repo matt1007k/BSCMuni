@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Dato;
-use App\Objetivo;
-use App\Indicador;
-use App\Perspectiva;
-use Illuminate\Http\Request;
-use App\Services\YearsService;
 use App\Http\Controllers\Controller;
+use App\Indicador;
+use App\Objetivo;
+use App\Perspectiva;
+use App\Services\YearsService;
+use Illuminate\Http\Request;
 
 class DatoController extends Controller
 {
@@ -45,8 +45,41 @@ class DatoController extends Controller
 
     public function grafica($indicador_id)
     {
-        $objetivo = Objetivo::findOrFail($indicador_id);
+        $indicador = Indicador::findOrFail($indicador_id);
 
+        $datos = array();
+
+        foreach ($indicador->datos as $dato) {
+            $random_number1 = rand(0, 255);
+            $random_number2 = rand(0, 255);
+            $random_number3 = rand(0, 255);
+            array_push($datos, (object) [
+                "label" => $dato->anio,
+                "backgroundColor" => "rgb($random_number1, $random_number2, $random_number3)",
+                //Data to be represented on y-axis
+                "data" => [
+                    $dato->enero,
+                    $dato->febrero,
+                    $dato->marzo,
+                    $dato->abril,
+                    $dato->mayo,
+                    $dato->junio,
+                    $dato->julio,
+                    $dato->agosto,
+                    $dato->septiembre,
+                    $dato->octubre,
+                    $dato->noviembre,
+                    $dato->diciembre,
+                ],
+            ]);
+        }
+
+        // return $indicadores[0]['datos_grafica'];
+        return view('admin.datos.grafico', ['indicador' => $indicador, 'datos' => $datos]);
+    }
+
+    public function graficas(Objetivo $objetivo)
+    {
         $indicadores = array();
 
         foreach ($objetivo->indicadores as $indicador) {
@@ -82,35 +115,7 @@ class DatoController extends Controller
             ]);
         }
 
-        // return $indicadores;
-        // $datos = array();
-
-        // foreach ($indicador->datos as $dato) {
-        //     $random_number1 = rand(0, 255);
-        //     $random_number2 = rand(0, 255);
-        //     $random_number3 = rand(0, 255);
-        //     array_push($datos, (object) [
-        //         "label" => $dato->anio,
-        //         "backgroundColor" => "rgb($random_number1, $random_number2, $random_number3)",
-        //         //Data to be represented on y-axis
-        //         "data" => [
-        //             $dato->enero,
-        //             $dato->febrero,
-        //             $dato->marzo,
-        //             $dato->abril,
-        //             $dato->mayo,
-        //             $dato->junio,
-        //             $dato->julio,
-        //             $dato->agosto,
-        //             $dato->septiembre,
-        //             $dato->octubre,
-        //             $dato->noviembre,
-        //             $dato->diciembre,
-        //         ],
-        //     ]);
-        // }
-
-        // return $datos;
+        // return $indicadores[0]['datos_grafica'];
         return view('admin.datos.grafico', ['objetivo' => $objetivo, 'indicadores' => $indicadores]);
     }
 
